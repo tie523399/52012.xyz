@@ -1,207 +1,163 @@
 #!/bin/bash
 
-# DeepVape 52012.xyz 部署腳本
-# 自動化部署到 Ubuntu VPS
+# DeepVape 部署腳本 - 52012.xyz
+# 在 root 使用者下執行
 
 set -e
 
 # 顏色定義
-RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+RED='\033[0;31m'
 NC='\033[0m'
 
-# 配置
+# 配置變數
 DOMAIN="52012.xyz"
-DEPLOY_USER="deepvape"
-DEPLOY_DIR="/var/www/deepvape"
-NGINX_CONFIG="/etc/nginx/sites-available/${DOMAIN}"
-SYSTEMD_SERVICE="/etc/systemd/system/deepvape.service"
+APP_DIR="/var/www/deepvape"
+PM2_APP_NAME="deepvape-app"
 
-echo -e "${GREEN}DeepVape 部署腳本 - ${DOMAIN}${NC}"
-echo "=================================="
+echo -e "${GREEN}==================================="
+echo "DeepVape 部署腳本 - 52012.xyz"
+echo "===================================${NC}"
 
-# 檢查是否為 root
-if [[ $EUID -ne 0 ]]; then
-   echo -e "${RED}此腳本必須以 root 身份執行${NC}" 
-   exit 1
-fi
-
-# 1. 更新系統
-echo -e "\n${YELLOW}步驟 1: 更新系統${NC}"
+# 1. 系統更新和安裝必要套件
+echo -e "${YELLOW}[1/10] 更新系統並安裝必要套件...${NC}"
 apt update && apt upgrade -y
+apt install -y nginx python3-pip python3-venv nodejs npm
 
-# 2. 安裝必要軟體
-echo -e "\n${YELLOW}步驟 2: 安裝必要軟體${NC}"
-apt install -y nginx nodejs npm git certbot python3-certbot-nginx ufw fail2ban
+# 2. 安裝 PM2
+echo -e "${YELLOW}[2/10] 安裝 PM2...${NC}"
+npm install -g pm2
 
-# 3. 建立部署使用者
-echo -e "\n${YELLOW}步驟 3: 建立部署使用者${NC}"
-if ! id "$DEPLOY_USER" &>/dev/null; then
-    useradd -m -s /bin/bash $DEPLOY_USER
-    echo -e "${GREEN}使用者 $DEPLOY_USER 已建立${NC}"
-else
-    echo -e "${GREEN}使用者 $DEPLOY_USER 已存在${NC}"
+# 3. 創建部署用戶
+echo -e "${YELLOW}[3/10] 設置部署用戶...${NC}"
+if ! id "deploy" &>/dev/null; then
+    useradd -m -s /bin/bash deploy
+    usermod -aG sudo deploy
+    echo "deploy ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/deploy
 fi
 
-# 4. 建立目錄結構
-echo -e "\n${YELLOW}步驟 4: 建立目錄結構${NC}"
-mkdir -p $DEPLOY_DIR/{dist,backend,uploads,logs,error_pages}
-mkdir -p /var/log/deepvape
-chown -R $DEPLOY_USER:$DEPLOY_USER $DEPLOY_DIR
-chown -R $DEPLOY_USER:$DEPLOY_USER /var/log/deepvape
+# 4. 設置部署目錄
+echo -e "${YELLOW}[4/10] 設置部署目錄...${NC}"
+mkdir -p $APP_DIR
+chown -R deploy:deploy $APP_DIR
 
-# 5. 複製檔案
-echo -e "\n${YELLOW}步驟 5: 複製檔案到部署目錄${NC}"
-cp -r ./* $DEPLOY_DIR/
-chown -R $DEPLOY_USER:$DEPLOY_USER $DEPLOY_DIR
+# 5. 設置 Nginx
+echo -e "${YELLOW}[5/10] 配置 Nginx...${NC}"
+cat > /etc/nginx/sites-available/$DOMAIN << EOL
+server {
+    listen 80;
+    server_name $DOMAIN www.$DOMAIN;
 
-# 6. 執行域名更新腳本
-echo -e "\n${YELLOW}步驟 6: 更新域名為 ${DOMAIN}${NC}"
-cd $DEPLOY_DIR
-sudo -u $DEPLOY_USER node scripts/update-domain.js
+    location / {
+        proxy_pass http://localhost:5001;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
 
-# 7. 安裝 Node.js 依賴
-echo -e "\n${YELLOW}步驟 7: 安裝 Node.js 依賴${NC}"
-cd $DEPLOY_DIR/backend
-sudo -u $DEPLOY_USER npm install --production
+    location /static {
+        alias $APP_DIR/current/static;
+        expires 30d;
+    }
 
-# 8. 設定環境變數檔案
-echo -e "\n${YELLOW}步驟 8: 設定環境變數${NC}"
-if [ ! -f "$DEPLOY_DIR/backend/.env.production" ]; then
-    cat > $DEPLOY_DIR/backend/.env.production << EOF
-NODE_ENV=production
-PORT=3000
-HOST=127.0.0.1
-DOMAIN=${DOMAIN}
-FRONTEND_URL=https://${DOMAIN}
-API_URL=https://${DOMAIN}/api
-CORS_ORIGINS=https://${DOMAIN},https://www.${DOMAIN}
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-TELEGRAM_CHAT_ID=your_telegram_chat_id
-SEVEN_ELEVEN_API_KEY=your_api_key
-SEVEN_ELEVEN_API_SECRET=your_api_secret
-JWT_SECRET=$(openssl rand -base64 32)
-SESSION_SECRET=$(openssl rand -base64 32)
-EOF
-    chown $DEPLOY_USER:$DEPLOY_USER $DEPLOY_DIR/backend/.env.production
-    chmod 600 $DEPLOY_DIR/backend/.env.production
-    echo -e "${YELLOW}請編輯 $DEPLOY_DIR/backend/.env.production 並填入正確的 API 金鑰${NC}"
-fi
-
-# 9. 設定 Nginx
-echo -e "\n${YELLOW}步驟 9: 設定 Nginx${NC}"
-cp $DEPLOY_DIR/nginx/52012.xyz.conf $NGINX_CONFIG
-ln -sf $NGINX_CONFIG /etc/nginx/sites-enabled/
-rm -f /etc/nginx/sites-enabled/default
-
-# 建立錯誤頁面
-cat > $DEPLOY_DIR/error_pages/50x.html << EOF
-<!DOCTYPE html>
-<html>
-<head>
-    <title>服務暫時無法使用</title>
-    <meta charset="utf-8">
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        h1 { color: #e74c3c; }
-    </style>
-</head>
-<body>
-    <h1>服務暫時無法使用</h1>
-    <p>我們正在進行系統維護，請稍後再試。</p>
-    <p>如有緊急需求，請聯繫：service@${DOMAIN}</p>
-</body>
-</html>
-EOF
-
-# 10. 設定 SSL 證書
-echo -e "\n${YELLOW}步驟 10: 設定 SSL 證書${NC}"
-certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos --email service@$DOMAIN --redirect
-
-# 11. 設定 Systemd 服務
-echo -e "\n${YELLOW}步驟 11: 設定 Systemd 服務${NC}"
-cp $DEPLOY_DIR/systemd/deepvape.service $SYSTEMD_SERVICE
-systemctl daemon-reload
-systemctl enable deepvape
-systemctl start deepvape
-
-# 12. 設定防火牆
-echo -e "\n${YELLOW}步驟 12: 設定防火牆${NC}"
-ufw --force enable
-ufw allow 22/tcp
-ufw allow 80/tcp
-ufw allow 443/tcp
-ufw reload
-
-# 13. 設定 Fail2ban
-echo -e "\n${YELLOW}步驟 13: 設定 Fail2ban${NC}"
-cat > /etc/fail2ban/jail.local << EOF
-[DEFAULT]
-bantime = 3600
-findtime = 600
-maxretry = 5
-
-[sshd]
-enabled = true
-
-[nginx-http-auth]
-enabled = true
-
-[nginx-limit-req]
-enabled = true
-filter = nginx-limit-req
-logpath = /var/log/nginx/*error.log
-
-[nginx-botsearch]
-enabled = true
-filter = nginx-botsearch
-logpath = /var/log/nginx/*access.log
-maxretry = 2
-EOF
-
-systemctl restart fail2ban
-
-# 14. 設定日誌輪替
-echo -e "\n${YELLOW}步驟 14: 設定日誌輪替${NC}"
-cat > /etc/logrotate.d/deepvape << EOF
-/var/log/deepvape/*.log {
-    daily
-    missingok
-    rotate 14
-    compress
-    delaycompress
-    notifempty
-    create 0640 $DEPLOY_USER $DEPLOY_USER
-    sharedscripts
-    postrotate
-        systemctl reload deepvape >/dev/null 2>&1 || true
-    endscript
+    location /media {
+        alias $APP_DIR/current/media;
+        expires 30d;
+    }
 }
+EOL
+
+# 啟用站點
+ln -sf /etc/nginx/sites-available/$DOMAIN /etc/nginx/sites-enabled/
+rm -f /etc/nginx/sites-enabled/default
+nginx -t && systemctl restart nginx
+
+# 6. 安裝 SSL 證書
+echo -e "${YELLOW}[6/10] 安裝 SSL 證書...${NC}"
+apt install -y certbot python3-certbot-nginx
+certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos --email admin@$DOMAIN
+
+# 7. 設置部署環境
+echo -e "${YELLOW}[7/10] 設置部署環境...${NC}"
+su - deploy << EOF
+cd $APP_DIR
+
+# 創建環境變數文件
+cat > .env.production << EOL
+FLASK_ENV=production
+SECRET_KEY=$(openssl rand -hex 32)
+DATABASE_URL=sqlite:///deepvape_prod.db
+PORT=5001
+CORS_ORIGINS=https://$DOMAIN
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=$(openssl rand -base64 12)
+EOL
+
+# 創建應用目錄
+mkdir -p current
 EOF
 
-# 15. 測試服務
-echo -e "\n${YELLOW}步驟 15: 測試服務${NC}"
-nginx -t
-systemctl status deepvape --no-pager
+# 8. 設置 PM2 配置
+echo -e "${YELLOW}[8/10] 設置 PM2 配置...${NC}"
+su - deploy << EOF
+cd $APP_DIR
+cat > ecosystem.config.js << EOL
+module.exports = {
+  apps: [{
+    name: '$PM2_APP_NAME',
+    script: 'wsgi.py',
+    instances: 'max',
+    exec_mode: 'cluster',
+    env: {
+      NODE_ENV: 'production',
+    },
+    env_production: {
+      NODE_ENV: 'production'
+    }
+  }]
+}
+EOL
+EOF
 
-# 16. 顯示服務狀態
-echo -e "\n${GREEN}部署完成！${NC}"
-echo "=================================="
-echo -e "網站: https://${DOMAIN}"
-echo -e "API: https://${DOMAIN}/api"
-echo -e "\n服務狀態："
-systemctl is-active nginx deepvape
+# 9. 設置 Python 環境
+echo -e "${YELLOW}[9/10] 設置 Python 環境...${NC}"
+su - deploy << EOF
+cd $APP_DIR
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+EOF
 
-echo -e "\n${YELLOW}重要提醒：${NC}"
-echo "1. 請編輯 $DEPLOY_DIR/backend/.env.production 填入正確的 API 金鑰"
-echo "2. 請在 7-11 系統中更新回調 URL 為: https://${DOMAIN}/api/711-callback"
-echo "3. 請更新 DNS 記錄指向此伺服器 IP"
-echo "4. 請定期檢查日誌: journalctl -u deepvape -f"
-echo "5. 監控 Nginx 狀態: curl http://127.0.0.1:9615/nginx_status"
+# 10. 設置開機自啟
+echo -e "${YELLOW}[10/10] 設置開機自啟...${NC}"
+pm2 startup
+systemctl enable nginx
 
-echo -e "\n${GREEN}常用命令：${NC}"
-echo "重啟服務: systemctl restart deepvape"
-echo "查看日誌: journalctl -u deepvape -f"
-echo "重載 Nginx: systemctl reload nginx"
-echo "更新證書: certbot renew" 
+# 顯示部署資訊
+echo -e "${GREEN}==================================="
+echo "部署完成！"
+echo "===================================${NC}"
+echo ""
+echo "應用資訊："
+echo "- 域名: $DOMAIN"
+echo "- 應用目錄: $APP_DIR/current"
+echo "- PM2 應用名稱: $PM2_APP_NAME"
+echo "- Nginx 配置: /etc/nginx/sites-available/$DOMAIN"
+echo ""
+echo "上傳檔案步驟："
+echo "1. 使用 SCP 上傳檔案："
+echo "   scp -r /path/to/your/local/files/* deploy@your-server-ip:$APP_DIR/current/"
+echo ""
+echo "2. 啟動應用："
+echo "   cd $APP_DIR"
+echo "   pm2 start ecosystem.config.js --env production"
+echo ""
+echo "常用指令："
+echo "- 查看狀態: pm2 status"
+echo "- 查看日誌: pm2 logs"
+echo "- 重啟應用: pm2 restart $PM2_APP_NAME"
+echo "- 監控資源: pm2 monit"
+echo ""
+echo -e "${YELLOW}請確保您的域名 $DOMAIN 已正確指向此服務器！${NC}" 
