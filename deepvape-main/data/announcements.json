@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "新品上市：SP2 電子煙",
+    "content": "全新 SP2 系列現已上市，多種口味任您選擇！",
+    "date": "2024-01-15",
+    "type": "new-product",
+    "active": true,
+    "priority": 1
+  },
+  {
+    "id": 2,
+    "title": "春節期間配送公告",
+    "content": "春節期間 (2/8-2/14) 暫停配送服務，2/15 恢復正常配送。",
+    "date": "2024-01-20",
+    "type": "holiday",
+    "active": true,
+    "priority": 2
+  },
+  {
+    "id": 3,
+    "title": "會員優惠活動",
+    "content": "即日起至 2/29，全館消費滿 1000 元享 9 折優惠！",
+    "date": "2024-01-25",
+    "type": "promotion",
+    "active": true,
+    "priority": 3
+  },
+  {
+    "id": 4,
+    "title": "門市取貨服務升級",
+    "content": "現在支援全台 7-11 門市取貨，更方便快速！",
+    "date": "2024-01-10",
+    "type": "service",
+    "active": true,
+    "priority": 4
+  }
+] 

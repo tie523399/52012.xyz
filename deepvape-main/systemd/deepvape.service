@@ -1,0 +1,37 @@
+[Unit]
+Description=DeepVape E-commerce Platform
+Documentation=https://52012.xyz
+After=network.target
+
+[Service]
+Type=simple
+User=deepvape
+Group=deepvape
+WorkingDirectory=/var/www/deepvape
+Environment="NODE_ENV=production"
+Environment="PORT=3000"
+ExecStart=/usr/bin/node backend/server.js
+Restart=always
+RestartSec=10
+
+# 輸出到 journald
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=deepvape
+
+# 限制設定
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/deepvape/uploads /var/log/deepvape
+
+# 資源限制
+LimitNOFILE=65536
+LimitNPROC=512
+
+# 環境變數檔案
+EnvironmentFile=/var/www/deepvape/backend/.env.production
+
+[Install]
+WantedBy=multi-user.target 

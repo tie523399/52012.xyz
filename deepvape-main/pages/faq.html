@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常見問題 - DeepVape</title>
+    <link rel="icon" type="image/png" href="deepvape_logo_main.png">
+    <link rel="shortcut icon" type="image/png" href="deepvape_logo_main.png">
+    <link rel="apple-touch-icon" href="deepvape_logo_main.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: linear-gradient(135deg, #083e12 0%, #041348 50%, #3d43b4 100%);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 導航欄 */
+        .navbar {
+            background: #000000;
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid transparent;
+            animation: navBorderMove 3s infinite linear;
+        }
+
+        @keyframes navBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid rgba(26, 254, 73, 0.3);
+        }
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: #1afe49;
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid #1afe49;
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, #1afe49, #8386f5, #1afe49);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1afe49;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        /* 主要內容 */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(4, 19, 72, 0.9);
+            border: 1px solid rgba(26, 254, 73, 0.2);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1afe49, #8386f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+        }
+
+        /* FAQ 分類 */
+        .faq-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            background: rgba(26, 254, 73, 0.1);
+            border: 2px solid rgba(26, 254, 73, 0.3);
+            border-radius: 15px;
+            padding: 1rem;
+            color: #ffffff;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: rgba(26, 254, 73, 0.2);
+            border-color: #1afe49;
+            color: #1afe49;
+            transform: translateY(-2px);
+        }
+
+        /* FAQ 項目 */
+        .faq-section {
+            margin-bottom: 2rem;
+        }
+
+        .faq-category-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1afe49;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(26, 254, 73, 0.3);
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .faq-question {
+            background: none;
+            border: none;
+            width: 100%;
+            padding: 1.5rem;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: #1afe49;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: #1afe49;
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: rgba(26, 254, 73, 0.05);
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 1.5rem;
+            color: #ffffff;
+            line-height: 1.8;
+            border-top: 1px solid rgba(26, 254, 73, 0.2);
+        }
+
+        /* 搜尋功能 */
+        .search-box {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid rgba(26, 254, 73, 0.3);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #1afe49;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #1afe49;
+        }
+
+        /* 聯絡資訊 */
+        .contact-info {
+            background: rgba(26, 254, 73, 0.1);
+            border: 1px solid rgba(26, 254, 73, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1afe49;
+            margin-bottom: 1rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-method:hover {
+            color: #1afe49;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .faq-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" class="logo-button" id="navLogo">
+                    <span class="logo-text">DeepVape</span>
+                </a>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="shopping_guide.html">購物說明</a></li>
+                <li><a href="cart.html">購物車</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要內容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 頁面標題 -->
+            <div class="page-header">
+                <h1 class="page-title">常見問題</h1>
+                <p class="page-subtitle">快速找到您需要的答案</p>
+            </div>
+
+            <!-- 搜尋框 -->
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="搜尋問題關鍵字..." id="searchInput">
+            </div>
+
+            <!-- FAQ 分類 -->
+            <div class="faq-categories">
+                <button class="category-btn active" onclick="showCategory('all')">全部問題</button>
+                <button class="category-btn" onclick="showCategory('order')">訂購相關</button>
+                <button class="category-btn" onclick="showCategory('shipping')">運送取貨</button>
+                <button class="category-btn" onclick="showCategory('product')">產品問題</button>
+                <button class="category-btn" onclick="showCategory('account')">帳戶服務</button>
+            </div>
+
+            <!-- 訂購相關 FAQ -->
+            <div class="faq-section" data-category="order">
+                <h2 class="faq-category-title">訂購相關</h2>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>如何下訂單？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            1. 瀏覽產品頁面，選擇您喜歡的商品<br>
+                            2. 點擊「加入購物車」按鈕<br>
+                            3. 進入購物車頁面確認商品<br>
+                            4. 填寫收件人資訊和取貨門市<br>
+                            5. 輸入驗證碼後點擊「建立訂單」
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>可以修改或取消訂單嗎？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            訂單成立後，如需修改或取消，請立即聯繫客服。若商品尚未出貨，我們會盡力協助您修改訂單內容。但若商品已經寄出，則無法修改或取消。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>付款方式有哪些？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            目前支援便利商店取貨付款，您可以在取貨時直接以現金付款。我們正在規劃更多付款方式，敬請期待。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 運送取貨 FAQ -->
+            <div class="faq-section" data-category="shipping">
+                <h2 class="faq-category-title">運送取貨</h2>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>運送時間需要多久？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            一般情況下，商品會在訂單確認後 4-5 個工作天內送達您指定的便利商店。遇到假日或特殊情況可能會延遲 1-2 天。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>如何知道商品已到達門市？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            商品到達門市後，系統會自動發送取貨通知到您留的聯絡電話。您也可以主動聯繫門市詢問商品是否到達。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>取貨時需要準備什麼？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            請攜帶身分證件（身分證或駕照）到指定門市取貨。門市人員會核對您的身份後提供商品。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>商品可以保管多久？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            便利商店提供 7 天免費保管服務。請務必在商品到達後 7 天內完成取貨，超過期限商品將會被退回。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 產品問題 FAQ -->
+            <div class="faq-section" data-category="product">
+                <h2 class="faq-category-title">產品問題</h2>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>產品有保固嗎？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            所有電子煙主機提供 3 個月保固服務，保固期間內如有非人為損壞，可聯繫客服處理維修或更換。煙彈屬於消耗品，不在保固範圍內。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>如何選擇適合的煙彈口味？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            我們提供多種口味選擇，建議新手可從較溫和的水果口味開始嘗試。如果您有特定喜好，可參考產品頁面的口味描述，或聯繫客服為您推薦。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>產品使用年齡限制？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            依照法規規定，本網站商品僅供 18 歲以上成年人購買使用。我們會在您進入網站時進行年齡驗證。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 帳戶服務 FAQ -->
+            <div class="faq-section" data-category="account">
+                <h2 class="faq-category-title">帳戶服務</h2>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>需要註冊會員才能購買嗎？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            目前支援訪客結帳，您可以直接填寫訂單資訊完成購買，無需註冊會員。未來我們會推出會員系統，提供更多優惠和服務。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>如何查詢訂單狀態？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            訂單成立後會收到確認通知，您可以透過客服 LINE 或電話聯繫我們查詢訂單處理狀態。我們正在開發訂單查詢系統，敬請期待。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 聯絡資訊 -->
+            <div class="contact-info">
+                <h3 class="contact-title">找不到答案？聯繫我們</h3>
+                <div class="contact-methods">
+                    <a href="#" class="contact-method">
+                        <i class="fab fa-line"></i>
+                        <span>LINE: @deepvape</span>
+                    </a>
+
+                    <a href="mailto:service@52012.xyz" class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email: service@52012.xyz</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger i');
+            
+            navLinks.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                hamburger.classList.remove('fa-bars');
+                hamburger.classList.add('fa-times');
+            } else {
+                hamburger.classList.remove('fa-times');
+                hamburger.classList.add('fa-bars');
+            }
+        }
+
+        function toggleFAQ(button) {
+            const answer = button.nextElementSibling;
+            const isActive = answer.classList.contains('active');
+            
+            // 關閉所有其他答案
+            document.querySelectorAll('.faq-answer.active').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelectorAll('.faq-question.active').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // 切換當前答案
+            if (!isActive) {
+                answer.classList.add('active');
+                button.classList.add('active');
+            }
+        }
+
+        function showCategory(category) {
+            // 更新按鈕狀態
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 顯示/隱藏對應分類
+            document.querySelectorAll('.faq-section').forEach(section => {
+                if (category === 'all' || section.dataset.category === category) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+
+        // 搜尋功能
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // 如果有搜尋內容，顯示所有分類
+            if (searchTerm) {
+                document.querySelectorAll('.faq-section').forEach(section => {
+                    section.style.display = 'block';
+                });
+            }
+        });
+
+        // 點擊外部關閉選單
+        document.addEventListener('click', function(e) {
+            const navLinks = document.getElementById('navLinks');
+            const navContainer = document.querySelector('.nav-container');
+            
+            if (!navContainer.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                document.querySelector('.hamburger i').classList.remove('fa-times');
+                document.querySelector('.hamburger i').classList.add('fa-bars');
+            }
+        });
+    </script>
+
+    
+</body>
+</html> 

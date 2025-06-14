@@ -1,0 +1,403 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if product %}編輯產品{% else %}新增產品{% endif %} - Deepvape 後台管理系統
+{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item"><a href="{{ url_for('products') }}">產品管理</a></li>
+<li class="breadcrumb-item active">{% if product %}編輯產品{% else %}新增產品{% endif %}</li>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-box"></i> 
+        {% if product %}編輯產品{% else %}新增產品{% endif %}
+    </h1>
+    <a href="{{ url_for('products') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> 返回列表
+    </a>
+</div>
+
+<form method="POST" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8">
+            <!-- 基本資訊 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">基本資訊</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">產品名稱 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               value="{{ product.name if product else '' }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">產品描述</label>
+                        <textarea class="form-control" id="description" name="description" rows="4">{{ product.description if product else '' }}</textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="category_id" class="form-label">產品分類 <span class="text-danger">*</span></label>
+                                <select class="form-select" id="category_id" name="category_id" required>
+                                    <option value="">選擇分類</option>
+                                    {% for category in categories %}
+                                    <option value="{{ category.id }}" 
+                                            {% if product and product.category_id == category.id %}selected{% endif %}>
+                                        {{ category.name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="stock_quantity" class="form-label">庫存數量</label>
+                                <input type="number" class="form-control" id="stock_quantity" name="stock_quantity" 
+                                       value="{{ product.stock_quantity if product else 0 }}" min="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 價格設定 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">價格設定</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="price" class="form-label">售價 <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">NT$</span>
+                                    <input type="number" class="form-control" id="price" name="price" 
+                                           value="{{ product.price if product else '' }}" step="0.01" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="original_price" class="form-label">原價</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">NT$</span>
+                                    <input type="number" class="form-control" id="original_price" name="original_price" 
+                                           value="{{ product.original_price if product and product.original_price else '' }}" step="0.01">
+                                </div>
+                                <div class="form-text">用於顯示折扣，留空則不顯示</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 產品規格 -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">產品規格</h5>
+                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="addSpecification()">
+                        <i class="fas fa-plus"></i> 新增規格
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="specifications">
+                        {% if product and product.specifications %}
+                            {% set specs = product.specifications|from_json %}
+                            {% for key, value in specs.items() %}
+                            <div class="row mb-2 spec-row">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="spec_{{ key }}" 
+                                           placeholder="規格名稱" value="{{ key }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="spec_{{ key }}" 
+                                           placeholder="規格值" value="{{ value }}">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeSpecification(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="text-muted small">
+                        例如：功率 → 7W~8W，電池容量 → 450mAH
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 產品變體 -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">產品變體</h5>
+                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="addVariant()">
+                        <i class="fas fa-plus"></i> 新增變體
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="variants">
+                        {% if product and product.variants %}
+                            {% set variants = product.variants|from_json %}
+                            {% for variant in variants %}
+                            <div class="row mb-2 variant-row">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="variant_name[]" 
+                                           placeholder="變體名稱" value="{{ variant.name }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="variant_value[]" 
+                                           placeholder="變體值" value="{{ variant.value }}">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeVariant(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="text-muted small">
+                        例如：顏色 → 黑色,白色,紅色，口味 → 草莓,藍莓,薄荷
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <!-- 產品圖片 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">產品圖片</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="main_image" class="form-label">主要圖片</label>
+                        <input type="file" class="form-control" id="main_image" name="main_image" accept="image/*">
+                        {% if product and product.main_image %}
+                        <div class="mt-2">
+                            <img src="{{ url_for('static', filename='uploads/' + product.main_image) }}" 
+                                 alt="當前圖片" class="img-thumbnail" style="max-width: 200px;">
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 狀態設定 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">狀態設定</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                                   {% if not product or product.is_active %}checked{% endif %}>
+                            <label class="form-check-label" for="is_active">
+                                啟用產品
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" 
+                                   {% if product and product.is_featured %}checked{% endif %}>
+                            <label class="form-check-label" for="is_featured">
+                                精選產品
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 標籤設定 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">標籤設定</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="badge_type" class="form-label">標籤類型</label>
+                        <select class="form-select" id="badge_type" name="badge_type">
+                            <option value="">無標籤</option>
+                            <option value="hot" {% if product and product.badge_type == 'hot' %}selected{% endif %}>熱門</option>
+                            <option value="new" {% if product and product.badge_type == 'new' %}selected{% endif %}>新品</option>
+                            <option value="safe" {% if product and product.badge_type == 'safe' %}selected{% endif %}>安心選擇</option>
+                            <option value="featured" {% if product and product.badge_type == 'featured' %}selected{% endif %}>精選</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="badge_text" class="form-label">標籤文字</label>
+                        <input type="text" class="form-control" id="badge_text" name="badge_text" 
+                               value="{{ product.badge_text if product else '' }}" placeholder="自定義標籤文字">
+                        <div class="form-text">留空則使用標籤類型名稱</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEO 設定 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">SEO 設定</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="meta_title" class="form-label">頁面標題</label>
+                        <input type="text" class="form-control" id="meta_title" name="meta_title" 
+                               value="{{ product.meta_title if product else '' }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="meta_description" class="form-label">頁面描述</label>
+                        <textarea class="form-control" id="meta_description" name="meta_description" rows="3">{{ product.meta_description if product else '' }}</textarea>
+                    </div>
+                </div>
+            </div>
+            
+            {% if product %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-clock"></i> 建立資訊</h5>
+                </div>
+                <div class="card-body">
+                    <p class="small mb-1">
+                        <strong>建立時間：</strong><br>
+                        {{ product.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+                    </p>
+                    <p class="small mb-0">
+                        <strong>最後更新：</strong><br>
+                        {{ product.updated_at.strftime('%Y-%m-%d %H:%M:%S') }}
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- 提交按鈕 -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 
+                            {% if product %}更新產品{% else %}創建產品{% endif %}
+                        </button>
+                        <a href="{{ url_for('products') }}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> 取消
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 新增規格
+function addSpecification() {
+    const container = document.getElementById('specifications');
+    const row = document.createElement('div');
+    row.className = 'row mb-2 spec-row';
+    row.innerHTML = `
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="spec_name" placeholder="規格名稱">
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="spec_value" placeholder="規格值">
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeSpecification(this)">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `;
+    container.appendChild(row);
+}
+
+// 移除規格
+function removeSpecification(button) {
+    button.closest('.spec-row').remove();
+}
+
+// 新增變體
+function addVariant() {
+    const container = document.getElementById('variants');
+    const row = document.createElement('div');
+    row.className = 'row mb-2 variant-row';
+    row.innerHTML = `
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="variant_name[]" placeholder="變體名稱">
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="variant_value[]" placeholder="變體值">
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeVariant(this)">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `;
+    container.appendChild(row);
+}
+
+// 移除變體
+function removeVariant(button) {
+    button.closest('.variant-row').remove();
+}
+
+// 表單提交前處理規格數據
+document.querySelector('form').addEventListener('submit', function(e) {
+    // 處理規格數據
+    const specRows = document.querySelectorAll('.spec-row');
+    specRows.forEach(row => {
+        const nameInput = row.querySelector('input[name="spec_name"]');
+        const valueInput = row.querySelector('input[name="spec_value"]');
+        
+        if (nameInput && valueInput && nameInput.value && valueInput.value) {
+            nameInput.name = `spec_${nameInput.value}`;
+            valueInput.remove();
+            nameInput.value = valueInput.value;
+        }
+    });
+});
+
+// 圖片預覽
+document.getElementById('main_image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            // 移除舊的預覽圖片
+            const oldPreview = document.querySelector('.image-preview');
+            if (oldPreview) {
+                oldPreview.remove();
+            }
+            
+            // 創建新的預覽圖片
+            const preview = document.createElement('div');
+            preview.className = 'mt-2 image-preview';
+            preview.innerHTML = `<img src="${e.target.result}" alt="預覽圖片" class="img-thumbnail" style="max-width: 200px;">`;
+            
+            document.getElementById('main_image').parentNode.appendChild(preview);
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+{% endblock %} 

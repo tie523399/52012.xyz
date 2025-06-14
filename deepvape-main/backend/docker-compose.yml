@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # Web 應用
+  web:
+    build: .
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URL=postgresql://deepvape:deepvape123@db:5432/deepvape
+      - SECRET_KEY=your-production-secret-key-here
+      - CORS_ORIGINS=https://yourdomain.com
+    volumes:
+      - ./static/uploads:/app/static/uploads
+      - ./logs:/app/logs
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PostgreSQL 數據庫
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=deepvape
+      - POSTGRES_USER=deepvape
+      - POSTGRES_PASSWORD=deepvape123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U deepvape"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis 緩存
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Nginx 反向代理
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - ../:/var/www/html:ro  # 前端靜態文件
+    depends_on:
+      - web
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data: 

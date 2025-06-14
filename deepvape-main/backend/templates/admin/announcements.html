@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}網站公告管理 - Deepvape 後台管理系統{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item active">網站公告</li>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-bullhorn"></i> 網站公告管理</h1>
+    <a href="{{ url_for('create_announcement') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> 新增公告
+    </a>
+</div>
+
+{% if announcements %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">公告列表</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>標題</th>
+                        <th>內容</th>
+                        <th>優先級</th>
+                        <th>狀態</th>
+                        <th>開始時間</th>
+                        <th>結束時間</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for announcement in announcements %}
+                    <tr>
+                        <td>
+                            <strong>{{ announcement.title }}</strong>
+                        </td>
+                        <td>
+                            <div style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                {{ announcement.content }}
+                            </div>
+                        </td>
+                        <td>
+                            {% if announcement.priority == 3 %}
+                                <span class="badge bg-danger">高</span>
+                            {% elif announcement.priority == 2 %}
+                                <span class="badge bg-warning">中</span>
+                            {% else %}
+                                <span class="badge bg-secondary">低</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if announcement.is_active %}
+                                <span class="badge bg-success">啟用</span>
+                            {% else %}
+                                <span class="badge bg-secondary">停用</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <small class="text-muted">
+                                {{ announcement.start_date.strftime('%Y-%m-%d %H:%M') if announcement.start_date else '-' }}
+                            </small>
+                        </td>
+                        <td>
+                            <small class="text-muted">
+                                {{ announcement.end_date.strftime('%Y-%m-%d %H:%M') if announcement.end_date else '永久' }}
+                            </small>
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{ url_for('edit_announcement', id=announcement.id) }}" 
+                                   class="btn btn-outline-primary" title="編輯">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="button" class="btn btn-outline-danger" 
+                                        onclick="deleteAnnouncement({{ announcement.id }})" title="刪除">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="card">
+    <div class="card-body text-center py-5">
+        <i class="fas fa-bullhorn fa-3x text-muted mb-3"></i>
+        <h5 class="text-muted">尚無公告</h5>
+        <p class="text-muted">點擊上方按鈕新增第一個公告</p>
+        <a href="{{ url_for('create_announcement') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> 新增公告
+        </a>
+    </div>
+</div>
+{% endif %}
+
+<!-- 刪除確認模態框 -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">確認刪除</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>確定要刪除這個公告嗎？此操作無法復原。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">確認刪除</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function deleteAnnouncement(id) {
+    const deleteForm = document.getElementById('deleteForm');
+    deleteForm.action = `/admin/announcements/${id}/delete`;
+    
+    const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    modal.show();
+}
+</script>
+{% endblock %} 

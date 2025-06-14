@@ -1,0 +1,138 @@
+{
+  "name": "DeepVape 資源追蹤系統",
+  "lastUpdated": "2024-01-14",
+  "resources": {
+    "images": {
+      "ui": [
+        "logo.png",
+        "deepvape_logo_main.png",
+        "deepvape_main.png",
+        "age_verification_icon.png",
+        "7-11_tklogo.jpg",
+        "product_showcase.jpg"
+      ],
+      "products": {
+        "sp2": [
+          "sp2_v/sp2_device_main_showcase.jpg",
+          "sp2_v/sp2_device_galaxy_blue.jpg",
+          "sp2_v/sp2_device_samurai_black.jpg",
+          "sp2_v/sp2_device_deep_sea_green.jpg",
+          "sp2_v/sp2_device_color_options.webp",
+          "sp2_v/sp2_device_banner.webp",
+          "sp2_d/sp2_pods_cartridge_collection.jpg"
+        ],
+        "ilia": [
+          "ilia_1/ilia_gen1_main_device.jpg",
+          "ilia_1/ilia_gen1_device_details.jpg",
+          "ilia_1/ilia_gen1_compact.webp",
+          "ilia_L/ilia_leather_device_showcase.jpg",
+          "ilia_L/ilia_leather_texture.jpg",
+          "ilia_L/ilia_leather_details.jpg",
+          "ilia_Bu/ilia_fabric_device_main.png",
+          "ilia_Bu/ilia_fabric_compact.webp",
+          "illa_d/哩亞-ILIA煙彈.webp",
+          "illa_d/ILIA煙彈-傾心草莓.jpg",
+          "illa_d/ILIA煙彈-冰釀藍莓.jpg",
+          "ilia_a_4/-哩亞拋棄式-1000x1000.jpg.webp",
+          "ilia_a_4/Bar-4-6500-Puffs一次性電子煙.webp",
+          "ilia_a_4/image.webp"
+        ],
+        "hta": [
+          "hta_vape/hta_spade_device.webp",
+          "hta_pods/hta_spade_pods.webp"
+        ],
+        "lana": [
+          "lana_pods/lana_ceramic_pods_main.webp",
+          "lana_pods/lana_ceramic_pods_alt.webp",
+          "lana_pods/lana_ceramic_pods_original.jpg",
+          "lana_a8000/lana_a8000.webp"
+        ]
+      }
+    },
+    "scripts": {
+      "internal": [
+        "js/config.js",
+        "js/store-selector.js",
+        "js/content-manager.js",
+        "js/cart-logic.js",
+        "js/main.js",
+        "components/common-components.js"
+      ],
+      "external": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js",
+        "https://unpkg.com/aos@2.3.1/dist/aos.js",
+        "https://code.jquery.com/jquery-3.6.0.min.js",
+        "https://identity.netlify.com/v1/netlify-identity-widget.js",
+        "https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"
+      ]
+    },
+    "styles": {
+      "internal": [
+        "css/main.css"
+      ],
+      "external": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      ]
+    },
+    "pages": {
+      "main": [
+        "index.html",
+        "cart.html",
+        "order_confirmation.html",
+        "cvs_callback.html"
+      ],
+      "products": [
+        "sp2_product.html",
+        "sp2_pods_product.html",
+        "ilia_1_product.html",
+        "ilia_pods_product.html",
+        "ilia_leather_product.html",
+        "ilia_fabric_product.html",
+        "ilia_disposable_product.html",
+        "hta_vape_product.html",
+        "hta_pods_product.html",
+        "lana_pods_product.html",
+        "lana_a8000_product.html"
+      ],
+      "info": [
+        "pages/shopping_guide.html",
+        "pages/shipping_info.html",
+        "pages/return_policy.html",
+        "pages/faq.html",
+        "pages/brand_story.html"
+      ]
+    },
+    "unusedResources": {
+      "images": [
+        "nav_logo.png (referenced but missing)",
+        "logoai.gif (referenced but missing)",
+        "cart_image/download.png",
+        "cart_image/sell.png",
+        "cart_image/download-1.png",
+        "cart_image/download.jpg"
+      ],
+      "scripts": [
+        "product-api-integration.js (referenced but missing)",
+        "VFX.js (referenced in comments but missing)"
+      ],
+      "files": [
+        "sp2_v/sp2_v.rtf",
+        "ilia_1/ilia_1.rtf"
+      ]
+    }
+  },
+  "recommendations": {
+    "cleanup": [
+      "移除或建立缺失的檔案 (nav_logo.png, logoai.gif, product-api-integration.js)",
+      "移除所有 VFX.js 的註解引用",
+      "刪除未使用的 RTF 檔案",
+      "檢查並移除 cart_image 目錄中未使用的圖片"
+    ],
+    "optimization": [
+      "使用 Webpack 打包所有資源",
+      "實施圖片延遲載入",
+      "壓縮所有圖片檔案",
+      "合併和最小化 CSS/JS 檔案"
+    ]
+  }
+} 

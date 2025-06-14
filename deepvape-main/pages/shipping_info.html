@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>運送方式 - DeepVape</title>
+    <link rel="icon" type="image/png" href="deepvape_logo_main.png">
+    <link rel="shortcut icon" type="image/png" href="deepvape_logo_main.png">
+    <link rel="apple-touch-icon" href="deepvape_logo_main.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: linear-gradient(135deg, #083e12 0%, #041348 50%, #3d43b4 100%);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 導航欄 */
+        .navbar {
+            background: #000000;
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid transparent;
+            animation: navBorderMove 3s infinite linear;
+        }
+
+        @keyframes navBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid rgba(26, 254, 73, 0.3);
+        }
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: #1afe49;
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid #1afe49;
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, #1afe49, #8386f5, #1afe49);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1afe49;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        /* 主要內容 */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(4, 19, 72, 0.9);
+            border: 1px solid rgba(26, 254, 73, 0.2);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1afe49, #8386f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+        }
+
+        /* 運送方式卡片 */
+        .shipping-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .shipping-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border-left: 5px solid #1afe49;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shipping-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(26, 254, 73, 0.2);
+        }
+
+        .shipping-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(26, 254, 73, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .shipping-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .shipping-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .shipping-icon {
+            font-size: 3rem;
+            color: #1afe49;
+            margin-right: 1rem;
+        }
+
+        .shipping-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .shipping-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1afe49;
+            margin-bottom: 1rem;
+        }
+
+        .shipping-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .shipping-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+        }
+
+        .shipping-features li i {
+            color: #1afe49;
+            margin-right: 0.8rem;
+            width: 20px;
+        }
+
+        .shipping-time {
+            background: rgba(26, 254, 73, 0.1);
+            border: 1px solid rgba(26, 254, 73, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .shipping-time-label {
+            font-size: 0.9rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .shipping-time-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1afe49;
+        }
+
+        /* 重要資訊 */
+        .important-info {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .important-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffc107;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .important-list {
+            list-style: none;
+        }
+
+        .important-list li {
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .important-list li i {
+            color: #ffc107;
+            margin-top: 0.2rem;
+        }
+
+        /* 流程說明 */
+        .process-section {
+            margin: 3rem 0;
+        }
+
+        .process-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1afe49;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid rgba(26, 254, 73, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            border-color: #1afe49;
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            background: #1afe49;
+            color: #000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.8rem;
+        }
+
+        .step-description {
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .shipping-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .shipping-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .shipping-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" class="logo-button" id="navLogo">
+                    <span class="logo-text">DeepVape</span>
+                </a>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="shopping_guide.html">購物說明</a></li>
+                <li><a href="cart.html">購物車</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要內容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 頁面標題 -->
+            <div class="page-header">
+                <h1 class="page-title">運送方式</h1>
+                <p class="page-subtitle">多種便利取貨方式，滿足您的需求</p>
+            </div>
+
+            <!-- 運送方式 -->
+            <div class="shipping-methods">
+                <!-- 7-ELEVEN 店到店 -->
+                <div class="shipping-card">
+                    <div class="shipping-header">
+                        <i class="fas fa-store shipping-icon"></i>
+                        <div>
+                            <div class="shipping-name">7-ELEVEN 店到店</div>
+                            <div class="shipping-price">NT$ 60</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="shipping-features">
+                        <li><i class="fas fa-check"></i> 全台超過 6,000 家門市</li>
+                        <li><i class="fas fa-check"></i> 24 小時營業取貨方便</li>
+                        <li><i class="fas fa-check"></i> 免費保管 7 天</li>
+                        <li><i class="fas fa-check"></i> 取貨時需出示身分證件</li>
+                        <li><i class="fas fa-check"></i> 支援超取付款</li>
+                    </ul>
+                    
+                    <div class="shipping-time">
+                        <div class="shipping-time-label">預計送達時間</div>
+                        <div class="shipping-time-value">4-5 個工作天</div>
+                    </div>
+                </div>
+
+                <!-- 全家便利商店 -->
+                <div class="shipping-card">
+                    <div class="shipping-header">
+                        <i class="fas fa-shopping-bag shipping-icon"></i>
+                        <div>
+                            <div class="shipping-name">全家便利商店</div>
+                            <div class="shipping-price">NT$ 60</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="shipping-features">
+                        <li><i class="fas fa-check"></i> 全台超過 4,000 家門市</li>
+                        <li><i class="fas fa-check"></i> 營業時間長取貨彈性</li>
+                        <li><i class="fas fa-check"></i> 免費保管 7 天</li>
+                        <li><i class="fas fa-check"></i> 取貨時需出示身分證件</li>
+                        <li><i class="fas fa-check"></i> 提供取貨通知服務</li>
+                    </ul>
+                    
+                    <div class="shipping-time">
+                        <div class="shipping-time-label">預計送達時間</div>
+                        <div class="shipping-time-value">4-5 個工作天</div>
+                    </div>
+                </div>
+
+                <!-- 萊爾富便利商店 -->
+                <div class="shipping-card">
+                    <div class="shipping-header">
+                        <i class="fas fa-store-alt shipping-icon"></i>
+                        <div>
+                            <div class="shipping-name">萊爾富便利商店</div>
+                            <div class="shipping-price">NT$ 60</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="shipping-features">
+                        <li><i class="fas fa-check"></i> 全台超過 1,500 家門市</li>
+                        <li><i class="fas fa-check"></i> 服務據點遍布各地</li>
+                        <li><i class="fas fa-check"></i> 免費保管 7 天</li>
+                        <li><i class="fas fa-check"></i> 取貨時需出示身分證件</li>
+                        <li><i class="fas fa-check"></i> 親切的服務態度</li>
+                    </ul>
+                    
+                    <div class="shipping-time">
+                        <div class="shipping-time-label">預計送達時間</div>
+                        <div class="shipping-time-value">4-5 個工作天</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 重要資訊 -->
+            <div class="important-info">
+                <h3 class="important-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    重要取貨須知
+                </h3>
+                <ul class="important-list">
+                    <li>
+                        <i class="fas fa-id-card"></i>
+                        <span>取貨時請務必攜帶身分證件，以便核對身份</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>商品到店後會發送取貨通知，請於 7 天內完成取貨</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>請確保填寫正確的門市資訊，包含門市名稱、店號及地址</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-box"></i>
+                        <span>取貨時請當場確認商品無誤後再簽收</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <span>如有任何問題，請聯繫 LINE 官方帳號</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 取貨流程 -->
+            <div class="process-section">
+                <h2 class="process-title">便利商店取貨流程</h2>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">下單確認</div>
+                        <div class="step-description">完成訂單後，我們會開始處理您的商品並準備出貨</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">商品寄送</div>
+                        <div class="step-description">商品將在 1-2 個工作天內寄出至您指定的便利商店</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">到店通知</div>
+                        <div class="step-description">商品到達門市後，系統會自動發送取貨通知訊息</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-title">前往取貨</div>
+                        <div class="step-description">攜帶身分證件前往指定門市，出示取貨碼完成取貨</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger i');
+            
+            navLinks.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                hamburger.classList.remove('fa-bars');
+                hamburger.classList.add('fa-times');
+            } else {
+                hamburger.classList.remove('fa-times');
+                hamburger.classList.add('fa-bars');
+            }
+        }
+
+        // 點擊外部關閉選單
+        document.addEventListener('click', function(e) {
+            const navLinks = document.getElementById('navLinks');
+            const navContainer = document.querySelector('.nav-container');
+            
+            if (!navContainer.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                document.querySelector('.hamburger i').classList.remove('fa-times');
+                document.querySelector('.hamburger i').classList.add('fa-bars');
+            }
+        });
+    </script>
+
+    
+</body>
+</html> 

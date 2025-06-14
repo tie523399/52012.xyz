@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                           http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+                           http://www.google.com/schemas/sitemap-image/1.1
+                           http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+
+  <!-- 首頁 - 最高優先級 -->
+  <url>
+    <loc>https://52012.xyz/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/logo1.png</image:loc>
+      <image:title>DeepVape - 電子煙專門店</image:title>
+    </image:image>
+  </url>
+
+  <!-- 主機系列 - 高優先級產品頁面 -->
+  
+  <!-- SP2 思博瑞主機 -->
+  <url>
+    <loc>https://52012.xyz/sp2_product.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/sp2_v/SP2-主機.webp</image:loc>
+      <image:title>SP2 思博瑞主機 - 650元</image:title>
+    </image:image>
+  </url>
+
+  <!-- ILIA 哩亞一代主機 -->
+  <url>
+    <loc>https://52012.xyz/ilia_1_product.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/ilia_1/ilia_1_主機.webp</image:loc>
+      <image:title>ILIA 哩亞一代主機 - 650元</image:title>
+    </image:image>
+  </url>
+
+  <!-- ILIA 皮革主機 -->
+  <url>
+    <loc>https://52012.xyz/ilia_leather_product.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/ilia_L/ILIA主機-皮革圖.jpg</image:loc>
+      <image:title>ILIA 皮革主機 - 奢華質感 - 650元</image:title>
+    </image:image>
+  </url>
+
+  <!-- ILIA 布紋主機 -->
+  <url>
+    <loc>https://52012.xyz/ilia_fabric_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/ilia_Bu/ilia_fabric_device_main.png</image:loc>
+      <image:title>ILIA 布紋主機 - 時尚設計 - 650元</image:title>
+    </image:image>
+  </url>
+
+  <!-- HTA 黑桃主機 -->
+  <url>
+    <loc>https://52012.xyz/hta_vape_product.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/hta_vape/HTA_c6c0aa3c-79d3-4484-a99c-6fe03e67cb54.webp</image:loc>
+      <image:title>HTA 黑桃主機 - 450元</image:title>
+    </image:image>
+  </url>
+
+  <!-- 煙彈系列 - 中高優先級 -->
+  
+  <!-- ILIA 發光煙彈 -->
+  <url>
+    <loc>https://52012.xyz/ilia_pods_product.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/illa_d/哩亞-ILIA煙彈.webp</image:loc>
+      <image:title>ILIA 發光煙彈 - 25種口味 - 300元</image:title>
+    </image:image>
+  </url>
+
+  <!-- SP2 煙彈 -->
+  <url>
+    <loc>https://52012.xyz/sp2_pods_product.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/sp2_d/S__24518868.jpg</image:loc>
+      <image:title>SP2 煙彈 - 32種口味 - 350元</image:title>
+    </image:image>
+  </url>
+
+  <!-- HTA 黑桃煙彈 -->
+  <url>
+    <loc>https://52012.xyz/hta_pods_product.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/hta_pods/HTA_pods.webp</image:loc>
+      <image:title>HTA 黑桃煙彈 - 15種口味 - 260元</image:title>
+    </image:image>
+  </url>
+
+  <!-- LANA 煙彈 -->
+  <url>
+    <loc>https://52012.xyz/lana_pods_product.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/lana_pods/LANA煙彈.webp</image:loc>
+      <image:title>LANA 煙彈 - 12種口味 - 280元</image:title>
+    </image:image>
+  </url>
+
+  <!-- 拋棄式系列 - 中高優先級 -->
+  
+  <!-- ILIA 拋棄式四代 -->
+  <url>
+    <loc>https://52012.xyz/ilia_disposable_product.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/ilia_a_4/-哩亞拋棄式-1000x1000.jpg.webp</image:loc>
+      <image:title>ILIA 拋棄式四代 - 6500口 - 320元</image:title>
+    </image:image>
+  </url>
+
+  <!-- LANA A8000 拋棄式 -->
+  <url>
+    <loc>https://52012.xyz/lana_a8000_product.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://52012.xyz/lana_a8000.webp</image:loc>
+      <image:title>LANA A8000 拋棄式 - 8000口 - 320元</image:title>
+    </image:image>
+  </url>
+
+  <!-- 功能頁面 - 中等優先級 -->
+  
+  <!-- 購物車 -->
+  <url>
+    <loc>https://52012.xyz/cart.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 訂單確認頁面 -->
+  <url>
+    <loc>https://52012.xyz/order_confirmation.html</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 購物指南 -->
+  <url>
+    <loc>https://52012.xyz/shopping_guide.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 資訊頁面 -->
+  
+  <!-- 品牌故事 -->
+  <url>
+    <loc>https://52012.xyz/brand_story.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 常見問題 -->
+  <url>
+    <loc>https://52012.xyz/faq.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 運送資訊 -->
+  <url>
+    <loc>https://52012.xyz/shipping_info.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 退換貨政策 -->
+  <url>
+    <loc>https://52012.xyz/return_policy.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 工具頁面 -->
+  
+  <!-- 門市搜尋 -->
+  <url>
+    <loc>https://52012.xyz/store_search_demo.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- CVS 回調 -->
+  <url>
+    <loc>https://52012.xyz/cvs_callback.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset> 

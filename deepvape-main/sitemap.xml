@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                           http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- 首頁 -->
+  <url>
+    <loc>https://52012.xyz/</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- 主機系列 -->
+  <url>
+    <loc>https://52012.xyz/sp2_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/ilia_1_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/ilia_leather_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/ilia_fabric_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/hta_vape_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 煙彈系列 -->
+  <url>
+    <loc>https://52012.xyz/ilia_pods_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/sp2_pods_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/hta_pods_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/lana_pods_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 拋棄式系列 -->
+  <url>
+    <loc>https://52012.xyz/ilia_disposable_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/lana_a8000_product.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 功能頁面 -->
+  <url>
+    <loc>https://52012.xyz/cart.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/order_confirmation.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/shopping_guide.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 資訊頁面 -->
+  <url>
+    <loc>https://52012.xyz/brand_story.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/faq.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/shipping_info.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/return_policy.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 工具頁面 -->
+  <url>
+    <loc>https://52012.xyz/store_search_demo.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://52012.xyz/cvs_callback.html</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset> 

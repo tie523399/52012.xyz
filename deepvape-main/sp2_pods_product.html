@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思博瑞 SP2 煙彈 - 32種口味選擇 | 深煙電子煙</title>
+    <link rel="icon" type="image/png" href="deepvape_logo_main.png">
+    <link rel="shortcut icon" type="image/png" href="deepvape_logo_main.png">
+    <link rel="apple-touch-icon" href="deepvape_logo_main.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles & Custom properties */
+        :root {
+            --primary: #6366f1; /* Indigo */
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4; /* Cyan */
+            --accent: #a855f7; /* Purple */
+            --dark-bg: #111827;
+            --darker-bg: #030712;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --navbar-bg: rgba(17, 24, 39, 0.7);
+            --glass-effect: blur(12px);
+            --transition-normal: all 0.3s ease;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-glow: rgba(99, 102, 241, 0.3);
+            --neon-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+            --glow-cyan: 0 0 15px rgba(6, 182, 212, 0.5);
+            --glow-indigo: 0 0 15px rgba(99, 102, 241, 0.5);
+            --glow-purple: 0 0 15px rgba(168, 85, 247, 0.5);
+            --card-bg: rgba(17, 24, 39, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--darker-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Background Effects */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 70%);
+            filter: blur(60px);
+            z-index: -1;
+            pointer-events: none;
+            }
+
+        .bg-glow.top-right {
+            top: -20%;
+            right: -20%;
+        }
+
+        .bg-glow.bottom-left {
+            bottom: -20%;
+            left: -20%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, var(--primary-dark), var(--accent));
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: var(--navbar-bg);
+            backdrop-filter: var(--glass-effect);
+            -webkit-backdrop-filter: var(--glass-effect);
+            border-bottom: 1px solid var(--border-glow);
+            transition: var(--transition-normal);
+            height: 70px;
+        }
+
+        header.scrolled {
+            background-color: rgba(17, 24, 39, 0.9);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-glow);
+        }
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: #1afe49;
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid #1afe49;
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, #1afe49, #8386f5, #1afe49);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .back-button, .cart-button {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--text-primary);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 1px solid var(--border-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button::before, .cart-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.2) 45%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.2) 55%,
+                transparent 60%
+            );
+            transition: transform 0.5s ease;
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+
+        .back-button:hover::before, .cart-button:hover::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        .back-button:hover, .cart-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--neon-shadow);
+            border-color: var(--secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 70px;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .content-wrapper {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-effect);
+            border: 1px solid var(--border-glow);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: var(--neon-shadow);
+        }
+
+        .product-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .product-title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .product-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+        }
+
+        /* Product Showcase */
+        .product-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-image {
+            text-align: center;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--glow-cyan);
+            transition: var(--transition-smooth);
+        }
+
+        .product-image img:hover {
+            transform: scale(1.05);
+            box-shadow: var(--glow-indigo);
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .feature-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-glow);
+            display: flex;
+            align-items: center;
+            color: var(--text-primary);
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Flavor Selection */
+        .flavor-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .flavor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .flavor-option {
+            background: rgba(17, 24, 39, 0.5);
+            border: 2px solid var(--border-glow);
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(8px);
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flavor-option::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(6, 182, 212, 0.1) 45%,
+                rgba(6, 182, 212, 0.2) 50%,
+                rgba(6, 182, 212, 0.1) 55%,
+                transparent 60%
+            );
+            transition: transform 0.5s ease;
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+
+        .flavor-option:hover::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        .flavor-option:hover {
+            border-color: var(--secondary);
+            background: rgba(6, 182, 212, 0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .flavor-option.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--text-primary);
+            box-shadow: var(--glow-indigo);
+        }
+
+        .flavor-name {
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .flavor-option.selected .flavor-name {
+            color: var(--text-primary);
+        }
+
+        .flavor-description {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
+        }
+
+        .flavor-option.selected .flavor-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Specs Table */
+        .specs-section {
+            margin-bottom: 3rem;
+        }
+
+        .specs-table {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-effect);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--neon-shadow);
+        }
+
+        .specs-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table th,
+        .specs-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--text-primary);
+        }
+
+        .specs-table th {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-primary);
+            font-weight: bold;
+        }
+
+        .specs-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .specs-table tbody tr:hover {
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        /* Purchase Section */
+        .purchase-section {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-effect);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--neon-shadow);
+        }
+
+        .quantity-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quantity-label {
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+
+        .quantity-btn {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--text-primary);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quantity-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.2) 45%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.2) 55%,
+                transparent 60%
+            );
+            transition: transform 0.5s ease;
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+
+        .quantity-btn:hover::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        .quantity-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-indigo);
+        }
+
+        .quantity-input {
+            width: 80px;
+            height: 40px;
+            text-align: center;
+            border: 2px solid var(--border-glow);
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(45deg, var(--secondary), #10b981);
+            color: var(--text-primary);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.2) 45%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.2) 55%,
+                transparent 60%
+            );
+            transition: transform 0.5s ease;
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+
+        .add-to-cart-btn:hover::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .add-to-cart-btn:disabled {
+            background: rgba(107, 114, 128, 0.5);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 2rem 1rem;
+            }
+            
+            .product-showcase {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .flavor-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+            
+            .flavor-option {
+                padding: 0.8rem;
+                min-height: 70px;
+            }
+            
+            .flavor-name {
+                font-size: 0.9rem;
+                margin-bottom: 0.2rem;
+            }
+            
+            .flavor-description {
+                font-size: 0.75rem;
+            }
+            
+            .product-title {
+                font-size: 2rem;
+            }
+            
+            .header-actions {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+
+            .back-button, .cart-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablet Optimization */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .flavor-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        /* Desktop Optimization */
+        @media (min-width: 1025px) {
+            .flavor-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.2rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        a:focus, button:focus {
+            outline: 2px solid rgba(6, 182, 212, 0.5);
+            outline-offset: 2px;
+        }
+    </style>
+    <link rel="stylesheet" href="css/common-styles.css">
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow top-right"></div>
+    <div class="bg-glow bottom-left"></div>
+
+    <header id="navbar">
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html" class="logo-button vfx-logo" id="navLogo">
+                    <span class="logo-text">DeepVape</span>
+                </a>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                </a>
+                <a href="cart.html" class="cart-button">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper section-hidden">
+            <div class="product-header">
+                <h1 class="product-title">思博瑞 SP2 煙彈</h1>
+                <p class="product-subtitle">32種口味選擇 • 2.0ML大容量 • 3%尼古丁含量</p>
+                <div class="price">NT$ 350</div>
+            </div>
+
+            <div class="product-showcase">
+                <div class="product-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="sp2_d/sp2_pods_cartridge_collection.jpg" loading="lazy" alt="SP2 煙彈">
+                </div>
+                <div class="product-info" data-product-id="sp2_pods">
+                    <ul class="feature-list">
+                        <li>32種豐富口味選擇</li>
+                        <li>2.0ML大容量設計</li>
+                        <li>3%尼古丁含量</li>
+                        <li>一盒三入裝</li>
+                        <li>優質霧化體驗</li>
+                        <li>食品級材質安全</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section class="flavor-section">
+                <h2 class="section-title">選擇口味</h2>
+                <div class="flavor-grid">
+                    <div class="flavor-option" data-flavor="薄荷">
+                        <div class="flavor-name">薄荷</div>
+                        <div class="flavor-description">清涼薄荷</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="草莓">
+                        <div class="flavor-name">草莓</div>
+                        <div class="flavor-description">香甜草莓</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="藍莓">
+                        <div class="flavor-name">藍莓</div>
+                        <div class="flavor-description">酸甜藍莓</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="芒果">
+                        <div class="flavor-name">芒果</div>
+                        <div class="flavor-description">熱帶芒果</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="西瓜">
+                        <div class="flavor-name">西瓜</div>
+                        <div class="flavor-description">清甜西瓜</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="葡萄">
+                        <div class="flavor-name">葡萄</div>
+                        <div class="flavor-description">紫葡萄香</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="蘋果">
+                        <div class="flavor-name">蘋果</div>
+                        <div class="flavor-description">青蘋果酸</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="檸檬">
+                        <div class="flavor-name">檸檬</div>
+                        <div class="flavor-description">檸檬清香</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="可樂">
+                        <div class="flavor-name">可樂</div>
+                        <div class="flavor-description">經典可樂</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="雪碧">
+                        <div class="flavor-name">雪碧</div>
+                        <div class="flavor-description">檸檬汽水</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="奶茶">
+                        <div class="flavor-name">奶茶</div>
+                        <div class="flavor-description">香濃奶茶</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="咖啡">
+                        <div class="flavor-name">咖啡</div>
+                        <div class="flavor-description">濃郁咖啡</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="香草">
+                        <div class="flavor-name">香草</div>
+                        <div class="flavor-description">香草奶昔</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="巧克力">
+                        <div class="flavor-name">巧克力</div>
+                        <div class="flavor-description">濃郁巧克力</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="椰子">
+                        <div class="flavor-name">椰子</div>
+                        <div class="flavor-description">椰香清甜</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="荔枝">
+                        <div class="flavor-name">荔枝</div>
+                        <div class="flavor-description">荔枝蜜香</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="水蜜桃">
+                        <div class="flavor-name">水蜜桃</div>
+                        <div class="flavor-description">水蜜桃甜</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="鳳梨">
+                        <div class="flavor-name">鳳梨</div>
+                        <div class="flavor-description">熱帶鳳梨</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="櫻桃">
+                        <div class="flavor-name">櫻桃</div>
+                        <div class="flavor-description">櫻桃甜香</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="柳橙">
+                        <div class="flavor-name">柳橙</div>
+                        <div class="flavor-description">柳橙清香</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="奇異果">
+                        <div class="flavor-name">奇異果</div>
+                        <div class="flavor-description">奇異果酸甜</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="百香果">
+                        <div class="flavor-name">百香果</div>
+                        <div class="flavor-description">百香果香</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="蜂蜜">
+                        <div class="flavor-name">蜂蜜</div>
+                        <div class="flavor-description">天然蜂蜜</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="薰衣草">
+                        <div class="flavor-name">薰衣草</div>
+                        <div class="flavor-description">薰衣草香</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="玫瑰">
+                        <div class="flavor-name">玫瑰</div>
+                        <div class="flavor-description">玫瑰花香</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="茉莉">
+                        <div class="flavor-name">茉莉</div>
+                        <div class="flavor-description">茉莉清香</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="綠茶">
+                        <div class="flavor-name">綠茶</div>
+                        <div class="flavor-description">清淡綠茶</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="烏龍茶">
+                        <div class="flavor-name">烏龍茶</div>
+                        <div class="flavor-description">烏龍茶香</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="紅茶">
+                        <div class="flavor-name">紅茶</div>
+                        <div class="flavor-description">濃郁紅茶</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="檸檬茶">
+                        <div class="flavor-name">檸檬茶</div>
+                        <div class="flavor-description">檸檬紅茶</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="蜜桃烏龍">
+                        <div class="flavor-name">蜜桃烏龍</div>
+                        <div class="flavor-description">蜜桃烏龍茶</div>
+                    </div>
+                    <div class="flavor-option" data-flavor="茉莉綠茶">
+                        <div class="flavor-name">茉莉綠茶</div>
+                        <div class="flavor-description">茉莉綠茶香</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="specs-section">
+                <h2 class="section-title">產品規格</h2>
+                <div class="specs-table">
+                    <table>
+                        <tr>
+                            <th>規格項目</th>
+                            <th>詳細說明</th>
+                        </tr>
+                        <tr>
+                            <td>容量</td>
+                            <td>2.0ML</td>
+                        </tr>
+                        <tr>
+                            <td>尼古丁含量</td>
+                            <td>3%</td>
+                        </tr>
+                        <tr>
+                            <td>包裝</td>
+                            <td>一盒三入</td>
+                        </tr>
+                        <tr>
+                            <td>口味選擇</td>
+                            <td>32種口味</td>
+                        </tr>
+                        <tr>
+                            <td>適用主機</td>
+                            <td>SP2 系列主機</td>
+                        </tr>
+                        <tr>
+                            <td>材質</td>
+                            <td>食品級材質</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <section class="purchase-section">
+                <div class="quantity-control">
+                    <span class="quantity-label">數量：</span>
+                    <button class="quantity-btn" onclick="updateQuantity(-1)">-</button>
+                    <input type="number" id="quantity" class="quantity-input" value="1" min="1">
+                    <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart()" disabled>
+                    <i class="fas fa-shopping-cart"></i>
+                    請先選擇口味
+                </button>
+            </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let selectedFlavor = '';
+        let quantity = 1;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('section-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.section-hidden').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Initialize button state
+            updateAddToCartButton();
+        });
+
+        // Flavor selection
+        document.querySelectorAll('.flavor-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected state from other options
+                document.querySelectorAll('.flavor-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected state
+                this.classList.add('selected');
+                selectedFlavor = this.dataset.flavor;
+                
+                // Update button state
+                updateAddToCartButton();
+            });
+        });
+
+        // Quantity control
+        function updateQuantity(change) {
+            quantity = Math.max(1, quantity + change);
+            document.getElementById('quantity').value = quantity;
+        }
+
+        document.getElementById('quantity').addEventListener('change', function() {
+            quantity = Math.max(1, parseInt(this.value) || 1);
+            this.value = quantity;
+        });
+
+        // Update add to cart button
+        function updateAddToCartButton() {
+            const button = document.querySelector('.add-to-cart-btn');
+            if (selectedFlavor) {
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-shopping-cart"></i> 加入購物車';
+            } else {
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-shopping-cart"></i> 請先選擇口味';
+            }
+        }
+
+        // Add to cart
+        function addToCart() {
+            if (!selectedFlavor) {
+                alert('請先選擇口味');
+                return;
+            }
+
+            const product = {
+                name: 'SP2 煙彈',
+                price: 350,
+                flavor: selectedFlavor,
+                quantity: quantity,
+                image: 'sp2_d/sp2_pods_cartridge_collection.jpg'
+            };
+
+            // Get existing cart
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Check if item already exists
+            const existingItem = cart.find(item => 
+                item.name === product.name && item.flavor === product.flavor
+            );
+
+            if (existingItem) {
+                existingItem.quantity += product.quantity;
+            } else {
+                cart.push(product);
+            }
+
+            // Save to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Show success message
+            alert(`已將 ${product.name} (${product.flavor}) x${product.quantity} 加入購物車！`);
+            
+            // Reset selection
+            selectedFlavor = '';
+            quantity = 1;
+            document.getElementById('quantity').value = 1;
+            document.querySelectorAll('.flavor-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            updateAddToCartButton();
+        }
+    </script>
+
+    
+
+    <!-- 內容管理系統 -->
+    <script src="/js/content-manager.js"></script>
+
+    <!-- 共享 VFX 效果 -->
+    <script src="js/vfx-effects.js"></script>
+</body>
+</html> 

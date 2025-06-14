@@ -1,0 +1,2503 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepvape - 頂級電子菸專賣店 | VAPE煙彈、主機、拋棄式</title>
+    <meta name="description" content="Deepvape 是您的一站式線上VAPE專賣店，提供最新、最頂級的電子菸主機、煙彈及拋棄式電子菸。我們引進ILIA, SP2, LANA等知名品牌，保證正品、快速出貨，並提供專業顧問服務。">
+    <meta name="keywords" content="Deepvape, VAPE, 電子菸, 電子煙, 煙彈, 主機, 拋棄式, ILIA, SP2, LANA, HTA, 哩亞, 思博瑞, VAPE專賣店">
+    <link rel="canonical" href="https://52012.xyz/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://52012.xyz/">
+    <meta property="og:title" content="Deepvape - 頂級電子菸專賣店 | VAPE煙彈、主機、拋棄式">
+    <meta property="og:description" content="Deepvape 是您的一站式線上VAPE專賣店，提供最新、最頂級的電子菸主機、煙彈及拋棄式電子菸。我們引進ILIA, SP2, LANA等知名品牌，保證正品、快速出貨，並提供專業顧問服務。">
+    <meta property="og:image" content="https://52012.xyz/deepvape_main.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://52012.xyz/">
+    <meta property="twitter:title" content="Deepvape - 頂級電子菸專賣店 | VAPE煙彈、主機、拋棄式">
+    <meta property="twitter:description" content="Deepvape 是您的一站式線上VAPE專賣店，提供最新、最頂級的電子菸主機、煙彈及拋棄式電子菸。我們引進ILIA, SP2, LANA等知名品牌，保證正品、快速出貨，並提供專業顧問服務。">
+    <meta property="twitter:image" content="https://52012.xyz/deepvape_main.png">
+
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <style>
+        :root {
+            --primary-color: #083e12;
+            --secondary-color: #041348;
+            --accent-color: #3d43b4;
+            --highlight-color: #1afe49;
+            --tech-cyan: #8386f5;
+            --success-color: #1afe49;
+            --warning-color: #ffab00;
+            --text-color: #ffffff;
+            --text-secondary: #a0f7b3;
+            --card-bg: rgba(4, 19, 72, 0.8);
+            --border-color: rgba(26, 254, 73, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Background Overlay */
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(26, 26, 46, 0.8) 0%, 
+                rgba(22, 33, 62, 0.7) 50%, 
+                rgba(15, 52, 96, 0.8) 100%);
+            z-index: -1;
+        }
+
+        /* Loading Screen */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #141414;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+            overflow: hidden;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .loading-content::before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 2;
+            display: block;
+            width: 150%;
+            height: 140%;
+            background: radial-gradient(ellipse at 50% 55%, transparent 10%, black 50%);
+            transform: translate3d(-50%, -50%, 0);
+            content: "";
+        }
+
+        .loading-content::after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 5;
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 75%, #a900ff 20%, transparent 75%);
+            mix-blend-mode: overlay;
+            transform: translate3d(-50%, -50%, 0);
+            content: "";
+        }
+
+        @keyframes aura-glow {
+            0% {
+                background-position: 0 100%;
+            }
+            100% {
+                background-position: 0 300%;
+            }
+        }
+
+        .aura {
+            position: absolute;
+            top: -71.5%;
+            left: 50%;
+            z-index: 3;
+            width: 30%;
+            height: 140%;
+            background: linear-gradient(
+                20deg,
+                #00f8f1,
+                #ffbd1e20 16.5%,
+                #fe848f 33%,
+                #fe848f20 49.5%,
+                #00f8f1 66%,
+                #00f8f160 85.5%,
+                #ffbd1e 100%
+            ) 0 100% / 100% 200%;
+            border-radius: 0 0 100% 100%;
+            filter: blur(50px);
+            mix-blend-mode: plus-lighter;
+            opacity: 0.75;
+            transform: translate3d(-50%, 0, 0);
+            animation: aura-glow 5s infinite linear;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                transparent,
+                transparent 1px,
+                white 1px,
+                white 2px
+            );
+            mix-blend-mode: overlay;
+            opacity: 0.5;
+        }
+
+        .loading-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 15;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            font-family: "Pixelify Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            color: #ffffff;
+            letter-spacing: 8px;
+            text-shadow: 
+                2px 2px 0px #000000,
+                4px 4px 0px #333333,
+                0 0 20px #00f8f1,
+                0 0 40px #fe848f,
+                0 0 60px #ffbd1e;
+            animation: pixelPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pixelPulse {
+            0% { 
+                opacity: 0.7;
+                transform: translate(-50%, -50%) scale(0.95);
+                text-shadow: 
+                    2px 2px 0px #000000,
+                    4px 4px 0px #333333,
+                    0 0 10px #00f8f1,
+                    0 0 20px #fe848f,
+                    0 0 30px #ffbd1e;
+            }
+            50% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.05);
+                text-shadow: 
+                    2px 2px 0px #000000,
+                    4px 4px 0px #333333,
+                    0 0 30px #00f8f1,
+                    0 0 50px #fe848f,
+                    0 0 70px #ffbd1e;
+            }
+            100% { 
+                opacity: 0.7;
+                transform: translate(-50%, -50%) scale(0.95);
+                text-shadow: 
+                    2px 2px 0px #000000,
+                    4px 4px 0px #333333,
+                    0 0 10px #00f8f1,
+                    0 0 20px #fe848f,
+                    0 0 30px #ffbd1e;
+            }
+        }
+
+        /* Age Verification */
+        .age-verification {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .age-verification.hidden {
+            display: none;
+        }
+
+        .age-modal {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 400px;
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+
+        .age-modal::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background-image: url('age_verification_icon.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 30px;
+        }
+
+        .age-modal h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--highlight-color);
+        }
+
+        .age-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+
+
+        /* Navigation */
+        nav {
+            background: #000000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border: 2px solid transparent;
+            animation: navBorderMove 3s infinite linear;
+        }
+
+        @keyframes navBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid rgba(26, 254, 73, 0.3);
+        }
+
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: var(--highlight-color);
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid var(--highlight-color);
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, var(--highlight-color), var(--tech-cyan), var(--highlight-color));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu > li {
+            position: relative;
+        }
+
+        .nav-menu > li > a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu > li:hover > a {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--highlight-color);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--secondary-color);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 0 0 30px 30px;
+        }
+
+        .nav-menu > li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.8rem 1.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--highlight-color);
+            padding-left: 2rem;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--secondary-color);
+                flex-direction: column;
+                padding: 2rem 0;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1001;
+                overflow-y: auto;
+            }
+
+            .nav-menu.active {
+                transform: translateX(0);
+            }
+
+            .nav-menu > li > a {
+                padding: 1rem 2rem;
+            }
+
+                    .dropdown {
+            position: static;
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            box-shadow: none;
+            background: rgba(0, 0, 0, 0.2);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .dropdown.active {
+            max-height: 300px;
+        }
+
+        .dropdown a {
+            padding-left: 3rem;
+        }
+
+        .dropdown-toggle .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-toggle.active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+            .header-container {
+                flex-direction: row;
+                gap: 1rem;
+                justify-content: space-between;
+            }
+
+            .logo h1 {
+                font-size: 1.3rem;
+            }
+
+                    .header-actions .pulse-button {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+        }
+
+        .cart-button {
+            background: linear-gradient(45deg, #ff1493, #8a2be2) !important;
+            margin-right: 0.5rem;
+            border: none !important;
+            color: white !important;
+            font-weight: 600 !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3) !important;
+        }
+
+        .cart-button:hover {
+            transform: scale(1.05) !important;
+            box-shadow: 0 6px 25px rgba(255, 20, 147, 0.5), 0 0 20px rgba(138, 43, 226, 0.4) !important;
+            background: linear-gradient(45deg, #ff69b4, #9370db) !important;
+        }
+        }
+
+        /* Announcement Banner */
+        .announcement {
+            background: var(--highlight-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 0.8rem;
+            font-weight: 500;
+            position: fixed;
+            top: 82px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .announcement.priority-high {
+            background: #dc3545;
+            animation: pulse-announcement 2s infinite;
+        }
+
+        .announcement.priority-medium {
+            background: var(--warning-color);
+        }
+
+        .announcement.priority-low {
+            background: var(--accent-color);
+        }
+
+        .announcement i {
+            margin-right: 0.5rem;
+        }
+
+        .announcement-close {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .announcement-close:hover {
+            opacity: 1;
+        }
+
+        @keyframes pulse-announcement {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+            margin-top: 120px; /* 為導航和公告留出空間 */
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.2);
+            border-color: var(--highlight-color);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .product-image[onclick] {
+            cursor: pointer;
+        }
+
+        .product-image[onclick]:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.3);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .badge-hot {
+            background: var(--highlight-color);
+            color: white;
+        }
+
+        .badge-safe {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .badge-new {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--highlight-color);
+            margin-bottom: 1rem;
+        }
+
+        .product-price small {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+
+        /* 已售出數量樣式 */
+        .sold-count {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .sold-count i {
+            color: var(--highlight-color);
+            font-size: 0.7rem;
+        }
+
+        .sold-number {
+            font-weight: 600;
+            color: var(--highlight-color);
+        }
+
+        /* Pulse Button */
+        .pulse-button {
+            background: linear-gradient(45deg, var(--highlight-color), #8e44ad);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            text-align: center;
+        }
+
+        .pulse-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .pulse-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .pulse-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
+        }
+
+        .pulse-button:active {
+            transform: scale(0.98);
+        }
+
+        .pulse-button.pulsing {
+            animation: pulse-animation 2s infinite;
+        }
+
+        /* Shopping Options Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--secondary-color);
+            border-radius: 30px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--highlight-color);
+        }
+
+        .option-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .option-label {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .option-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .option-button {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-button:hover {
+            border-color: var(--highlight-color);
+            color: var(--highlight-color);
+        }
+
+        .option-button.selected {
+            background: var(--highlight-color);
+            color: white;
+            border-color: var(--highlight-color);
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-button {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-button:hover {
+            border-color: var(--highlight-color);
+            color: var(--highlight-color);
+        }
+
+        .quantity-input {
+            width: 80px;
+            padding: 0.5rem;
+            text-align: center;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 30px;
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 30px;
+            margin-top: 2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .summary-total {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--highlight-color);
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+        }
+
+        /* Footer 上方設計區域 */
+        .footer-design-section {
+            background: linear-gradient(135deg, #083e12 0%, #041348 50%, #3d43b4 100%);
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-design-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(26,254,73,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(131,134,245,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .design-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-guarantees {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .guarantee-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(26, 254, 73, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .guarantee-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(26, 254, 73, 0.2);
+            border-color: rgba(26, 254, 73, 0.4);
+        }
+
+        .guarantee-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1afe49, #8386f5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .guarantee-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .guarantee-content {
+            flex: 1;
+        }
+
+        .guarantee-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .guarantee-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        footer {
+            background: #000000;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            border: 2px solid transparent;
+            animation: footerBorderMove 3s infinite linear;
+        }
+
+        @keyframes footerBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--highlight-color);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--highlight-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--secondary-color);
+            color: var(--text-color);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 3000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .toast-success .toast-icon {
+            color: var(--success-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .hero-text {
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--highlight-color), var(--tech-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn-primary {
+            background: linear-gradient(135deg, var(--highlight-color), var(--success-color));
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(26, 254, 73, 0.3);
+        }
+
+        .hero-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(26, 254, 73, 0.4);
+        }
+
+        .hero-btn-secondary {
+            background: transparent;
+            color: var(--text-color);
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-btn-secondary:hover {
+            border-color: var(--highlight-color);
+            color: var(--highlight-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26, 254, 73, 0.2);
+        }
+
+        .hero-image {
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-main-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 20px rgba(26, 254, 73, 0.3));
+        }
+
+        .hero-main-image:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 30px rgba(26, 254, 73, 0.5));
+        }
+
+        /* Hero 動畫效果 */
+        @keyframes heroFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero-main-image {
+            animation: heroFloat 3s ease-in-out infinite;
+        }
+
+        /* Category Section */
+        .category-header {
+            text-align: center;
+            margin: 3rem 0 2rem;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--highlight-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-subtitle {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                gap: 1rem;
+                justify-content: space-between;
+            }
+
+            .hero {
+                padding: 4rem 0 2rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+                max-width: none;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-btn-primary,
+            .hero-btn-secondary {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .footer-design-section {
+                padding: 3rem 0;
+            }
+
+            .service-guarantees {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .guarantee-item {
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+
+            .guarantee-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .guarantee-icon i {
+                font-size: 1.5rem;
+            }
+
+            .guarantee-title {
+                font-size: 1.1rem;
+            }
+
+            .guarantee-desc {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+                            <source src="background1.mp4" type="video/mp4">
+            您的瀏覽器不支援視頻播放。
+        </video>
+    </div>
+    
+    <!-- Background Overlay -->
+    <div class="background-overlay"></div>
+
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="loading-content">
+            <div class="aura"></div>
+            <div class="overlay"></div>
+            <div class="loading-text">LOADING</div>
+        </div>
+    </div>
+
+    <!-- Age Verification -->
+    <div class="age-verification" id="ageVerification">
+        <div class="age-modal">
+            <h2>年齡驗證</h2>
+            <p>根據法律規定，您必須年滿18歲才能購買電子菸產品。</p>
+            <p>請確認您已年滿18歲。</p>
+            <div class="age-buttons">
+                <button class="pulse-button" onclick="verifyAge(true)">我已滿18歲</button>
+                <button class="pulse-button" onclick="verifyAge(false)">未滿18歲</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="#home" class="logo-button" id="navLogo">
+                    <span class="logo-text">DeepVape</span>
+                </a>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li>
+                    <a href="#home">首頁</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="#hosts" class="dropdown-toggle" onclick="toggleDropdown(this)">
+                        主機 <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="sp2_product.html">SP2 一代</a>
+                        <a href="ilia_1_product.html">ilia 一代</a>
+                        <a href="ilia_leather_product.html">皮革款</a>
+                        <a href="ilia_fabric_product.html">布紋款</a>
+                        <a href="hta_vape_product.html">HTX 黑桃</a>
+                    </div>
+                </li>
+                <li class="dropdown-item">
+                    <a href="#pods" class="dropdown-toggle" onclick="toggleDropdown(this)">
+                        煙彈 <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="ilia_pods_product.html">ilia 一代煙彈</a>
+                        <a href="sp2_pods_product.html">SP2 一代煙彈</a>
+                        <a href="lana_pods_product.html">LANA 煙彈</a>
+                    </div>
+                </li>
+                <li class="dropdown-item">
+                    <a href="#disposable" class="dropdown-toggle" onclick="toggleDropdown(this)">
+                        拋棄式 <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="ilia_disposable_product.html">ilia 四代</a>
+                        <a href="lana_a8000_product.html">LANA A8000</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="header-actions">
+                <button class="pulse-button cart-button" onclick="window.location.href='cart.html'">
+                    <i class="fas fa-shopping-cart"></i> 購物車
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Announcement Banner -->
+    <div class="announcement" id="announcement" style="display: none;">
+        <i class="fas fa-bullhorn"></i>
+        <span id="announcementText"></span>
+        <button class="announcement-close" onclick="closeAnnouncement()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Deepvape - 頂級電子菸專賣店</h1>
+                    <h2 class="hero-subtitle">VAPE煙彈、主機、拋棄式</h2>
+                    <p class="hero-description">探索最新科技與極致品味的完美結合，為您帶來前所未有的電子菸體驗</p>
+                    <div class="hero-buttons">
+                        <button class="pulse-button hero-btn-primary" onclick="document.getElementById('hosts').scrollIntoView({behavior: 'smooth'})">
+                            <i class="fas fa-rocket"></i> 立即探索
+                        </button>
+                        <button class="pulse-button hero-btn-secondary" onclick="showContact()">
+                            <i class="fas fa-phone"></i> 聯絡我們
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="images/ui/deepvape_main.png" loading="lazy" alt="Deepvape 電子菸主機與煙彈" class="hero-main-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- 主機系列 -->
+        <section id="hosts">
+            <div class="category-header">
+                <h2 class="category-title">主機系列</h2>
+                <p class="category-subtitle">頂級品質，極致體驗</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card" data-product-id="sp2_device">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="sp2_v/sp2_device_main_showcase.jpg" loading="lazy" alt="SP2 一代電子菸主機" class="product-image" onclick="window.location.href='sp2_product.html'">
+                    <span class="product-badge badge-hot">
+                        <i class="fas fa-fire"></i> 目前最火
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">SP2 一代主機</h3>
+                        <p class="product-description">智能溫控系統，7W~8W功率，400mAH電池</p>
+                        <div class="product-price">
+                            NT$ 650
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='sp2_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="ilia_gen1">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_1/ilia_gen1_main_device.jpg" loading="lazy" alt="ilia 一代電子菸主機" class="product-image" onclick="window.location.href='ilia_1_product.html'">
+                    <span class="product-badge badge-safe">
+                        <i class="fas fa-shield-alt"></i> 安心選擇
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">ilia 一代主機</h3>
+                        <p class="product-description">經典設計，穩定可靠，新手首選</p>
+                        <div class="product-price">
+                            NT$ 650
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='ilia_1_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="ilia_leather">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_L/ilia_leather_device_showcase.jpg" loading="lazy" alt="ilia 皮革款電子菸主機" class="product-image" onclick="window.location.href='ilia_leather_product.html'">
+                    <span class="product-badge badge-new">
+                        <i class="fas fa-star"></i> 新品
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">皮革款主機</h3>
+                        <p class="product-description">奢華質感，手工皮革包覆，限量發售</p>
+                        <div class="product-price">
+                            NT$ 900
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='ilia_leather_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="ilia_fabric">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_Bu/ilia_fabric_device_main.png" loading="lazy" alt="ILIA 布紋電子菸主機" class="product-image" onclick="window.location.href='ilia_fabric_product.html'">
+                    <span class="product-badge badge-new">
+                        <i class="fas fa-palette"></i> 布紋設計
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">ILIA 哩亞布紋主機</h3>
+                        <p class="product-description">時尚布紋外觀、8W~10W功率調節、400mAh電池</p>
+                        <div class="product-price">
+                            NT$ 650
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='ilia_fabric_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="hta_spade">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="hta_vape/hta_spade_device.webp" loading="lazy" alt="HTA 黑桃電子菸主機" class="product-image" onclick="window.location.href='hta_vape_product.html'">
+                    <span class="product-badge badge-hot">
+                        <i class="fas fa-crown"></i> 頂級品牌
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">HTA 黑桃主機</h3>
+                        <p class="product-description">一代二代通用、350mAH電池、CP值極高</p>
+                        <div class="product-price">
+                            NT$ 450
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='hta_vape_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 煙彈系列 -->
+        <section id="pods">
+            <div class="category-header">
+                <h2 class="category-title">煙彈系列</h2>
+                <p class="category-subtitle">多種口味，滿足不同需求</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card" data-product-id="ilia_pods">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="illa_d/哩亞-ILIA煙彈.webp" loading="lazy" alt="ILIA 發光電子菸煙彈" class="product-image" onclick="window.location.href='ilia_pods_product.html'">
+                    <span class="product-badge badge-hot">
+                        <i class="fas fa-lightbulb"></i> 發光設計
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">ILIA 發光煙彈</h3>
+                        <p class="product-description">透明外殼、炫彩發光、25種口味、3顆裝</p>
+                        <div class="product-price">
+                            NT$ 300
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='ilia_pods_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product-id="sp2_pods">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="sp2_d/sp2_pods_cartridge_collection.jpg" loading="lazy" alt="SP2 電子菸煙彈" class="product-image" onclick="window.location.href='sp2_pods_product.html'">
+                    <span class="product-badge badge-new">
+                        <i class="fas fa-star"></i> 32種口味
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">思博瑞 SP2 煙彈</h3>
+                        <p class="product-description">32種豐富口味、2.0ML容量、3%尼古丁含量</p>
+                        <div class="product-price">
+                            NT$ 350
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='sp2_pods_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="hta_pods/hta_spade_pods.webp" loading="lazy" alt="HTA 黑桃電子菸煙彈" class="product-image" onclick="window.location.href='hta_pods_product.html'">
+                    <span class="product-badge badge-hot">
+                        <i class="fas fa-crown"></i> 頂級品牌
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">HTA 黑桃煙彈</h3>
+                        <p class="product-description">15種精選口味、2.0ML容量、頂級煙油配方</p>
+                        <div class="product-price">
+                            NT$ 260
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='hta_pods_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="lana_pods/lana_ceramic_pods_main.webp" loading="lazy" alt="LANA 電子菸煙彈" class="product-image" onclick="window.location.href='lana_pods_product.html'">
+                    <span class="product-badge badge-new">
+                        <i class="fas fa-sparkles"></i> 新口味
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">LANA 煙彈</h3>
+                        <p class="product-description">創新口味，順滑口感</p>
+                        <div class="product-price">
+                            NT$ 280
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='lana_pods_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 拋棄式系列 -->
+        <section id="disposable">
+            <div class="category-header">
+                <h2 class="category-title">拋棄式系列</h2>
+                <p class="category-subtitle">便攜方便，即開即用</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_a_4/-哩亞拋棄式-1000x1000.jpg.webp" loading="lazy" alt="ILIA 拋棄式四代電子菸" class="product-image clickable-image" onclick="window.location.href='ilia_disposable_product.html'">
+                    <span class="product-badge badge-hot">
+                        <i class="fas fa-fire"></i> 暢銷
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">ILIA 拋棄式四代</h3>
+                        <p class="product-description">6500口大容量，21種口味，TYPE-C充電</p>
+                        <div class="product-price">
+                            NT$ 320
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='ilia_disposable_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="lana_a8000/lana_a8000.webp" loading="lazy" alt="LANA A8000 拋棄式電子菸" class="product-image clickable-image" onclick="window.location.href='lana_a8000_product.html'">
+                    <span class="product-badge badge-new">
+                        <i class="fas fa-star"></i> 新品
+                    </span>
+                    <div class="product-info">
+                        <h3 class="product-name">LANA A8000 拋棄式</h3>
+                        <p class="product-description">8000口超長續航，多種口味選擇</p>
+                        <div class="product-price">
+                            NT$ 320
+                        </div>
+                        <div class="sold-count">
+                            <i class="fas fa-fire"></i> 已售出 <span class="sold-number">0</span> 件
+                        </div>
+                        <button class="pulse-button" onclick="window.location.href='lana_a8000_product.html'">
+                            <i class="fas fa-shopping-cart"></i> 立即選購
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalProductName">商品名稱</h2>
+                <button class="modal-close" onclick="closeProductModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="option-group">
+                <label class="option-label">選擇顏色</label>
+                <div class="option-buttons" id="colorOptions">
+                    <button class="option-button selected" onclick="selectOption(this, 'color')">黑色</button>
+                    <button class="option-button" onclick="selectOption(this, 'color')">銀色</button>
+                    <button class="option-button" onclick="selectOption(this, 'color')">藍色</button>
+                    <button class="option-button" onclick="selectOption(this, 'color')">紅色</button>
+                </div>
+            </div>
+
+            <div class="option-group">
+                <label class="option-label">選擇數量</label>
+                <div class="quantity-selector">
+                    <button class="quantity-button" onclick="changeQuantity(-1)">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="99">
+                    <button class="quantity-button" onclick="changeQuantity(1)">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="option-group">
+                <label class="option-label">配送方式</label>
+                <div class="option-buttons" id="shippingOptions">
+                    <button class="option-button selected" onclick="selectOption(this, 'shipping')">7-11 店到店</button>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>商品單價</span>
+                    <span id="unitPrice">NT$ 0</span>
+                </div>
+                <div class="summary-row">
+                    <span>數量</span>
+                    <span id="summaryQuantity">1</span>
+                </div>
+                <div class="summary-row">
+                    <span>運費</span>
+                    <span>NT$ 60</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>總計</span>
+                    <span id="totalPrice">NT$ 0</span>
+                </div>
+            </div>
+
+            <button class="pulse-button pulsing" onclick="submitOrder()">
+                <i class="fas fa-paper-plane"></i> 送出訂單
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast toast-success" id="toast">
+        <i class="fas fa-check-circle toast-icon"></i>
+        <div>
+            <div class="toast-title">訂單已送出！</div>
+            <div class="toast-message">即將為您轉接客服...</div>
+        </div>
+    </div>
+
+    <!-- Footer 上方設計區域 -->
+    <section class="footer-design-section">
+        <div class="design-container">
+            <div class="service-guarantees">
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-shield-check"></i>
+                    </div>
+                    <div class="guarantee-content">
+                        <h3 class="guarantee-title">正品保證</h3>
+                        <p class="guarantee-desc">所有VAPE產品均來自專櫃</p>
+                    </div>
+                </div>
+                
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-undo-alt"></i>
+                    </div>
+                    <div class="guarantee-content">
+                        <h3 class="guarantee-title">免費退貨和退換貨</h3>
+                        <p class="guarantee-desc">所有VAPE訂單均可免費退換貨</p>
+                    </div>
+                </div>
+                
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <div class="guarantee-content">
+                        <h3 class="guarantee-title">空運快速出貨</h3>
+                        <p class="guarantee-desc">所有VAPE訂單將於48小時內寄出</p>
+                    </div>
+                </div>
+                
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="guarantee-content">
+                        <h3 class="guarantee-title">VAPE顧問服務</h3>
+                        <p class="guarantee-desc">我們VAPE顧問隨時為您貼心服務</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>關於 Deepvape</h3>
+                <ul>
+                    <li><a href="pages/brand_story.html">品牌故事</a></li>
+                    <li><a href="#">最新消息</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>客戶服務</h3>
+                <ul>
+                    <li><a href="pages/shopping_guide.html">購物說明</a></li>
+                    <li><a href="pages/shipping_info.html">運送方式</a></li>
+                    <li><a href="pages/return_policy.html">退換貨政策</a></li>
+                    <li><a href="pages/faq.html">常見問題</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>聯絡我們</h3>
+                <ul>
+    
+                    <li><i class="fab fa-line"></i> LINE ID：@deepvape</li>
+                    <li><i class="fas fa-envelope"></i> Email：service@52012.xyz</li>
+                    <li><i class="fas fa-clock"></i> 服務時間：週一至週五 10:00-18:00</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>關注我們</h3>
+                <p>追蹤最新優惠與新品資訊</p>
+                <div style="margin-top: 1rem;">
+                    <a href="#" style="margin-right: 1rem;"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="#" style="margin-right: 1rem;"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-telegram fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Deepvape. All rights reserved. | 本網站僅供18歲以上成年人瀏覽</p>
+            <p>警告：吸菸有害健康</p>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let currentProduct = '';
+        let currentPrice = 0;
+        let selectedOptions = {
+            color: '黑色',
+            quantity: 1,
+            shipping: '7-11 店到店'
+        };
+
+        // Loading
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Age Verification
+        function verifyAge(isAdult) {
+            if (isAdult) {
+                document.getElementById('ageVerification').classList.add('hidden');
+                sessionStorage.setItem('ageVerified', 'true');
+            } else {
+                alert('很抱歉，您必須年滿18歲才能訪問本網站。');
+                window.location.href = 'https://www.google.com';
+            }
+        }
+
+        // Check age verification
+        if (sessionStorage.getItem('ageVerified') === 'true') {
+            document.getElementById('ageVerification').classList.add('hidden');
+        }
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger i');
+            
+            navMenu.classList.toggle('active');
+            
+            if (navMenu.classList.contains('active')) {
+                hamburger.classList.remove('fa-bars');
+                hamburger.classList.add('fa-times');
+            } else {
+                hamburger.classList.remove('fa-times');
+                hamburger.classList.add('fa-bars');
+            }
+        }
+
+        // Dropdown toggle for mobile menu
+        function toggleDropdown(element) {
+            // 防止事件冒泡
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const dropdown = element.nextElementSibling;
+            const isActive = dropdown.classList.contains('active');
+            
+            // 關閉所有其他下拉選單
+            document.querySelectorAll('.dropdown.active').forEach(dd => {
+                dd.classList.remove('active');
+            });
+            document.querySelectorAll('.dropdown-toggle.active').forEach(toggle => {
+                toggle.classList.remove('active');
+            });
+            
+            // 切換當前下拉選單
+            if (!isActive) {
+                dropdown.classList.add('active');
+                element.classList.add('active');
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const navContainer = document.querySelector('.nav-container');
+            
+            if (!navContainer.contains(e.target) && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                document.querySelector('.hamburger i').classList.remove('fa-times');
+                document.querySelector('.hamburger i').classList.add('fa-bars');
+                
+                // 同時關閉所有下拉選單
+                document.querySelectorAll('.dropdown.active').forEach(dd => {
+                    dd.classList.remove('active');
+                });
+                document.querySelectorAll('.dropdown-toggle.active').forEach(toggle => {
+                    toggle.classList.remove('active');
+                });
+            }
+        });
+
+        // Product Modal
+        function openProductModal(productName, price) {
+            currentProduct = productName;
+            currentPrice = price;
+            
+            document.getElementById('modalProductName').textContent = productName;
+            document.getElementById('unitPrice').textContent = `NT$ ${price.toLocaleString()}`;
+            
+            // Reset quantity
+            document.getElementById('quantity').value = 1;
+            selectedOptions.quantity = 1;
+            
+            updateTotalPrice();
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        // Option Selection
+        function selectOption(button, type) {
+            // Remove selected class from siblings
+            const siblings = button.parentElement.querySelectorAll('.option-button');
+            siblings.forEach(btn => btn.classList.remove('selected'));
+            
+            // Add selected class to clicked button
+            button.classList.add('selected');
+            
+            // Update selected options
+            selectedOptions[type] = button.textContent;
+        }
+
+        // Quantity Control
+        function changeQuantity(delta) {
+            const input = document.getElementById('quantity');
+            let value = parseInt(input.value) + delta;
+            
+            if (value < 1) value = 1;
+            if (value > 99) value = 99;
+            
+            input.value = value;
+            selectedOptions.quantity = value;
+            updateTotalPrice();
+        }
+
+        document.getElementById('quantity').addEventListener('change', function() {
+            let value = parseInt(this.value);
+            if (isNaN(value) || value < 1) value = 1;
+            if (value > 99) value = 99;
+            this.value = value;
+            selectedOptions.quantity = value;
+            updateTotalPrice();
+        });
+
+        // Update Total Price
+        function updateTotalPrice() {
+            const quantity = selectedOptions.quantity;
+            const shipping = 60;
+            const total = (currentPrice * quantity) + shipping;
+            
+            document.getElementById('summaryQuantity').textContent = quantity;
+            document.getElementById('totalPrice').textContent = `NT$ ${total.toLocaleString()}`;
+        }
+
+        // Submit Order
+        function submitOrder() {
+            const orderData = {
+                product: currentProduct,
+                price: currentPrice,
+                ...selectedOptions,
+                total: (currentPrice * selectedOptions.quantity) + 60,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Show success toast
+            showToast();
+            
+            // Close modal
+            closeProductModal();
+            
+            // Simulate sending to Telegram bot
+            console.log('Order sent to Telegram:', orderData);
+            
+            // Redirect to LINE after delay
+            setTimeout(() => {
+                showContact();
+            }, 2000);
+        }
+
+        // Show Toast
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Show Contact (LINE)
+        function showContact() {
+            window.open('https://line.me/ti/p/euNh8K-s3e', '_blank');
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 載入公告
+        async function loadAnnouncements() {
+            try {
+                const response = await fetch('http://127.0.0.1:5001/api/announcements');
+                if (response.ok) {
+                    const announcements = await response.json();
+                    if (announcements.length > 0) {
+                        displayAnnouncement(announcements[0]); // 顯示第一個公告
+                    }
+                }
+            } catch (error) {
+                console.log('無法載入公告:', error);
+                // 顯示默認公告
+                displayAnnouncement({
+                    title: '歡迎來到 Deepvape',
+                    content: '🎉 新品上市！全館滿 $1500 免運費 🚚',
+                    priority: 2
+                });
+            }
+        }
+
+        // 顯示公告
+        function displayAnnouncement(announcement) {
+            const announcementEl = document.getElementById('announcement');
+            const announcementText = document.getElementById('announcementText');
+            
+            if (announcement && announcement.content) {
+                announcementText.textContent = announcement.content;
+                
+                // 根據優先級設定樣式
+                announcementEl.className = 'announcement';
+                if (announcement.priority === 3) {
+                    announcementEl.classList.add('priority-high');
+                } else if (announcement.priority === 2) {
+                    announcementEl.classList.add('priority-medium');
+                } else {
+                    announcementEl.classList.add('priority-low');
+                }
+                
+                // 檢查是否已被關閉
+                const closedAnnouncements = JSON.parse(localStorage.getItem('closedAnnouncements') || '[]');
+                if (!closedAnnouncements.includes(announcement.id)) {
+                    announcementEl.style.display = 'block';
+                }
+                
+                // 設定公告 ID
+                if (announcement.id) {
+                    announcementEl.dataset.id = announcement.id;
+                }
+            }
+        }
+
+        // 關閉公告
+        function closeAnnouncement() {
+            const announcementEl = document.getElementById('announcement');
+            announcementEl.style.display = 'none';
+            
+            // 記住已關閉的公告（如果有 ID）
+            const announcementId = announcementEl.dataset.id;
+            if (announcementId) {
+                const closedAnnouncements = JSON.parse(localStorage.getItem('closedAnnouncements') || '[]');
+                if (!closedAnnouncements.includes(parseInt(announcementId))) {
+                    closedAnnouncements.push(parseInt(announcementId));
+                    localStorage.setItem('closedAnnouncements', JSON.stringify(closedAnnouncements));
+                }
+            }
+        }
+
+        // 載入產品數據
+        async function loadProducts() {
+            try {
+                const response = await fetch('http://127.0.0.1:5001/api/products');
+                if (response.ok) {
+                    const products = await response.json();
+                    renderProducts(products);
+                } else {
+                    console.error('無法載入產品數據');
+                    // 保持現有的靜態產品顯示
+                }
+            } catch (error) {
+                console.error('載入產品時發生錯誤:', error);
+                // 保持現有的靜態產品顯示
+            }
+        }
+
+        // 渲染產品到頁面
+        function renderProducts(products) {
+            // 按分類分組產品
+            const productsByCategory = {
+                hosts: products.filter(p => p.category.slug === 'hosts'),
+                pods: products.filter(p => p.category.slug === 'pods'),
+                disposable: products.filter(p => p.category.slug === 'disposable')
+            };
+
+            // 渲染主機系列
+            renderCategoryProducts('hosts', productsByCategory.hosts);
+            
+            // 渲染煙彈系列
+            renderCategoryProducts('pods', productsByCategory.pods);
+            
+            // 渲染拋棄式系列
+            renderCategoryProducts('disposable', productsByCategory.disposable);
+        }
+
+        // 渲染特定分類的產品
+        function renderCategoryProducts(categorySlug, products) {
+            const section = document.getElementById(categorySlug);
+            if (!section || products.length === 0) return;
+
+            const productGrid = section.querySelector('.product-grid');
+            if (!productGrid) return;
+
+            // 清空現有產品（保留靜態產品作為備用）
+            // productGrid.innerHTML = '';
+
+            // 更新現有產品卡片的數據
+            const productCards = productGrid.querySelectorAll('.product-card');
+            
+            products.forEach((product, index) => {
+                if (index < productCards.length) {
+                    updateProductCard(productCards[index], product);
+                } else {
+                    // 如果產品數量超過現有卡片，創建新卡片
+                    const newCard = createProductCard(product);
+                    productGrid.appendChild(newCard);
+                }
+            });
+        }
+
+        // 更新產品卡片數據
+        function updateProductCard(cardElement, product) {
+            const img = cardElement.querySelector('.product-image');
+            const badge = cardElement.querySelector('.product-badge');
+            const name = cardElement.querySelector('.product-name');
+            const description = cardElement.querySelector('.product-description');
+            const price = cardElement.querySelector('.product-price');
+            const button = cardElement.querySelector('.pulse-button');
+
+            if (img && product.main_image) {
+                img.src = product.main_image;
+                img.alt = product.name;
+            }
+
+            if (badge && product.badge_text) {
+                badge.innerHTML = getBadgeIcon(product.badge_type) + ' ' + product.badge_text;
+                badge.className = `product-badge badge-${product.badge_type}`;
+            }
+
+            if (name) name.textContent = product.name;
+            if (description) description.textContent = product.description;
+            if (price) price.textContent = `NT$ ${product.price}`;
+
+            // 更新點擊事件
+            const productUrl = getProductUrl(product);
+            if (img) img.onclick = () => window.location.href = productUrl;
+            if (button) button.onclick = () => window.location.href = productUrl;
+        }
+
+        // 創建新的產品卡片
+        function createProductCard(product) {
+            const productUrl = getProductUrl(product);
+            
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="${product.main_image}" loading="lazy" alt="${product.name}" class="product-image" onclick="window.location.href='${productUrl}'">
+                <span class="product-badge badge-${product.badge_type}">
+                    ${getBadgeIcon(product.badge_type)} ${product.badge_text}
+                </span>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-price">
+                        NT$ ${product.price}
+                    </div>
+                    <button class="pulse-button" onclick="window.location.href='${productUrl}'">
+                        <i class="fas fa-shopping-cart"></i> 立即選購
+                    </button>
+                </div>
+            `;
+            return card;
+        }
+
+        // 獲取徽章圖標
+        function getBadgeIcon(badgeType) {
+            const icons = {
+                hot: '<i class="fas fa-fire"></i>',
+                new: '<i class="fas fa-star"></i>',
+                safe: '<i class="fas fa-shield-alt"></i>',
+                limited: '<i class="fas fa-gem"></i>'
+            };
+            return icons[badgeType] || '<i class="fas fa-tag"></i>';
+        }
+
+        // 獲取產品頁面 URL
+        function getProductUrl(product) {
+            // 根據產品名稱映射到對應的頁面
+            const urlMap = {
+                'SP2 一代主機': 'sp2_product.html',
+                'ILIA 一代主機': 'ilia_1_product.html',
+                'ILIA 皮革主機': 'ilia_leather_product.html',
+                'ILIA 哩亞布紋主機': 'ilia_fabric_product.html',
+                'HTA 黑桃主機': 'hta_vape_product.html',
+                'ILIA 發光煙彈': 'ilia_pods_product.html',
+                'SP2 煙彈': 'sp2_pods_product.html',
+                'ILIA 拋棄式四代': 'ilia_disposable_product.html',
+                'LANA A8000': 'lana_a8000_product.html',
+                'LANA A8000 拋棄式': 'lana_a8000_product.html'
+            };
+            return urlMap[product.name] || '#';
+        }
+
+        // 頁面載入時載入公告和產品
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+                loadAnnouncements(); // 載入公告
+                loadProducts(); // 載入產品
+            }, 1500);
+        });
+
+        // 後台管理入口 - 隱藏功能
+        let clickCount = 0;
+        let clickTimer = null;
+        
+        function handleLogoClick() {
+            clickCount++;
+            
+            if (clickTimer) {
+                clearTimeout(clickTimer);
+            }
+            
+            // 如果在2秒內點擊logo 5次，顯示後台入口
+            if (clickCount >= 5) {
+                showAdminEntry();
+                clickCount = 0;
+                return;
+            }
+            
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 2000);
+        }
+        
+        function showAdminEntry() {
+            const adminEntry = document.createElement('div');
+            adminEntry.id = 'adminEntry';
+            adminEntry.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.9);
+                color: white;
+                padding: 30px;
+                border-radius: 15px;
+                text-align: center;
+                z-index: 10000;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(10px);
+            `;
+            
+            adminEntry.innerHTML = `
+                                 <h3 style="margin-bottom: 20px; color: #00d4ff;">🔐 後台管理入口</h3>
+                 <p style="margin-bottom: 20px; color: #ccc;">點擊進入管理後台：</p>
+                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                     <button onclick="window.open('http://192.168.2.16:5001/login', '_blank')" 
+                             style="padding: 15px 30px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">
+                         🚀 進入後台管理
+                     </button>
+                     <button onclick="closeAdminEntry()" 
+                             style="padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">
+                         ❌ 關閉
+                     </button>
+                 </div>
+                <div style="margin-top: 15px; font-size: 12px; color: #888;">
+                    <p>👤 帳號：admin</p>
+                    <p>🔑 密碼：admin123</p>
+                </div>
+            `;
+            
+            document.body.appendChild(adminEntry);
+        }
+        
+        function closeAdminEntry() {
+            const adminEntry = document.getElementById('adminEntry');
+            if (adminEntry) {
+                adminEntry.remove();
+            }
+        }
+        
+        // 生成隨機售出數量
+        function generateRandomSoldCount() {
+            const soldNumbers = document.querySelectorAll('.sold-number');
+            soldNumbers.forEach(element => {
+                const randomCount = Math.floor(Math.random() * (520 - 38 + 1)) + 38;
+                element.textContent = randomCount;
+            });
+        }
+
+        // 為logo添加點擊事件
+        document.addEventListener('DOMContentLoaded', function() {
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.style.cursor = 'pointer';
+                logo.addEventListener('click', handleLogoClick);
+            }
+            
+            // 生成隨機售出數量
+            generateRandomSoldCount();
+        });
+    </script>
+
+    
+
+    <!-- 內容管理系統 -->
+    <script src="/js/content-manager.js"></script>
+    
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "https://52012.xyz/admin/";
+            });
+          }
+        });
+      }
+    </script>
+
+    <script src="js/lazy-load.js"></script>
+</body>
+</html>

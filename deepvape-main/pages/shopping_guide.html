@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>購物流程說明 - Image Vape</title>
+    <link rel="icon" type="image/png" href="../images/ui/deepvape_logo_main.png">
+    <link rel="shortcut icon" type="image/png" href="../images/ui/deepvape_logo_main.png">
+    <link rel="apple-touch-icon" href="../images/ui/deepvape_logo_main.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: linear-gradient(135deg, #083e12 0%, #041348 50%, #3d43b4 100%);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 導航欄 */
+        .navbar {
+            background: #000000;
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid transparent;
+            animation: navBorderMove 3s infinite linear;
+        }
+
+        @keyframes navBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid rgba(26, 254, 73, 0.3);
+        }
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: #1afe49;
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid #1afe49;
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, #1afe49, #8386f5, #1afe49);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-links a:hover {
+            color: #1afe49;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(4, 19, 72, 0.95);
+                flex-direction: column;
+                padding: 2rem 0;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1001;
+                overflow-y: auto;
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .nav-links a {
+                padding: 1rem 2rem;
+                display: block;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* 主要內容 */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(4, 19, 72, 0.9);
+            border: 1px solid rgba(26, 254, 73, 0.2);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        /* 頁面標題 */
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1afe49, #8386f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-shadow: none;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 主圖 */
+        .hero-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 30px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 步驟區域 */
+        .steps-container {
+            display: grid;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-left: 5px solid #1afe49;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(26, 254, 73, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .step-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #1afe49, #8386f5);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 1.5rem;
+            box-shadow: 0 5px 15px rgba(26, 254, 73, 0.3);
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+            text-shadow: none;
+        }
+
+        .step-content {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .step-icon {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 3rem;
+            color: rgba(26, 254, 73, 0.2);
+        }
+
+        /* 重要提醒區域 */
+        .important-notice {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border-radius: 30px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.3);
+        }
+
+        .important-notice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .important-notice:hover::before {
+            transform: translateX(100%);
+        }
+
+        .notice-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .notice-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(4, 19, 72, 0.9);
+            border-top: 1px solid rgba(26, 254, 73, 0.2);
+            border-radius: 30px 30px 0 0;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #1afe49;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-section ul li a:hover {
+            color: #1afe49;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .step-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .step-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .step-icon {
+                display: none;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="../images/ui/deepvape_logo_main.png" alt="Logo">
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="shopping_guide.html">購物說明</a></li>
+                <li><a href="cart.html">購物車</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要內容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 頁面標題 -->
+            <div class="page-header">
+                <h1 class="page-title">購物流程說明</h1>
+                <p class="page-subtitle">簡單三步驟，輕鬆完成購物</p>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=300&q=80" loading="lazy" alt="購物流程" class="hero-image">
+            </div>
+
+            <!-- 購物步驟 -->
+            <div class="steps-container">
+                <!-- 步驟一 -->
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h2 class="step-title">挑選商品</h2>
+                    </div>
+                    <div class="step-content">
+                        <p>瀏覽我們的產品頁面，選擇您喜歡的電子煙主機或煙彈。每個產品都有詳細的規格說明和多種口味選擇。找到心儀的商品後，選擇數量和口味，點擊【加入購物車】按鈕即可。</p>
+                    </div>
+                    <i class="fas fa-shopping-bag step-icon"></i>
+                </div>
+
+                <!-- 步驟二 -->
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h2 class="step-title">結帳與填寫資料</h2>
+                    </div>
+                    <div class="step-content">
+                        <p>進入購物車頁面確認商品無誤後，填寫取件人姓名、聯絡電話等必要資訊。選擇取貨的便利商店（7-11或全家），並填寫正確的門市名稱和門市號碼。確認所有資訊正確後，點擊【建立訂單】。</p>
+                    </div>
+                    <i class="fas fa-credit-card step-icon"></i>
+                </div>
+
+                <!-- 步驟三 -->
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h2 class="step-title">官方網站寄送超商</h2>
+                    </div>
+                    <div class="step-content">
+                        <p>訂單確認後，我們會在4-5個工作天內將商品寄送到您指定的便利商店。您會收到取貨通知，請攜帶身分證件到門市取貨。取貨時請確認商品無誤再完成取貨程序。</p>
+                    </div>
+                    <i class="fas fa-truck step-icon"></i>
+                </div>
+            </div>
+
+            <!-- 重要提醒 -->
+            <div class="important-notice">
+                <h3 class="notice-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    重要提醒
+                </h3>
+                <div class="notice-content">
+                    <p>• 請確保填寫的個人資料正確無誤，以免影響取貨</p>
+                    <p>• 門市資訊請務必填寫完整，包含正確的門市名稱和號碼</p>
+                    <p>• 商品寄達門市後請盡快取貨，避免超過保管期限</p>
+                    <p>• 取貨時請攜帶身分證件以供核對身份</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>主機系列</h3>
+                <ul>
+                    <li><a href="sp2_product.html">SP2 一代主機</a></li>
+                    <li><a href="ilia_1_product.html">ILIA 一代主機</a></li>
+                    <li><a href="ilia_leather_product.html">ILIA 皮革主機</a></li>
+                    <li><a href="ilia_fabric_product.html">ILIA 布紋主機</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>煙彈系列</h3>
+                <ul>
+                    <li><a href="sp2_pods_product.html">SP2 煙彈</a></li>
+                    <li><a href="ilia_pods_product.html">ILIA 發光煙彈</a></li>
+                    <li><a href="hta_pods_product.html">HTA 煙彈</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>拋棄式系列</h3>
+                <ul>
+                    <li><a href="ilia_disposable_product.html">ILIA 拋棄式四代</a></li>
+                    <li><a href="hta_vape_product.html">HTA 拋棄式</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>服務資訊</h3>
+                <ul>
+                    <li><a href="shopping_guide.html">購物說明</a></li>
+                    <li><a href="cart.html">購物車</a></li>
+                    <li><a href="index.html">返回首頁</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 漢堡選單功能
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger i');
+            
+            navLinks.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                hamburger.classList.remove('fa-bars');
+                hamburger.classList.add('fa-times');
+            } else {
+                hamburger.classList.remove('fa-times');
+                hamburger.classList.add('fa-bars');
+            }
+        }
+
+        // 點擊外部關閉選單
+        document.addEventListener('click', function(e) {
+            const navLinks = document.getElementById('navLinks');
+            const navContainer = document.querySelector('.nav-container');
+            
+            if (!navContainer.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                document.querySelector('.hamburger i').classList.remove('fa-times');
+                document.querySelector('.hamburger i').classList.add('fa-bars');
+            }
+        });
+    </script>
+
+    
+</body>
+</html> 

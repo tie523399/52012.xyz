@@ -1,0 +1,200 @@
+{
+  "products": [
+    {
+      "id": "sp2_device",
+      "name": "SP2 一代主機",
+      "price": 650,
+      "originalPrice": null,
+      "discount": null,
+      "lastUpdated": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "ilia_gen1",
+      "name": "ilia 一代主機",
+      "price": 650,
+      "originalPrice": null,
+      "discount": null,
+      "lastUpdated": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "ilia_leather",
+      "name": "皮革款主機",
+      "price": 900,
+      "originalPrice": null,
+      "discount": null,
+      "lastUpdated": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "ilia_fabric",
+      "name": "ILIA 哩亞布紋主機",
+      "price": 650,
+      "originalPrice": null,
+      "discount": null,
+      "lastUpdated": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "ilia_pods",
+      "name": "ILIA 發光煙彈",
+      "price": 300,
+      "originalPrice": null,
+      "discount": null,
+      "lastUpdated": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "hta_spade",
+      "name": "HTA 黑桃主機",
+      "price": 450,
+      "originalPrice": null,
+      "discount": null,
+      "lastUpdated": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "sp2_pods",
+      "name": "思博瑞 SP2 煙彈",
+      "price": 350,
+      "originalPrice": null,
+      "discount": null,
+      "lastUpdated": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "hta_pods",
+      "name": "HTA 黑桃煙彈",
+      "price": 260,
+      "originalPrice": null,
+      "discount": null,
+      "lastUpdated": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "ilia_disposable",
+      "name": "ilia 四代拋棄式",
+      "price": 350,
+      "originalPrice": null,
+      "discount": null,
+      "lastUpdated": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "lana_a8000",
+      "name": "LANA A8000",
+      "price": 350,
+      "originalPrice": null,
+      "discount": null,
+      "lastUpdated": "2024-01-15T10:00:00.000Z"
+    }
+  ],
+  "sp2": {
+    "name": "SP2",
+    "categories": [
+      {
+        "id": "fruit",
+        "name": "水果口味",
+        "items": [
+          {
+            "id": "sp2-fruit-apple",
+            "name": "蘋果",
+            "price": 200,
+            "available": true
+          },
+          {
+            "id": "sp2-fruit-grape",
+            "name": "葡萄",
+            "price": 200,
+            "available": true
+          },
+          {
+            "id": "sp2-fruit-strawberry",
+            "name": "草莓",
+            "price": 200,
+            "available": true
+          }
+        ]
+      },
+      {
+        "id": "beverage",
+        "name": "飲料口味",
+        "items": [
+          {
+            "id": "sp2-beverage-cola",
+            "name": "可樂",
+            "price": 200,
+            "available": true
+          },
+          {
+            "id": "sp2-beverage-energy",
+            "name": "能量飲料",
+            "price": 200,
+            "available": true
+          }
+        ]
+      }
+    ]
+  },
+  "ilia": {
+    "name": "ILIA",
+    "categories": [
+      {
+        "id": "classic",
+        "name": "經典系列",
+        "items": [
+          {
+            "id": "ilia-classic-black",
+            "name": "經典黑",
+            "price": 250,
+            "available": true
+          },
+          {
+            "id": "ilia-classic-silver",
+            "name": "時尚銀",
+            "price": 250,
+            "available": true
+          }
+        ]
+      }
+    ]
+  },
+  "lana": {
+    "name": "LANA",
+    "categories": [
+      {
+        "id": "premium",
+        "name": "高級系列",
+        "items": [
+          {
+            "id": "lana-premium-gold",
+            "name": "尊爵金",
+            "price": 300,
+            "available": true
+          },
+          {
+            "id": "lana-premium-rose",
+            "name": "玫瑰金",
+            "price": 300,
+            "available": true
+          }
+        ]
+      }
+    ]
+  },
+  "hta": {
+    "name": "HTA",
+    "categories": [
+      {
+        "id": "standard",
+        "name": "標準系列",
+        "items": [
+          {
+            "id": "hta-standard-blue",
+            "name": "海洋藍",
+            "price": 220,
+            "available": true
+          },
+          {
+            "id": "hta-standard-green",
+            "name": "森林綠",
+            "price": 220,
+            "available": true
+          }
+        ]
+      }
+    ]
+  }
+}

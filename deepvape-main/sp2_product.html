@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- CSS Already Optimized -->
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SP2 一代主機 - Deepvape 頂級電子菸專賣店</title>
+    <meta name="description" content="購買 SP2 一代主機，體驗智能溫控與卓越性能。Deepvape 提供多種顏色選擇，正品保證，快速到貨。立即選購您的 SP2 VAPE 主機。">
+    <meta name="keywords" content="SP2, SP2主機, 思博瑞, VAPE主機, 電子菸, Deepvape">
+    <link rel="canonical" href="https://52012.xyz/sp2_product.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://52012.xyz/sp2_product.html">
+    <meta property="og:title" content="SP2 一代主機 - Deepvape 頂級電子菸專賣店">
+    <meta property="og:description" content="購買 SP2 一代主機，體驗智能溫控與卓越性能。Deepvape 提供多種顏色選擇，正品保證，快速到貨。">
+    <meta property="og:image" content="https://52012.xyz/sp2_v/sp2_device_main_showcase.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://52012.xyz/sp2_product.html">
+    <meta property="twitter:title" content="SP2 一代主機 - Deepvape 頂級電子菸專賣店">
+    <meta property="twitter:description" content="購買 SP2 一代主機，體驗智能溫控與卓越性能。Deepvape 提供多種顏色選擇，正品保證，快速到貨。">
+    <meta property="twitter:image" content="https://52012.xyz/sp2_v/sp2_device_main_showcase.jpg">
+    
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        :root {
+            --primary-color: #083e12;
+            --secondary-color: #041348;
+            --accent-color: #3d43b4;
+            --highlight-color: #1afe49;
+            --success-color: #1afe49;
+            --warning-color: #ffab00;
+            --tech-blue: #041348;
+            --tech-cyan: #8386f5;
+            --text-color: #ffffff;
+            --text-secondary: #a0f7b3;
+            --card-bg: rgba(4, 19, 72, 0.8);
+            --border-color: rgba(26, 254, 73, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: #000000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border: 2px solid transparent;
+            animation: headerBorderMove 3s infinite linear;
+        }
+
+        @keyframes headerBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid rgba(26, 254, 73, 0.3);
+        }
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: var(--highlight-color);
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid var(--highlight-color);
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, var(--highlight-color), var(--tech-cyan), var(--highlight-color));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .back-button, .cart-button {
+            background: var(--accent-color);
+            color: var(--text-color);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 2px solid var(--border-color);
+        }
+
+        .back-button:hover {
+            background: var(--highlight-color);
+            transform: translateY(-2px);
+            border-color: var(--highlight-color);
+        }
+
+        .cart-button {
+            background: var(--highlight-color);
+        }
+
+        .cart-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        /* Product Detail Container */
+        .product-detail {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Product Images */
+        .product-images {
+            position: sticky;
+            top: 120px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .gallery-image:hover,
+        .gallery-image.active {
+            border-color: var(--highlight-color);
+            transform: scale(1.05);
+        }
+
+        /* Product Info */
+        .product-info {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .product-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(45deg, var(--highlight-color), var(--tech-cyan));
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--highlight-color);
+            margin-bottom: 2rem;
+        }
+
+        .product-description {
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 30px;
+        }
+
+        /* Specifications */
+        .specifications {
+            margin-bottom: 2rem;
+        }
+
+        .spec-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--highlight-color);
+        }
+
+        .spec-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .spec-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .spec-list li:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .spec-value {
+            color: var(--highlight-color);
+        }
+
+        /* Color Options */
+        .color-options {
+            margin-bottom: 2rem;
+        }
+
+        .color-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .color-option {
+            padding: 0.8rem;
+            background: var(--accent-color);
+            border: 2px solid transparent;
+            border-radius: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .color-option:hover,
+        .color-option.selected {
+            border-color: var(--highlight-color);
+            background: rgba(26, 254, 73, 0.2);
+            color: var(--text-color);
+        }
+
+        /* Smart Features */
+        .smart-features {
+            margin-bottom: 2rem;
+        }
+
+        .smart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .smart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .smart-feature-info {
+            padding: 1rem;
+            background: var(--accent-color);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .smart-feature-info:hover {
+            border-color: var(--highlight-color);
+            background: rgba(26, 254, 73, 0.1);
+        }
+
+        .smart-icon {
+            font-size: 1.5rem;
+            color: var(--highlight-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .smart-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .smart-desc {
+            font-size: 0.7rem;
+            color: var(--text-color);
+            margin-top: 0.3rem;
+        }
+
+        /* Quantity Selector */
+        .quantity-selector {
+            margin-bottom: 2rem;
+        }
+
+        .quantity-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--accent-color);
+            color: var(--text-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background: var(--highlight-color);
+        }
+
+        .quantity-input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            background: var(--secondary-color);
+            color: var(--text-color);
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .pulse-button {
+            background: linear-gradient(45deg, var(--highlight-color), var(--tech-cyan));
+            color: var(--primary-color);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .pulse-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .pulse-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .pulse-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(26, 254, 73, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            margin-top: 2rem;
+        }
+
+        .features-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--highlight-color);
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-color);
+        
+            color: var(--text-color);}
+
+        .features-list li i {
+            color: var(--highlight-color);
+            width: 20px;
+        }
+
+        /* Tech Badge */
+        .tech-badge {
+            background: linear-gradient(45deg, var(--highlight-color), var(--tech-cyan));
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-images {
+                position: static;
+            }
+
+            .product-title {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .color-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .smart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Warning Notice */
+        .warning-notice {
+            background: rgba(255, 171, 0, 0.1);
+            border: 1px solid var(--warning-color);
+            border-radius: 30px;
+            padding: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--text-color);
+        
+            color: var(--text-color);}
+
+        .warning-notice i {
+            color: var(--warning-color);
+            margin-right: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="css/common-styles.css">
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html" class="logo-button vfx-logo" id="navLogo">
+                    <span class="logo-text">DeepVape</span>
+                </a>
+            </div>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-button">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Detail -->
+    <div class="product-detail">
+        <!-- Product Images -->
+        <div class="product-images">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="sp2_v/sp2_device_main_showcase.jpg" loading="lazy" alt="SP2 一代主機" class="main-image" id="mainImage">
+            <div class="image-gallery">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="sp2_v/sp2_device_galaxy_blue.jpg" loading="lazy" alt="SP2 一代主機 - 星河藍" class="gallery-image active" onclick="changeImage('sp2_v/sp2_device_galaxy_blue.jpg', this)">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="sp2_v/sp2_device_samurai_black.jpg" loading="lazy" alt="SP2 一代主機 - 武士黑" class="gallery-image" onclick="changeImage('sp2_v/sp2_device_samurai_black.jpg', this)">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="sp2_v/sp2_device_deep_sea_green.jpg" loading="lazy" alt="SP2 一代主機 - 深海綠" class="gallery-image" onclick="changeImage('sp2_v/sp2_device_deep_sea_green.jpg', this)">
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info" data-product-id="sp2_device">
+            <span class="product-badge">熱銷主機</span>
+            <h1 class="product-title">SP2 一代主機</h1>
+            <p class="product-short-description">
+                智能溫控，極致輕巧，多種潮流色彩選擇，為您帶來順滑穩定的VAPE體驗。
+            </p>
+            
+            <div class="product-price">NT$ 650</div>
+            
+            <div class="product-description">
+                SP2S 一代主機以其獨特的設計和創新的性能，成為市場上的大熱電子菸產品，
+                為您帶來前所未有的電子菸體驗。擁有 16 種顏色選擇，內建智能溫控系統。
+            </div>
+
+            <!-- Specifications -->
+            <div class="specifications">
+                <h3 class="spec-title">產品規格</h3>
+                <ul class="spec-list">
+                    <li>
+                        <span class="spec-label">功率範圍</span>
+                        <span class="spec-value">7W~8W</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">電池容量</span>
+                        <span class="spec-value">400mAH</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">充電規格</span>
+                        <span class="spec-value">TYPE-C 5V/1A</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">相容性</span>
+                        <span class="spec-value">通用一代煙彈產品</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">特殊功能</span>
+                        <span class="spec-value">智能溫控、電量顯示</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">材質</span>
+                        <span class="spec-value">高品質鋁合金精密工藝</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Smart Features -->
+            <div class="smart-features">
+                <h3 class="smart-title">智能功能說明 <span class="tech-badge">AI 科技</span></h3>
+                <div class="smart-grid">
+                    <div class="smart-feature-info">
+                        <div class="smart-icon"><i class="fas fa-thermometer-half"></i></div>
+                        <div class="smart-name">智能溫控</div>
+                        <div class="smart-desc">自動調節最佳溫度，確保穩定輸出</div>
+                    </div>
+                    <div class="smart-feature-info">
+                        <div class="smart-icon"><i class="fas fa-battery-three-quarters"></i></div>
+                        <div class="smart-name">電量顯示</div>
+                        <div class="smart-desc">LED 指示燈即時顯示電量狀態</div>
+                    </div>
+                    <div class="smart-feature-info">
+                        <div class="smart-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="smart-name">安全保護</div>
+                        <div class="smart-desc">過充、過放、短路多重保護</div>
+                    </div>
+                    <div class="smart-feature-info">
+                        <div class="smart-icon"><i class="fas fa-cog"></i></div>
+                        <div class="smart-name">智能識別</div>
+                        <div class="smart-desc">自動識別煙彈類型並調整參數</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Options -->
+            <div class="color-options">
+                <h3 class="color-title">顏色選擇 <span class="tech-badge">16種顏色</span></h3>
+                <div class="color-grid">
+                    <div class="color-option selected" data-color="經典黑">經典黑</div>
+                    <div class="color-option" data-color="太空銀">太空銀</div>
+                    <div class="color-option" data-color="深海藍">深海藍</div>
+                    <div class="color-option" data-color="玫瑰金">玫瑰金</div>
+                    <div class="color-option" data-color="珍珠白">珍珠白</div>
+                    <div class="color-option" data-color="炫彩紫">炫彩紫</div>
+                    <div class="color-option" data-color="森林綠">森林綠</div>
+                    <div class="color-option" data-color="夕陽橙">夕陽橙</div>
+                    <div class="color-option" data-color="櫻花粉">櫻花粉</div>
+                    <div class="color-option" data-color="星空灰">星空灰</div>
+                    <div class="color-option" data-color="海洋藍">海洋藍</div>
+                    <div class="color-option" data-color="香檳金">香檳金</div>
+                    <div class="color-option" data-color="薄荷綠">薄荷綠</div>
+                    <div class="color-option" data-color="酒紅色">酒紅色</div>
+                    <div class="color-option" data-color="鈦金屬">鈦金屬</div>
+                    <div class="color-option" data-color="極光色">極光色</div>
+                </div>
+            </div>
+
+            <!-- Quantity Selector -->
+            <div class="quantity-selector">
+                <h3 class="quantity-title">數量</h3>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="decreaseQuantity()">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="10">
+                    <button class="quantity-btn" onclick="increaseQuantity()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="pulse-button" onclick="addToCart()">
+                    <i class="fas fa-shopping-cart"></i> 加入購物車
+                </button>
+            </div>
+
+            <!-- Features -->
+            <div class="features">
+                <h3 class="features-title">科技特色</h3>
+                <ul class="features-list">
+                    <li>
+                        <i class="fas fa-microchip"></i>
+                        高品質鋁合金精密工藝製造
+                    </li>
+                    <li>
+                        <i class="fas fa-thermometer-half"></i>
+                        智能溫控系統，穩定且精準
+                    </li>
+                    <li>
+                        <i class="fas fa-battery-three-quarters"></i>
+                        400mAH 大容量電池，持久續航
+                    </li>
+                    <li>
+                        <i class="fas fa-plug"></i>
+                        TYPE-C 快速充電技術
+                    </li>
+                    <li>
+                        <i class="fas fa-shield-alt"></i>
+                        多重安全保護機制
+                    </li>
+                    <li>
+                        <i class="fas fa-palette"></i>
+                        16 種時尚顏色選擇
+                    </li>
+                    <li>
+                        <i class="fas fa-cog"></i>
+                        智能煙彈識別系統
+                    </li>
+                    <li>
+                        <i class="fas fa-eye"></i>
+                        LED 電量顯示功能
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Warning Notice -->
+            <div class="warning-notice">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>重要提醒：</strong>本產品僅供 18 歲以上成年人使用，請遵守當地相關法規。
+                <br><strong>溫馨提示：</strong>請勿使用劣質充電器充電，以避免損壞電子菸主機。
+            </div>
+        </div>
+    </div>
+
+    <!-- API Integration Script -->
+    
+    
+    <script>
+        // Image Gallery
+        function changeMainImage(img) {
+            const mainImage = document.getElementById('mainImage');
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            
+            mainImage.src = img.src;
+            
+            galleryImages.forEach(image => image.classList.remove('active'));
+            img.classList.add('active');
+        }
+
+        // Color Selection
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Quantity Controls
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue < 10) {
+                quantityInput.value = currentValue + 1;
+            }
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        }
+
+        // Add to Cart
+        function addToCart() {
+            // 如果 API 整合腳本已載入，使用 API 版本
+            if (window.addToCartWithAPI) {
+                window.addToCartWithAPI();
+                return;
+            }
+            
+            // 備用方案：使用原始邏輯
+            const selectedColor = document.querySelector('.color-option.selected').dataset.color;
+            const quantity = document.getElementById('quantity').value;
+            
+            // 獲取產品資訊
+            const product = {
+                id: 'sp2_host',
+                name: 'SP2 一代主機',
+                price: 650,
+                color: selectedColor,
+                quantity: parseInt(quantity),
+                image: 'sp2_v/sp2_device_main_showcase.jpg',
+                category: 'host'
+            };
+            
+            // 儲存到 localStorage
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            // 檢查是否已存在相同產品和顏色
+            const existingIndex = cart.findIndex(item => 
+                item.id === product.id && item.color === product.color
+            );
+            
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += product.quantity;
+            } else {
+                cart.push(product);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // 顯示成功訊息
+            alert(`已將 ${quantity} 個 SP2 一代主機 (${selectedColor}) 加入購物車！`);
+            
+            // 更新購物車圖示（如果有的話）
+            updateCartCount();
+        }
+
+        // 更新購物車數量顯示
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // 如果有購物車計數元素，更新它
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                cartCount.textContent = totalItems;
+            }
+        }
+
+        // Smooth scroll and animations
+        window.addEventListener('scroll', function() {
+            const productInfo = document.querySelector('.product-info');
+            const rect = productInfo.getBoundingClientRect();
+            
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                productInfo.style.opacity = '1';
+                productInfo.style.transform = 'translateY(0)';
+            }
+        });
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const productInfo = document.querySelector('.product-info');
+            productInfo.style.opacity = '0';
+            productInfo.style.transform = 'translateY(20px)';
+            productInfo.style.transition = 'all 0.6s ease';
+            
+            setTimeout(() => {
+                productInfo.style.opacity = '1';
+                productInfo.style.transform = 'translateY(0)';
+            }, 300);
+            
+            // 初始化購物車計數
+            updateCartCount();
+        });
+    </script>
+
+    
+
+    <!-- 內容管理系統 -->
+    <script src="/js/content-manager.js"></script>
+
+    <!-- JSON-LD for Product Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "SP2 一代主機",
+      "image": "https://52012.xyz/sp2_v/sp2_device_main_showcase.jpg",
+      "description": "智能溫控，極致輕巧，多種潮流色彩選擇，為您帶來順滑穩定的VAPE體驗。SP2 一代主機搭載400mAH電池與7W-8W智能輸出功率，是新手與老手的最佳選擇。",
+      "brand": {
+        "@type": "Brand",
+        "name": "SP2"
+      },
+      "sku": "SP2-DEVICE",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://52012.xyz/sp2_product.html",
+        "priceCurrency": "TWD",
+        "price": "650",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "88"
+      }
+    }
+    </script>
+
+    <!-- 共享 VFX 效果 -->
+    <script src="js/vfx-effects.js"></script>
+</body>
+</html> 

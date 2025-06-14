@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-06-14T03:17:08.734Z",
+  "summary": {
+    "passed": 34,
+    "failed": 0,
+    "warnings": 0
+  },
+  "details": {
+    "passed": [
+      "✅ 圖片目錄 sp2_v 包含 6 個檔案",
+      "✅ 圖片目錄 sp2_d 包含 2 個檔案",
+      "✅ 圖片目錄 ilia_1 包含 3 個檔案",
+      "✅ 圖片目錄 ilia_L 包含 4 個檔案",
+      "✅ 圖片目錄 ilia_Bu 包含 3 個檔案",
+      "✅ 圖片目錄 illa_d 包含 26 個檔案",
+      "✅ 圖片目錄 ilia_a_4 包含 4 個檔案",
+      "✅ 圖片目錄 hta_vape 包含 2 個檔案",
+      "✅ 圖片目錄 hta_pods 包含 2 個檔案",
+      "✅ 圖片目錄 lana_a8000 包含 7 個檔案",
+      "✅ 圖片目錄 lana_pods 包含 4 個檔案",
+      "✅ 圖片目錄 cart_image 包含 4 個檔案",
+      "✅ 圖片目錄 images 包含 2 個檔案",
+      "✅ 所有圖片引用都存在",
+      "✅ 購物車功能存在（分散在多個檔案中）",
+      "✅ 找到功能: addToCart",
+      "✅ 找到功能: updateCartCount",
+      "✅ 找到功能: localStorage.setItem.*cart",
+      "✅ 找到功能: localStorage.getItem.*cart",
+      "✅ 7-11 地圖功能存在",
+      "✅ 門市回調處理存在",
+      "✅ API 端點存在: /api/health",
+      "✅ API 端點存在: /api/prices",
+      "✅ API 端點存在: /api/announcements",
+      "✅ API 端點存在: /api/send-telegram",
+      "✅ API 端點存在: /api/711-callback",
+      "✅ 共享 JavaScript 元件存在",
+      "✅ 元件函數存在: createHeader",
+      "✅ 元件函數存在: createFooter",
+      "✅ 元件函數存在: initVFXLogo",
+      "✅ 元件函數存在: initPulseButtons",
+      "✅ 共享 CSS 樣式存在",
+      "✅ 所有頁面連結都有效",
+      "✅ 所有 JavaScript 檔案語法正確"
+    ],
+    "failed": [],
+    "warnings": []
+  }
+}

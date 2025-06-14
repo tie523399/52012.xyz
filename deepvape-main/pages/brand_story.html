@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌故事 - DeepVape</title>
+    <link rel="icon" type="image/png" href="../images/ui/deepvape_logo_main.png">
+    <link rel="shortcut icon" type="image/png" href="../images/ui/deepvape_logo_main.png">
+    <link rel="apple-touch-icon" href="../images/ui/deepvape_logo_main.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: linear-gradient(135deg, #083e12 0%, #041348 50%, #3d43b4 100%);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 導航欄 */
+        .navbar {
+            background: #000000;
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid transparent;
+            animation: navBorderMove 3s infinite linear;
+        }
+
+        @keyframes navBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid rgba(26, 254, 73, 0.3);
+        }
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: #1afe49;
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid #1afe49;
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, #1afe49, #8386f5, #1afe49);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-links a:hover {
+            color: #1afe49;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        /* 主要內容 */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(4, 19, 72, 0.9);
+            border: 1px solid rgba(26, 254, 73, 0.2);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        /* 頁面標題 */
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1afe49, #8386f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-shadow: none;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 故事內容 */
+        .story-section {
+            margin-bottom: 3rem;
+        }
+
+        .story-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid #1afe49;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .story-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1afe49;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .story-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ffffff;
+            text-align: justify;
+        }
+
+        .story-icon {
+            font-size: 2rem;
+            color: #1afe49;
+        }
+
+        /* 數據統計 */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(26, 254, 73, 0.1), rgba(131, 134, 245, 0.1));
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(26, 254, 73, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(26, 254, 73, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #1afe49;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        /* 使命願景 */
+        .mission-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .mission-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            transition: all 0.3s ease;
+        }
+
+        .mission-card:nth-child(1) {
+            border-image: linear-gradient(135deg, #1afe49, #8386f5) 1;
+        }
+
+        .mission-card:nth-child(2) {
+            border-image: linear-gradient(135deg, #8386f5, #1afe49) 1;
+        }
+
+        .mission-icon {
+            font-size: 4rem;
+            color: #1afe49;
+            margin-bottom: 1rem;
+        }
+
+        .mission-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .mission-text {
+            font-size: 1rem;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .story-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .story-title {
+                font-size: 1.5rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .mission-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="../images/ui/deepvape_logo_main.png" alt="DeepVape Logo">
+                </a>
+            </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="shopping_guide.html">購物說明</a></li>
+                <li><a href="cart.html">購物車</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要內容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 頁面標題 -->
+            <div class="page-header">
+                <h1 class="page-title">品牌故事</h1>
+                <p class="page-subtitle">深耕電子煙市場，為您帶來更好的使用體驗</p>
+            </div>
+
+            <!-- 品牌起源 -->
+            <div class="story-section">
+                <div class="story-card">
+                    <h2 class="story-title">
+                        <i class="fas fa-seedling story-icon"></i>
+                        品牌起源
+                    </h2>
+                    <div class="story-content">
+                        DeepVape 成立於 2020 年，源於對電子煙文化的深度理解與熱愛。我們的創始團隊發現市場上缺乏真正專注於用戶體驗的電子煙品牌，因此決定創立 DeepVape，致力於為台灣消費者提供高品質的電子煙產品與服務。我們相信，電子煙不僅僅是一種產品，更是一種生活方式的選擇。
+                    </div>
+                </div>
+
+                <div class="story-card">
+                    <h2 class="story-title">
+                        <i class="fas fa-star story-icon"></i>
+                        專業理念
+                    </h2>
+                    <div class="story-content">
+                        我們堅持「品質第一，服務至上」的經營理念。每一款產品都經過嚴格的品質把關，從原料採購到生產製造，再到最終的包裝配送，我們都秉持著最高標準。同時，我們也重視與客戶的每一次互動，提供專業的產品諮詢與完善的售後服務。
+                    </div>
+                </div>
+
+                <div class="story-card">
+                    <h2 class="story-title">
+                        <i class="fas fa-users story-icon"></i>
+                        客戶至上
+                    </h2>
+                    <div class="story-content">
+                        在 DeepVape，客戶滿意度是我們最重要的指標。我們持續傾聽客戶的聲音，根據市場需求調整產品線，並不斷優化購物體驗。從網站設計到物流配送，每一個環節都以客戶需求為出發點，力求提供最便捷、最貼心的服務。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 數據統計 -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">滿意客戶</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">產品種類</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">客戶滿意度</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24H</div>
+                    <div class="stat-label">快速回覆</div>
+                </div>
+            </div>
+
+            <!-- 使命與願景 -->
+            <div class="mission-section">
+                <div class="mission-card">
+                    <i class="fas fa-bullseye mission-icon"></i>
+                    <h3 class="mission-title">我們的使命</h3>
+                    <p class="mission-text">
+                        為台灣電子煙愛好者提供最優質的產品與服務，建立值得信賴的電子煙品牌，讓每位客戶都能享受到安全、便捷、滿意的購物體驗。
+                    </p>
+                </div>
+                <div class="mission-card">
+                    <i class="fas fa-rocket mission-icon"></i>
+                    <h3 class="mission-title">我們的願景</h3>
+                    <p class="mission-text">
+                        成為台灣最受歡迎的電子煙品牌，持續創新與進步，為客戶創造更多價值，同時推動整個行業的健康發展與規範化經營。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 核心價值 -->
+            <div class="story-section">
+                <div class="story-card">
+                    <h2 class="story-title">
+                        <i class="fas fa-heart story-icon"></i>
+                        核心價值
+                    </h2>
+                    <div class="story-content">
+                        <strong>誠信經營</strong>：我們以誠待客，以信立業，堅持透明公正的經營方式。<br><br>
+                        <strong>品質保證</strong>：嚴格把關每一個環節，確保產品品質與安全性。<br><br>
+                        <strong>創新服務</strong>：持續改進服務流程，提供更便捷的購物體驗。<br><br>
+                        <strong>社會責任</strong>：遵守相關法規，提倡理性消費，關注社會公益。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger i');
+            
+            navLinks.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                hamburger.classList.remove('fa-bars');
+                hamburger.classList.add('fa-times');
+            } else {
+                hamburger.classList.remove('fa-times');
+                hamburger.classList.add('fa-bars');
+            }
+        }
+
+        // 點擊外部關閉選單
+        document.addEventListener('click', function(e) {
+            const navLinks = document.getElementById('navLinks');
+            const navContainer = document.querySelector('.nav-container');
+            
+            if (!navContainer.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                document.querySelector('.hamburger i').classList.remove('fa-times');
+                document.querySelector('.hamburger i').classList.add('fa-bars');
+            }
+        });
+    </script>
+
+    
+</body>
+</html> 

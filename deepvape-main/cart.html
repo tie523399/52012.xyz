@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>您的購物車 - Deepvape 頂級電子菸專賣店</title>
+    <meta name="description" content="查看您在 Deepvape 的購物車。在這裡管理您選擇的電子菸主機、煙彈和拋棄式產品，完成您的訂單。">
+    <meta name="keywords" content="購物車, Deepvape, VAPE, 電子菸, 訂單, 結帳">
+    <link rel="canonical" href="https://52012.xyz/cart.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://deepvape.netlify.app/cart.html">
+    <meta property="og:title" content="您的購物車 - Deepvape 頂級電子菸專賣店">
+    <meta property="og:description" content="查看您在 Deepvape 的購物車。在這裡管理您選擇的電子菸主機、煙彈和拋棄式產品，完成您的訂單。">
+    <meta property="og:image" content="https://deepvape.netlify.app/deepvape_main.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://deepvape.netlify.app/cart.html">
+    <meta property="twitter:title" content="您的購物車 - Deepvape 頂級電子菸專賣店">
+    <meta property="twitter:description" content="查看您在 Deepvape 的購物車。在這裡管理您選擇的電子菸主機、煙彈和拋棄式產品，完成您的訂單。">
+    <meta property="twitter:image" content="https://52012.xyz/deepvape_main.png">
+
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" media="print" onload="this.media='all'">
+    <script src="js/config.js"></script>
+    <script src="js/store-selector.js"></script>
+    <style>
+        :root {
+            --primary-color: #083e12;
+            --secondary-color: #041348;
+            --accent-color: #3d43b4;
+            --highlight-color: #1afe49;
+            --success-color: #1afe49;
+            --warning-color: #ffab00;
+            --danger-color: #e74c3c;
+            --tech-blue: #041348;
+            --tech-cyan: #8386f5;
+            --text-color: #ffffff;
+            --text-secondary: #a0f7b3;
+            --card-bg: rgba(4, 19, 72, 0.8);
+            --border-color: rgba(26, 254, 73, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: #000000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border: 2px solid transparent;
+            animation: headerBorderMove 3s infinite linear;
+        }
+
+        @keyframes headerBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid rgba(26, 254, 73, 0.3);
+        }
+
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: var(--highlight-color);
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid var(--highlight-color);
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, var(--highlight-color), var(--tech-cyan), var(--highlight-color));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .back-button {
+            background: var(--accent-color);
+            color: var(--text-color);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 2px solid var(--border-color);
+        }
+
+        .back-button:hover {
+            background: var(--highlight-color);
+            transform: translateY(-2px);
+            border-color: var(--highlight-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* Cart Items Section */
+        .cart-items-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            background: linear-gradient(45deg, var(--highlight-color), var(--tech-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-cart i {
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .cart-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--highlight-color);
+            transform: translateY(-2px);
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .item-details {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .item-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--highlight-color);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 1rem;
+        }
+
+        .quantity-btn {
+            background: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background: var(--highlight-color);
+            transform: scale(1.1);
+        }
+
+        .quantity-display {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            background: var(--danger-color);
+            color: var(--text-color);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--highlight-color);
+        }
+
+        .summary-label {
+            color: var(--text-secondary);
+        }
+
+        .summary-value {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        /* Customer Information */
+        .customer-info {
+            margin: 2rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--text-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--highlight-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Store Selection */
+        .store-selection {
+            margin: 1.5rem 0;
+        }
+
+        .store-instruction {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(26, 254, 73, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            line-height: 1.5;
+        }
+
+        .official-search {
+            background: linear-gradient(45deg, var(--accent-color), var(--tech-cyan));
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .official-search:hover {
+            background: linear-gradient(45deg, var(--highlight-color), var(--tech-cyan));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 254, 73, 0.3);
+        }
+
+        .manual-store-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .confirm-store-btn {
+            background: linear-gradient(45deg, var(--success-color), #00d4aa);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .confirm-store-btn:hover {
+            background: linear-gradient(45deg, #00d4aa, var(--success-color));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 254, 73, 0.3);
+        }
+
+        .confirm-store-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .store-search-container {
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .location-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .keyword-search {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 1rem;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 1rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 3rem;
+        }
+
+        .form-select:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-select option {
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .store-search-input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .store-search-btn {
+            background: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .store-search-btn:hover {
+            background: var(--highlight-color);
+            transform: translateY(-2px);
+        }
+
+        .store-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .store-btn {
+            background: var(--accent-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .store-btn:hover {
+            background: var(--highlight-color);
+            border-color: var(--highlight-color);
+            transform: translateY(-2px);
+        }
+
+        .store-btn.selected {
+            background: var(--highlight-color);
+            border-color: var(--highlight-color);
+            color: var(--primary-color);
+        }
+
+        .store-btn.smart-search {
+            background: linear-gradient(135deg, var(--highlight-color), #8e44ad);
+            color: var(--primary-color);
+            font-weight: 600;
+            border: 2px solid var(--highlight-color);
+        }
+
+        .store-btn.smart-search:hover {
+            background: linear-gradient(135deg, #8e44ad, var(--highlight-color));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(26, 254, 73, 0.3);
+        }
+
+        .selected-store {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .selected-store.show {
+            display: block;
+        }
+
+        .store-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .store-name {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .store-address {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Verification Code */
+        .verification-section {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+        }
+
+        .captcha-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .captcha-display {
+            background: var(--text-color);
+            color: var(--primary-color);
+            padding: 1rem;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-family: 'Courier New', monospace;
+            user-select: none;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .captcha-refresh {
+            background: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .captcha-refresh:hover {
+            background: var(--highlight-color);
+            transform: rotate(180deg);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .pulse-button {
+            background: linear-gradient(45deg, var(--highlight-color), #8e44ad);
+            color: var(--primary-color);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .pulse-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .pulse-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .pulse-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(26, 254, 73, 0.4);
+        }
+
+        .pulse-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .continue-shopping {
+            background: var(--accent-color);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+        }
+
+        .continue-shopping:hover {
+            background: var(--highlight-color);
+            border-color: var(--highlight-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .order-summary {
+                position: static;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .item-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            .quantity-controls {
+                margin: 0;
+            }
+
+            .store-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .store-btn {
+                min-width: 280px;
+                max-width: 320px;
+                width: 100%;
+            }
+
+            .location-selection {
+                grid-template-columns: 1fr;
+            }
+
+            .keyword-search {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .captcha-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Loading and Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal h3 {
+            color: var(--highlight-color);
+            margin-bottom: 1rem;
+        }
+
+        .modal p {
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.confirm {
+            background: var(--highlight-color);
+            color: var(--primary-color);
+        }
+
+        .modal-btn.cancel {
+            background: var(--accent-color);
+            color: var(--text-color);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Store Search Results CSS removed - no longer needed */
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--highlight-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer 上方設計區域 */
+        .footer-design-section {
+            background: linear-gradient(135deg, #083e12 0%, #041348 50%, #3d43b4 100%);
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-design-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(26,254,73,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(131,134,245,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .design-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-guarantees {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .guarantee-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(26, 254, 73, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .guarantee-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(26, 254, 73, 0.2);
+            border-color: rgba(26, 254, 73, 0.4);
+        }
+
+        .guarantee-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1afe49, #8386f5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .guarantee-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .guarantee-content {
+            flex: 1;
+        }
+
+        .guarantee-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .guarantee-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* 物流方式展示區域樣式 */
+        .shipping-methods-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shipping-methods-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="shipping-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(26,254,73,0.1)"/><circle cx="40" cy="40" r="1" fill="rgba(131,134,245,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23shipping-pattern)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .shipping-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .shipping-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 10px rgba(26, 254, 73, 0.3);
+        }
+
+        .shipping-title i {
+            color: #1afe49;
+            margin-right: 1rem;
+        }
+
+        .shipping-image-container {
+            margin: 3rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .shipping-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 400px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .shipping-image:hover {
+            transform: scale(1.05);
+        }
+
+        .shipping-features {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .shipping-feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(26, 254, 73, 0.2);
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .shipping-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(26, 254, 73, 0.2);
+            border-color: rgba(26, 254, 73, 0.4);
+        }
+
+        .shipping-feature i {
+            font-size: 2rem;
+            color: #1afe49;
+            background: linear-gradient(135deg, #1afe49, #8386f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .shipping-feature span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: #000000;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            border: 2px solid transparent;
+            animation: footerBorderMove 3s infinite linear;
+        }
+
+        @keyframes footerBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--highlight-color);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--highlight-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .shipping-methods-section {
+                padding: 3rem 0;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .shipping-title {
+                font-size: 2rem;
+            }
+
+            .shipping-features {
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .shipping-feature {
+                padding: 1.5rem;
+                min-width: 120px;
+            }
+
+            .shipping-feature i {
+                font-size: 1.5rem;
+            }
+
+            .shipping-feature span {
+                font-size: 1rem;
+            }
+
+            .shipping-image {
+                max-height: 300px;
+            }
+
+            .footer-design-section {
+                padding: 3rem 0;
+            }
+
+            .service-guarantees {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .guarantee-item {
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+
+            .guarantee-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .guarantee-icon i {
+                font-size: 1.5rem;
+        }
+
+            .guarantee-title {
+                font-size: 1.1rem;
+            }
+
+            .guarantee-desc {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html" class="logo-button" id="navLogo">
+                    <span class="logo-text">DeepVape</span>
+                </a>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Cart Items Section -->
+        <section class="cart-items-section">
+            <h1 class="section-title">
+                <i class="fas fa-shopping-cart"></i>
+                您的購物車
+            </h1>
+
+            <div id="cartItemsContainer">
+                <!-- Cart items will be populated by JavaScript -->
+            </div>
+
+            <div class="empty-cart" id="emptyCart" style="display: none;">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>購物車是空的</h3>
+                <p>快去選購您喜愛的商品吧！</p>
+                <a href="index.html" class="pulse-button" style="display: inline-block; margin-top: 1rem;">
+                    <i class="fas fa-arrow-left"></i> 繼續購物
+                </a>
+            </div>
+        </section>
+
+        <!-- Order Summary Section -->
+        <aside class="order-summary-section">
+            <h2 class="section-title">
+                <i class="fas fa-file-invoice-dollar"></i>
+                訂單摘要
+            </h2>
+
+            <div class="summary-row">
+                <span class="summary-label">商品小計</span>
+                <span class="summary-value" id="subtotal">NT$ 0</span>
+            </div>
+
+            <div class="summary-row">
+                <span class="summary-label">運費</span>
+                <span class="summary-value">NT$ 60</span>
+            </div>
+
+            <div class="summary-row">
+                <span class="summary-label">總計</span>
+                <span class="summary-value" id="total">NT$ 60</span>
+            </div>
+
+            <!-- Customer Information -->
+            <div class="customer-info">
+                <h4 class="section-title" style="font-size: 1.2rem; margin-bottom: 1rem;">
+                    <i class="fas fa-user"></i>
+                    收件人資訊
+                </h4>
+
+                <div class="form-group">
+                    <label class="form-label" for="customerName">姓名 *</label>
+                    <input type="text" id="customerName" class="form-input" placeholder="請輸入收件人姓名" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="customerPhone">電話 *</label>
+                    <input type="tel" id="customerPhone" class="form-input" placeholder="請輸入聯絡電話" required>
+                </div>
+
+                <!-- Store Selection -->
+                <div class="store-selection">
+                    <label class="form-label">選擇取貨門市 *</label>
+                    <p class="store-instruction">使用ibon門市查詢系統查詢7-ELEVEN門市，或直接手動輸入門市資訊</p>
+
+                    <!-- Store Selection Button -->
+                    <div class="store-buttons">
+                        <button type="button" class="store-btn official-search" onclick="openIbonStoreMap()">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>選擇7-11門市</span>
+                            <small style="display: block; font-size: 0.8rem; margin-top: 2px;">官方電子地圖（推薦）</small>
+                        </button>
+                        
+                        <button type="button" class="store-btn" onclick="openOfflineStoreSelector()">
+                            <i class="fas fa-list-alt"></i>
+                            <span>離線門市選擇器</span>
+                            <small style="display: block; font-size: 0.8rem; margin-top: 2px;">不需網路連線</small>
+                        </button>
+                        
+                        <button type="button" class="store-btn" onclick="quickFillTestStore()" style="background: #ff6b6b;">
+                            <i class="fas fa-bolt"></i>
+                            <span>快速填入測試門市</span>
+                            <small style="display: block; font-size: 0.8rem; margin-top: 2px;">開發測試用</small>
+                        </button>
+                    </div>
+
+                    <!-- Manual Store Input -->
+                    <div class="manual-store-input" id="manualStoreInput">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">門市類型 *</label>
+                                <select id="storeTypeSelect" class="form-input" required>
+                                    <option value="">請選擇門市類型</option>
+                                    <option value="711">7-ELEVEN</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">門市店號 *</label>
+                                <input type="text" id="storeIdInput" class="form-input" placeholder="例如：250094" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">門市名稱 *</label>
+                            <input type="text" id="storeNameInput" class="form-input" placeholder="例如：京達門市" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">門市地址 (選填)</label>
+                            <input type="text" id="storeAddressInput" class="form-input" placeholder="例如：台中市豐原區中正路805號（選填）">
+                        </div>
+
+                        <button class="confirm-store-btn" onclick="confirmStoreSelection()">
+                            <i class="fas fa-check"></i> 確認門市選擇
+                        </button>
+                    </div>
+
+                    <div class="selected-store" id="selectedStore">
+                        <div class="store-info">
+                            <div class="store-name" id="storeName">請選擇門市</div>
+                            <div class="store-address" id="storeAddress"></div>
+                            <div class="store-result-id" id="storeId"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verification Code -->
+                <div class="verification-section">
+                    <label class="form-label">驗證碼 *</label>
+                    <div class="captcha-container">
+                        <div class="captcha-display" id="captchaDisplay"></div>
+                        <button class="captcha-refresh" onclick="generateCaptcha()" title="重新產生驗證碼">
+                            <i class="fas fa-refresh"></i>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="captchaInput" class="form-input" placeholder="請輸入驗證碼" maxlength="4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="pulse-button" id="checkoutBtn" onclick="checkout()" disabled>
+                    <i class="fas fa-credit-card"></i> 建立訂單
+                </button>
+                <a href="index.html" class="pulse-button continue-shopping">
+                    <i class="fas fa-arrow-left"></i> 繼續購物
+                </a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Store Search Modal removed - no longer needed -->
+
+    <!-- Checkout Confirmation Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <h3>確認訂單</h3>
+            <p>確定要建立此訂單嗎？</p>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm" onclick="confirmCheckout()">確認</button>
+                <button class="modal-btn cancel" onclick="closeCheckoutModal()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let selectedStoreType = '';
+        let selectedStoreInfo = null;
+        let currentCaptcha = '';
+        let storeSelector = null;
+
+        // Telegram Bot Configuration
+        // Token 和 Chat ID 現在透過後端 API 安全處理
+
+
+
+        // Load cart from localStorage
+        function loadCart() {
+            cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            renderCart();
+            updateSummary();
+            loadSelectedStore(); // 載入選擇的門市資訊
+            validateForm();
+        }
+
+        // Load selected store from localStorage
+        function loadSelectedStore() {
+            const storeData = localStorage.getItem('selectedStoreData');
+            if (storeData) {
+                try {
+                    const store = JSON.parse(storeData);
+                    
+                    // 檢查資料是否是最近的（避免載入過舊的資料）
+                    const hoursSinceSelection = (Date.now() - store.timestamp) / (1000 * 60 * 60);
+                    if (hoursSinceSelection > 24) {
+                        // 如果超過24小時，清除資料
+                        localStorage.removeItem('selectedStoreData');
+                        return;
+                    }
+                    
+                    // 自動填入門市資訊
+                    document.getElementById('storeTypeSelect').value = store.storeType;
+                    document.getElementById('storeIdInput').value = store.storeId;
+                    document.getElementById('storeNameInput').value = store.storeName;
+                    document.getElementById('storeAddressInput').value = store.storeAddress;
+                    
+                    // 自動確認門市選擇
+                    confirmStoreSelection();
+                    
+                    // 清除localStorage中的門市資料（避免重複使用）
+                    localStorage.removeItem('selectedStoreData');
+                    
+                    // 顯示成功訊息
+                    setTimeout(() => {
+                        alert('✅ 門市資訊已自動載入！\n\n' +
+                              `門市類型：7-ELEVEN\n` +
+                              `店號：${store.storeId}\n` +
+                              `門市名稱：${store.storeName}\n` +
+                              `地址：${store.storeAddress}`);
+                    }, 500);
+                    
+                } catch (error) {
+                    console.error('載入門市資訊時發生錯誤:', error);
+                    localStorage.removeItem('selectedStoreData');
+                }
+            }
+        }
+
+        // Render cart items
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const emptyCart = document.getElementById('emptyCart');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.style.display = 'none';
+                emptyCart.style.display = 'block';
+                return;
+            }
+            
+            cartItemsContainer.style.display = 'block';
+            emptyCart.style.display = 'none';
+            
+            cartItemsContainer.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="${item.image}" loading="lazy" alt="${item.name}" class="item-image">
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-details">
+                            ${item.flavor ? `口味: ${item.flavor}` : ''}
+                            ${item.color ? `顏色: ${item.color}` : ''}
+                        </div>
+                        <div class="item-price">NT$ ${item.price}</div>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span class="quantity-display">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <button class="remove-btn" onclick="removeItem(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Update item quantity
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        // Remove item from cart
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        // Update order summary
+        function updateSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = cart.length > 0 ? 60 : 0;
+            const total = subtotal + shipping;
+            
+            document.getElementById('subtotal').textContent = `NT$ ${subtotal}`;
+            document.getElementById('total').textContent = `NT$ ${total}`;
+        }
+
+        // 開啟ibon門市查詢系統 - 使用7-11官方API
+        function openIbonStoreMap() {
+            // 使用全域的 storeSelector 實例
+            if (window.storeSelector) {
+                window.storeSelector.openStoreMap();
+            } else {
+                console.error('門市選擇器尚未初始化');
+                alert('系統載入中，請稍後再試');
+            }
+        }
+
+
+
+
+
+
+        // Confirm store selection
+        function confirmStoreSelection() {
+            const storeType = document.getElementById('storeTypeSelect').value;
+            const storeId = document.getElementById('storeIdInput').value.trim();
+            const storeName = document.getElementById('storeNameInput').value.trim();
+            const storeAddress = document.getElementById('storeAddressInput').value.trim();
+                    
+            // 驗證必填欄位（地址為選填）
+            if (!storeType || !storeId || !storeName) {
+                alert('請填寫所有必填欄位（門市類型、店號、門市名稱）');
+                return;
+        }
+
+            // 設定選擇的門市資訊
+            selectedStoreType = storeType;
+            selectedStoreInfo = {
+                id: storeId,
+                name: storeName,
+                address: storeAddress,
+                type: storeType
+            };
+            
+            // 更新顯示
+            const storeTypeText = '7-ELEVEN';
+            document.getElementById('storeName').textContent = `${storeTypeText} - ${storeName}`;
+            document.getElementById('storeAddress').textContent = storeAddress || '地址未提供';
+            document.getElementById('storeId').textContent = `店號：${storeId}`;
+            document.getElementById('selectedStore').classList.add('show');
+            
+            // 驗證表單
+            validateForm();
+            
+            alert('門市選擇完成！');
+        }
+
+        // Removed old store data loading function - no longer needed
+
+        // Removed old store selection functions - no longer needed
+
+        // Removed old store search functions - no longer needed
+
+        // Generate captcha
+        function generateCaptcha() {
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            currentCaptcha = '';
+            for (let i = 0; i < 4; i++) {
+                currentCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('captchaDisplay').textContent = currentCaptcha;
+        }
+
+        // Form validation
+        function validateForm() {
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const captchaInput = document.getElementById('captchaInput').value.trim();
+            const hasStore = selectedStoreInfo !== null;
+            const hasItems = cart.length > 0;
+            const captchaValid = captchaInput.toUpperCase() === currentCaptcha;
+            
+            const isValid = name && phone && hasStore && hasItems && captchaValid;
+            document.getElementById('checkoutBtn').disabled = !isValid;
+        }
+
+        // Add event listeners for form validation
+        document.getElementById('customerName').addEventListener('input', validateForm);
+        document.getElementById('customerPhone').addEventListener('input', validateForm);
+        document.getElementById('captchaInput').addEventListener('input', validateForm);
+        
+        // Add event listeners for store input fields
+        document.getElementById('storeTypeSelect').addEventListener('change', validateForm);
+        document.getElementById('storeIdInput').addEventListener('input', validateForm);
+        document.getElementById('storeNameInput').addEventListener('input', validateForm);
+        document.getElementById('storeAddressInput').addEventListener('input', validateForm);
+
+        // Send Telegram notification
+        async function sendTelegramNotification(orderData) {
+            console.log('🔔 開始發送 Telegram 通知...', orderData);
+            
+            try {
+                // 判斷運行環境
+                let apiEndpoint;
+                
+                // 判斷是否在 Netlify 環境
+                if (window.location.hostname.includes('netlify.app') || window.location.hostname === '52012.xyz') {
+                    apiEndpoint = '/.netlify/functions/send-telegram';
+                } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    // 本地開發環境
+                    if (window.location.port === '8888') {
+                        // Netlify Dev
+                        apiEndpoint = '/.netlify/functions/send-telegram';
+                    } else {
+                        // 其他本地環境，跳過 Telegram 通知
+                        console.warn('⚠️ 本地環境，跳過 Telegram 通知');
+                        return { success: true, message: 'Skipped in local environment' };
+                    }
+                } else {
+                    // AWS 或其他環境
+                    // 請根據你的 AWS 部署設定調整
+                    apiEndpoint = '/api/send-telegram';
+                }
+                
+                console.log('📤 發送請求到:', apiEndpoint);
+                
+                const response = await fetch(apiEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                const responseData = await response.json();
+                console.log('📥 API 回應:', responseData);
+
+                if (!response.ok) {
+                    console.error('❌ Telegram 通知失敗:', response.status, responseData);
+                    throw new Error(responseData.error || 'Failed to send notification');
+                } else {
+                    console.log('✅ Telegram 通知發送成功！');
+                }
+                
+                return responseData;
+            } catch (error) {
+                console.error('❌ Telegram 通知發送錯誤:', error);
+                // 即使 Telegram 失敗，也不要阻止訂單處理
+                throw error;
+            }
+        }
+
+        // Checkout process
+        function checkout() {
+            if (cart.length === 0) {
+                alert('購物車是空的！');
+                return;
+            }
+            
+            if (document.getElementById('captchaInput').value.trim().toUpperCase() !== currentCaptcha) {
+                alert('驗證碼錯誤，請重新輸入！');
+                generateCaptcha();
+                document.getElementById('captchaInput').value = '';
+                return;
+            }
+            
+            document.getElementById('checkoutModal').style.display = 'block';
+        }
+
+        async function confirmCheckout() {
+            const orderData = {
+                items: cart,
+                customer: {
+                    name: document.getElementById('customerName').value,
+                    phone: document.getElementById('customerPhone').value
+                },
+                store: selectedStoreInfo,
+                subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                shipping: 60,
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 60,
+                orderDate: new Date().toISOString(),
+                orderId: 'ORD' + Date.now()
+            };
+            
+            // Show loading
+            const confirmBtn = document.querySelector('#checkoutModal .modal-btn.confirm');
+            const originalText = confirmBtn.textContent;
+            confirmBtn.innerHTML = '<span class="loading-spinner"></span> 處理中...';
+            confirmBtn.disabled = true;
+
+            try {
+                // Send Telegram notification
+                await sendTelegramNotification(orderData);
+                
+                // Save order to localStorage
+                localStorage.setItem('currentOrder', JSON.stringify(orderData));
+                
+                // Clear cart
+                localStorage.removeItem('cart');
+                
+                // Redirect to confirmation page
+                window.location.href = 'order_confirmation.html';
+            } catch (error) {
+                console.error('Order processing error:', error);
+                alert('訂單處理失敗，請稍後再試！');
+                
+                // Reset button
+                confirmBtn.textContent = originalText;
+                confirmBtn.disabled = false;
+            }
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        }
+
+
+        // 顯示聯絡方式
+        function showContact() {
+            window.open('https://line.me/ti/p/euNh8K-s3e', '_blank');
+        }
+
+        // 測試Telegram機器人功能
+        async function testTelegramBot() {
+            console.log('🧪 開始測試Telegram機器人...');
+            
+            const testOrderData = {
+                orderId: 'TEST' + Date.now(),
+                orderDate: new Date().toISOString(),
+                customer: {
+                    name: '測試客戶',
+                    phone: '0912-345-678'
+                },
+                store: {
+                    id: 'TEST001',
+                    name: '統一超商測試門市',
+                    address: '台北市信義區信義路五段7號'
+                },
+                items: [
+                    {
+                        name: 'SP2 一代主機',
+                        quantity: 1,
+                        price: 650,
+                        flavor: '薄荷',
+                        color: '黑色'
+                    }
+                ],
+                subtotal: 650,
+                shipping: 60,
+                total: 710
+            };
+            
+            try {
+                await sendTelegramNotification(testOrderData);
+                alert('✅ Telegram機器人測試成功！\n請檢查Telegram群組是否收到測試訊息。');
+            } catch (error) {
+                alert('❌ Telegram機器人測試失敗！\n\n錯誤詳情：\n' + error.message + '\n\n請檢查：\n1. Bot Token是否正確\n2. Chat ID是否正確\n3. 機器人是否已加入群組\n4. 網路連線是否正常');
+                console.error('Telegram測試失敗:', error);
+            }
+        }
+
+        // 門市選擇訊息監聽已由 StoreSelector 處理
+
+        // 在頁面載入時添加測試按鈕（僅開發環境）
+        document.addEventListener('DOMContentLoaded', function() {
+            // 檢查門市選擇器是否已初始化
+            if (window.storeSelector) {
+                // 覆寫門市選擇完成的回調
+                window.storeSelector.onStoreSelected = function(storeInfo) {
+                    console.log('門市選擇完成:', storeInfo);
+                    
+                    // 自動填入表單
+                    document.getElementById('storeTypeSelect').value = '711';
+                    document.getElementById('storeIdInput').value = storeInfo.storeId || '';
+                    document.getElementById('storeNameInput').value = storeInfo.storeName || '';
+                    document.getElementById('storeAddressInput').value = storeInfo.storeAddress || '';
+                    
+                    // 自動確認選擇
+                    confirmStoreSelection();
+                };
+            } else {
+                console.warn('門市選擇器未載入，請確認 store-selector.js 已引入');
+            }
+            
+            loadCart();
+            generateCaptcha();
+            
+            // 添加隱藏的測試功能（連續點擊logo 3次）
+            let logoClickCount = 0;
+            const logo = document.querySelector('.logo-button');
+            if (logo) {
+                logo.addEventListener('click', function() {
+                    logoClickCount++;
+                    if (logoClickCount === 3) {
+                        if (confirm('是否要測試Telegram機器人功能？')) {
+                            testTelegramBot();
+                        }
+                        logoClickCount = 0;
+                    }
+                    setTimeout(() => {
+                        logoClickCount = 0;
+                    }, 2000);
+                });
+            }
+        });
+
+        // 開啟離線門市選擇器
+        function openOfflineStoreSelector() {
+            // 開啟新視窗顯示門市選擇器
+            const selectorWindow = window.open('store-selector-demo.html', 'StoreSelector', 
+                'width=900,height=700,scrollbars=yes,resizable=yes');
+            
+            if (!selectorWindow) {
+                alert('無法開啟門市選擇視窗，請檢查瀏覽器的彈出視窗設定。');
+                return;
+            }
+            
+            // 顯示使用指引
+            alert('📍 離線門市選擇器說明：\n\n' +
+                  '1. 可使用搜尋功能快速查找門市\n' +
+                  '2. 或透過縣市/區域篩選門市\n' +
+                  '3. 點擊門市查看詳細資訊\n' +
+                  '4. 確認選擇後資料會自動填入\n\n' +
+                  '優點：\n' +
+                  '✅ 不需要網路連線\n' +
+                  '✅ 搜尋速度快\n' +
+                  '✅ 包含常用門市資料');
+        }
+
+        // 快速填入測試門市
+        function quickFillTestStore() {
+            document.getElementById('storeTypeSelect').value = '711';
+            document.getElementById('storeIdInput').value = '250094';
+            document.getElementById('storeNameInput').value = '京達門市';
+            document.getElementById('storeAddressInput').value = '台中市豐原區中正路805號';
+            confirmStoreSelection();
+        }
+    </script>
+
+    <!-- 物流方式展示區域 -->
+    <section class="shipping-methods-section">
+        <div class="shipping-container">
+            <h2 class="shipping-title">
+                <i class="fas fa-truck"></i>
+                安全可靠的物流配送
+            </h2>
+            <div class="shipping-image-container">
+                <img src="images/ui/7-11_tklogo.jpg" alt="7-ELEVEN 物流配送" class="shipping-image">
+            </div>
+            <div class="shipping-features">
+                <div class="shipping-feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>安全包裝</span>
+                </div>
+                <div class="shipping-feature">
+                    <i class="fas fa-clock"></i>
+                    <span>快速配送</span>
+                </div>
+                <div class="shipping-feature">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>全台配送</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer 上方設計區域 -->
+    <section class="footer-design-section">
+        <div class="design-container">
+            <div class="service-guarantees">
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-shield-check"></i>
+                    </div>
+                    <div class="guarantee-content">
+                        <h3 class="guarantee-title">正品保證</h3>
+                        <p class="guarantee-desc">所有VAPE產品均來自專櫃</p>
+                    </div>
+                </div>
+                
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-undo-alt"></i>
+                    </div>
+                    <div class="guarantee-content">
+                        <h3 class="guarantee-title">免費退貨和退換貨</h3>
+                        <p class="guarantee-desc">所有VAPE訂單均可免費退換貨</p>
+                    </div>
+                </div>
+                
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <div class="guarantee-content">
+                        <h3 class="guarantee-title">空運快速出貨</h3>
+                        <p class="guarantee-desc">所有VAPE訂單將於48小時內寄出</p>
+                    </div>
+                </div>
+                
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="guarantee-content">
+                        <h3 class="guarantee-title">VAPE顧問服務</h3>
+                        <p class="guarantee-desc">我們VAPE顧問隨時為您貼心服務</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>關於 Deepvape</h3>
+                <ul>
+                    <li><a href="pages/brand_story.html">品牌故事</a></li>
+                    <li><a href="#">最新消息</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>客戶服務</h3>
+                <ul>
+                    <li><a href="pages/shopping_guide.html">購物說明</a></li>
+                    <li><a href="pages/shipping_info.html">運送方式</a></li>
+                    <li><a href="pages/return_policy.html">退換貨政策</a></li>
+                    <li><a href="pages/faq.html">常見問題</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>聯絡我們</h3>
+                <ul>
+                    <li><i class="fab fa-line"></i> LINE ID：@deepvape</li>
+                    <li><i class="fas fa-envelope"></i> Email：service@52012.xyz</li>
+                    <li><i class="fas fa-clock"></i> 服務時間：週一至週五 10:00-18:00</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>關注我們</h3>
+                <p>追蹤最新優惠與新品資訊</p>
+                <div style="margin-top: 1rem;">
+                    <a href="#" style="margin-right: 1rem;"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="#" style="margin-right: 1rem;"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="#"><i class="fab fa-telegram fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Deepvape. All rights reserved. | 本網站僅供18歲以上成年人瀏覽</p>
+            <p>警告：吸菸有害健康</p>
+        </div>
+    </footer>
+
+    
+
+    <script src="js/lazy-load.js"></script>
+</body>
+</html> 

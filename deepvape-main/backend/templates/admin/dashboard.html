@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}儀表板 - Deepvape 後台管理系統{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item active">儀表板</li>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-tachometer-alt"></i> 儀表板</h1>
+    <div class="text-muted">
+        歡迎回來，{{ session.admin_username }}！
+    </div>
+</div>
+
+<!-- 統計卡片 -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="stats-card">
+            <div class="stats-number">{{ stats.total_products }}</div>
+            <div class="stats-label">
+                <i class="fas fa-box"></i> 總產品數
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <div class="stats-number">{{ stats.active_products }}</div>
+            <div class="stats-label">
+                <i class="fas fa-check-circle"></i> 啟用產品
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <div class="stats-number">{{ stats.total_categories }}</div>
+            <div class="stats-label">
+                <i class="fas fa-tags"></i> 產品分類
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <div class="stats-number">{{ stats.active_announcements }}</div>
+            <div class="stats-label">
+                <i class="fas fa-bullhorn"></i> 活躍公告
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 快速操作 -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-plus"></i> 快速新增</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('create_product') }}" class="btn btn-primary">
+                        <i class="fas fa-box"></i> 新增產品
+                    </a>
+                    <a href="{{ url_for('create_announcement') }}" class="btn btn-success">
+                        <i class="fas fa-bullhorn"></i> 新增公告
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-cog"></i> 系統管理</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('products') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-list"></i> 管理產品
+                    </a>
+                    <a href="{{ url_for('announcements') }}" class="btn btn-outline-success">
+                        <i class="fas fa-list"></i> 管理公告
+                    </a>
+                    <a href="{{ url_for('change_password') }}" class="btn btn-outline-warning">
+                        <i class="fas fa-key"></i> 更改密碼
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 最近活動 -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-clock"></i> 系統功能</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-bullhorn text-primary"></i> 網站公告功能</h6>
+                        <ul class="list-unstyled">
+                            <li>• 創建和管理網站公告</li>
+                            <li>• 設定公告優先級和時間</li>
+                            <li>• 自動顯示在前台網站</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-edit text-success"></i> 產品數據管理</h6>
+                        <ul class="list-unstyled">
+                            <li>• 批量修改產品價格</li>
+                            <li>• 批量更新庫存數量</li>
+                            <li>• 批量設定產品標籤</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-database text-warning"></i> 產品管理</h6>
+                        <ul class="list-unstyled">
+                            <li>• 新增/刪除產品</li>
+                            <li>• 圖片上傳管理</li>
+                            <li>• 產品規格設定</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- API 說明 -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-code"></i> API 端點</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>公告 API</h6>
+                        <code>GET /api/announcements</code>
+                        <p class="small text-muted mt-1">獲取所有活躍的網站公告</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>產品 API</h6>
+                        <code>GET /api/products</code>
+                        <p class="small text-muted mt-1">獲取所有產品列表，支援分類篩選</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 自動刷新統計數據
+setInterval(function() {
+    // 這裡可以添加 AJAX 請求來更新統計數據
+}, 30000); // 每30秒刷新一次
+</script>
+{% endblock %} 

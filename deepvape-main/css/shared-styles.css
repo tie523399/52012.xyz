@@ -1,0 +1,430 @@
+/**
+ * DeepVape 共享樣式表
+ * 包含所有頁面通用的樣式定義
+ */
+
+/* CSS 變數定義 */
+:root {
+    --primary-color: #111117;
+    --secondary-color: #0a0a0f;
+    --text-color: #ffffff;
+    --highlight-color: #1afe49;
+    --tech-cyan: #00ffd5;
+    --warning-color: #ffab00;
+    --error-color: #ff4444;
+    --success-color: #00c851;
+    --info-color: #33b5e5;
+    --gradient-start: #1afe49;
+    --gradient-end: #00ffd5;
+    --shadow-color: rgba(26, 254, 73, 0.5);
+    --transition-speed: 0.3s;
+}
+
+/* 通用 Header 樣式 */
+header {
+    background: var(--primary-color);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-button {
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--highlight-color);
+    transition: all var(--transition-speed) ease;
+}
+
+.vfx-logo {
+    position: relative;
+    display: inline-block;
+    text-shadow: 0 0 10px var(--highlight-color);
+}
+
+.logo-text {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.cart-button,
+.back-button {
+    color: var(--text-color);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+}
+
+.cart-button:hover,
+.back-button:hover {
+    background: rgba(26, 254, 73, 0.2);
+    transform: translateY(-2px);
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--highlight-color);
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+    display: none;
+}
+
+/* 通用 Footer 樣式 */
+.site-footer {
+    background: var(--secondary-color);
+    color: var(--text-color);
+    padding: 3rem 0 1rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-section h4 {
+    color: var(--highlight-color);
+    margin-bottom: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+
+.footer-section a:hover {
+    color: var(--highlight-color);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all var(--transition-speed) ease;
+}
+
+.social-link:hover {
+    background: var(--highlight-color);
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.warning-text {
+    color: var(--warning-color);
+    margin-top: 0.5rem;
+}
+
+/* Pulse Button 樣式 */
+.pulse-button {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    color: var(--primary-color);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.pulse-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.pulse-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.pulse-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px var(--shadow-color);
+}
+
+/* 漣漪效果 */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* 產品卡片樣式 */
+.product-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all var(--transition-speed) ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.product-image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 75%;
+    overflow: hidden;
+}
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-speed) ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.1);
+}
+
+.product-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--highlight-color);
+    color: var(--primary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.product-info {
+    padding: 1.5rem;
+}
+
+.product-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.product-description {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.product-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--highlight-color);
+    margin-bottom: 1rem;
+}
+
+/* 通知樣式 */
+.notification {
+    position: fixed;
+    top: 80px;
+    right: -300px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--primary-color);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: right 0.3s ease;
+    z-index: 9999;
+    max-width: 300px;
+}
+
+.notification.show {
+    right: 20px;
+}
+
+.notification-success {
+    border-left: 4px solid var(--success-color);
+}
+
+.notification-success i {
+    color: var(--success-color);
+}
+
+.notification-error {
+    border-left: 4px solid var(--error-color);
+}
+
+.notification-error i {
+    color: var(--error-color);
+}
+
+.notification-info {
+    border-left: 4px solid var(--info-color);
+}
+
+.notification-info i {
+    color: var(--info-color);
+}
+
+/* 懶加載動畫 */
+.lazy-loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.lazy-loaded {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 滾動動畫 */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.animate-on-scroll.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 0 0.5rem;
+    }
+    
+    .logo-button {
+        font-size: 1.2rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    .pulse-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+    
+    .product-info {
+        padding: 1rem;
+    }
+    
+    .notification {
+        left: 20px;
+        right: 20px;
+        max-width: none;
+    }
+    
+    .notification.show {
+        right: 20px;
+    }
+} 

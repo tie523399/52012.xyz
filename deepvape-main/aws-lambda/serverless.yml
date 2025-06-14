@@ -1,0 +1,64 @@
+# Serverless Framework 配置檔案
+# 用於部署 AWS Lambda 函數
+
+service: deepvape-telegram-bot
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-northeast-1  # 亞太地區（東京）
+  stage: ${opt:stage, 'prod'}
+  
+  # 環境變數
+  environment:
+    TELEGRAM_BOT_TOKEN: ${env:TELEGRAM_BOT_TOKEN}
+    TELEGRAM_CHAT_ID: ${env:TELEGRAM_CHAT_ID}
+
+  # API Gateway 設定
+  apiGateway:
+    # 啟用 CORS
+    cors:
+      origin: '*'
+      headers:
+        - Content-Type
+        - X-Amz-Date
+        - Authorization
+        - X-Api-Key
+        - X-Amz-Security-Token
+        - X-Amz-User-Agent
+      allowCredentials: false
+
+functions:
+  sendTelegram:
+    handler: send-telegram.handler
+    events:
+      - http:
+          path: send-telegram
+          method: post
+          cors: true
+      - http:
+          path: send-telegram
+          method: options
+          cors: true
+
+# 套件設定
+package:
+  exclude:
+    - .git/**
+    - .gitignore
+    - README.md
+    - serverless.yml
+    - .env
+    - node_modules/**
+  include:
+    - send-telegram.js
+
+# 自訂設定
+custom:
+  # 設定 API Gateway 的自訂網域（選用）
+  # customDomain:
+  #   domainName: api.52012.xyz
+  #   certificateName: '*.52012.xyz'
+  #   basePath: 'telegram'
+  #   stage: ${self:provider.stage}
+  #   createRoute53Record: true 

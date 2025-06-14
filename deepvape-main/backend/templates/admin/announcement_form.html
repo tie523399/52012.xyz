@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if announcement %}編輯公告{% else %}新增公告{% endif %} - Deepvape 後台管理系統
+{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item"><a href="{{ url_for('announcements') }}">網站公告</a></li>
+<li class="breadcrumb-item active">{% if announcement %}編輯公告{% else %}新增公告{% endif %}</li>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-bullhorn"></i> 
+        {% if announcement %}編輯公告{% else %}新增公告{% endif %}
+    </h1>
+    <a href="{{ url_for('announcements') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> 返回列表
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">公告資訊</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">公告標題 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="title" name="title" 
+                               value="{{ announcement.title if announcement else '' }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="content" class="form-label">公告內容 <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="content" name="content" rows="5" required>{{ announcement.content if announcement else '' }}</textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="priority" class="form-label">優先級</label>
+                                <select class="form-select" id="priority" name="priority">
+                                    <option value="1" {% if announcement and announcement.priority == 1 %}selected{% endif %}>低</option>
+                                    <option value="2" {% if announcement and announcement.priority == 2 %}selected{% elif not announcement %}selected{% endif %}>中</option>
+                                    <option value="3" {% if announcement and announcement.priority == 3 %}selected{% endif %}>高</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="form-check mt-4">
+                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                                           {% if not announcement or announcement.is_active %}checked{% endif %}>
+                                    <label class="form-check-label" for="is_active">
+                                        啟用公告
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="start_date" class="form-label">開始時間</label>
+                                <input type="datetime-local" class="form-control" id="start_date" name="start_date"
+                                       value="{{ announcement.start_date.strftime('%Y-%m-%dT%H:%M') if announcement and announcement.start_date else '' }}">
+                                <div class="form-text">留空則立即生效</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="end_date" class="form-label">結束時間</label>
+                                <input type="datetime-local" class="form-control" id="end_date" name="end_date"
+                                       value="{{ announcement.end_date.strftime('%Y-%m-%dT%H:%M') if announcement and announcement.end_date else '' }}">
+                                <div class="form-text">留空則永久有效</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 
+                            {% if announcement %}更新公告{% else %}創建公告{% endif %}
+                        </button>
+                        <a href="{{ url_for('announcements') }}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> 取消
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-info-circle"></i> 說明</h5>
+            </div>
+            <div class="card-body">
+                <h6>優先級說明：</h6>
+                <ul class="list-unstyled">
+                    <li><span class="badge bg-danger">高</span> 重要公告，優先顯示</li>
+                    <li><span class="badge bg-warning">中</span> 一般公告</li>
+                    <li><span class="badge bg-secondary">低</span> 次要資訊</li>
+                </ul>
+                
+                <hr>
+                
+                <h6>時間設定：</h6>
+                <ul class="small">
+                    <li>開始時間：公告開始顯示的時間</li>
+                    <li>結束時間：公告停止顯示的時間</li>
+                    <li>留空表示立即生效或永久有效</li>
+                </ul>
+                
+                <hr>
+                
+                <h6>顯示位置：</h6>
+                <p class="small">公告將顯示在網站首頁的公告橫幅中，按優先級排序。</p>
+            </div>
+        </div>
+        
+        {% if announcement %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-clock"></i> 建立資訊</h5>
+            </div>
+            <div class="card-body">
+                <p class="small mb-1">
+                    <strong>建立時間：</strong><br>
+                    {{ announcement.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+                </p>
+                <p class="small mb-0">
+                    <strong>最後更新：</strong><br>
+                    {{ announcement.updated_at.strftime('%Y-%m-%d %H:%M:%S') }}
+                </p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 表單驗證
+document.querySelector('form').addEventListener('submit', function(e) {
+    const title = document.getElementById('title').value.trim();
+    const content = document.getElementById('content').value.trim();
+    
+    if (!title || !content) {
+        e.preventDefault();
+        alert('請填寫標題和內容！');
+        return false;
+    }
+    
+    // 檢查時間設定
+    const startDate = document.getElementById('start_date').value;
+    const endDate = document.getElementById('end_date').value;
+    
+    if (startDate && endDate && new Date(startDate) >= new Date(endDate)) {
+        e.preventDefault();
+        alert('結束時間必須晚於開始時間！');
+        return false;
+    }
+});
+
+// 自動調整文本框高度
+document.getElementById('content').addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = this.scrollHeight + 'px';
+});
+</script>
+{% endblock %} 

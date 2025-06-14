@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTA 黑桃主機 - 頂級電子菸主機 | Deepvape 頂級電子菸專賣店</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #0f3460;
+            --highlight-color: #e94560;
+            --success-color: #00d25b;
+            --warning-color: #ffab00;
+            --hta-pink: #e5779f;
+            --hta-dark: #2c1810;
+            --hta-gold: #d4af37;
+            --text-color: #ffffff;
+            --text-secondary: #a0a0a0;
+            --card-bg: rgba(22, 33, 62, 0.8);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--hta-dark) 0%, var(--primary-color) 50%, var(--hta-pink) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: rgba(22, 33, 62, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+        }
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: #1afe49;
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid #1afe49;
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, #1afe49, #8386f5, #1afe49);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .logo h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: var(--highlight-color);
+            font-weight: 700;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .back-button, .cart-button {
+            background: var(--accent-color);
+            color: var(--text-color);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 2px solid var(--border-color);
+        }
+
+        .back-button:hover {
+            background: var(--highlight-color);
+            transform: translateY(-2px);
+            border-color: #1afe49;
+        }
+
+        .cart-button {
+            background: var(--highlight-color);
+        }
+
+        .cart-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        /* Product Detail Container */
+        .product-detail {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Product Images */
+        .product-images {
+            position: sticky;
+            top: 120px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid var(--hta-gold);
+        }
+
+        /* Product Info */
+        .product-info {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .product-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(45deg, var(--highlight-color), #8e44ad);
+            color: white;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            background: linear-gradient(45deg, var(--highlight-color), #8e44ad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--hta-gold);
+            margin-bottom: 2rem;
+        }
+
+        .product-description {
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Specifications */
+        .specifications {
+            margin-bottom: 2rem;
+        }
+
+        .spec-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--hta-gold);
+        }
+
+        .spec-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .spec-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .spec-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .spec-value {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Color Options */
+        .color-options {
+            margin-bottom: 2rem;
+        }
+
+        .color-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--hta-gold);
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .color-option {
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--text-color);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .color-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .color-option:hover {
+            border-color: var(--hta-gold);
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .color-option.selected {
+            border-color: var(--hta-gold);
+            background: var(--hta-gold);
+            color: var(--hta-dark);
+        }
+
+        /* Quantity Selector */
+        .quantity-selector {
+            margin-bottom: 2rem;
+        }
+
+        .quantity-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--hta-gold);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 30px;
+            background: var(--hta-gold);
+            color: var(--hta-dark);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .quantity-btn:hover {
+            background: #ffd700;
+            transform: scale(1.1);
+        }
+
+        .quantity-input {
+            width: 80px;
+            height: 40px;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .pulse-button {
+            flex: 1;
+            background: linear-gradient(45deg, var(--highlight-color), #8e44ad);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .pulse-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        
+
+        
+
+        /* Features */
+        .features {
+            margin-bottom: 2rem;
+        }
+
+        .features-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--hta-gold);
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .features-list li i {
+            color: var(--hta-gold);
+            width: 20px;
+        }
+
+        /* Warning Notice */
+        .warning-notice {
+            background: rgba(233, 69, 96, 0.1);
+            border: 1px solid var(--highlight-color);
+            border-radius: 30px;
+            padding: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .warning-notice i {
+            color: var(--warning-color);
+            margin-right: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-images {
+                position: static;
+            }
+
+            .color-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="css/common-styles.css">
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="images/ui/logo.png" alt="Deepvape Logo">
+                <h1>Deepvape</h1>
+            </div>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-button">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Detail -->
+    <div class="product-detail">
+        <!-- Product Images -->
+        <div class="product-images">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="hta_vape/hta_spade_device.webp" loading="lazy" alt="HTA 黑桃主機" class="main-image" id="mainImage">
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info" data-product-id="hta_spade">
+            <span class="product-badge">
+                <i class="fas fa-crown"></i> HTA 黑桃頂級系列
+            </span>
+            
+            <h1 class="product-title">HTA 黑桃主機</h1>
+            
+                            <div class="product-price">NT$ 450</div>
+            
+            <div class="product-description">
+                HTA 黑桃主機是頂級電子菸主機的代表作品，採用一代與二代通用設計，
+                實現真正的跨世代相容性。精工製造，品質卓越，為您帶來尊貴的電子菸體驗。
+                CP值極高的主力產品，是電子菸愛好者的首選。
+            </div>
+
+            <!-- Specifications -->
+            <div class="specifications">
+                <h3 class="spec-title">產品規格</h3>
+                <ul class="spec-list">
+                    <li>
+                        <span class="spec-label">品牌</span>
+                        <span class="spec-value">HTA 黑桃</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">型號</span>
+                        <span class="spec-value">一代、二代通用</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">電池容量</span>
+                        <span class="spec-value">350mAH</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">功率範圍</span>
+                        <span class="spec-value">6W~8W</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">充電規格</span>
+                        <span class="spec-value">TYPE-C 5V/1A</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">材質</span>
+                        <span class="spec-value">高品質鋁合金</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">顏色選擇</span>
+                        <span class="spec-value">7種經典顏色</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">保固</span>
+                        <span class="spec-value">購買起三天內非人為損壞</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Color Options -->
+            <div class="color-options">
+                <h3 class="color-title">顏色選擇 <span style="font-size: 0.8rem; color: var(--text-secondary);">(7種顏色)</span></h3>
+                <div class="color-grid">
+                    <div class="color-option selected" data-color="黑">
+                        <div class="color-preview" style="background: #2c2c2c;"></div>
+                        <span>黑</span>
+                    </div>
+                    <div class="color-option" data-color="黑">
+                        <div class="color-preview" style="background: #2c2c2c;"></div>
+                        <span>黑</span>
+                    </div>
+                    <div class="color-option" data-color="白">
+                        <div class="color-preview" style="background: #f8f8f8;"></div>
+                        <span>白</span>
+                    </div>
+                    <div class="color-option" data-color="橙">
+                        <div class="color-preview" style="background: #ff8c00;"></div>
+                        <span>橙</span>
+                    </div>
+                    <div class="color-option" data-color="紅">
+                        <div class="color-preview" style="background: #dc2626;"></div>
+                        <span>紅</span>
+                    </div>
+                    <div class="color-option" data-color="綠">
+                        <div class="color-preview" style="background: #16a34a;"></div>
+                        <span>綠</span>
+                    </div>
+                    <div class="color-option" data-color="藍">
+                        <div class="color-preview" style="background: #2563eb;"></div>
+                        <span>藍</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantity Selector -->
+            <div class="quantity-selector">
+                <h3 class="quantity-title">數量</h3>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="decreaseQuantity()">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="10">
+                    <button class="quantity-btn" onclick="increaseQuantity()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="pulse-button" onclick="addToCart()">
+                    <i class="fas fa-shopping-cart"></i> 加入購物車
+                </button>
+                
+            </div>
+
+            <!-- Features -->
+            <div class="features">
+                <h3 class="features-title">產品特色</h3>
+                <ul class="features-list">
+                    <li>
+                        <i class="fas fa-crown"></i>
+                        HTA 黑桃頂級品牌，尊貴象徵
+                    </li>
+                    <li>
+                        <i class="fas fa-sync-alt"></i>
+                        一代二代通用設計，跨世代相容
+                    </li>
+                    <li>
+                        <i class="fas fa-star"></i>
+                        CP值極高的主力產品
+                    </li>
+                    <li>
+                        <i class="fas fa-battery-three-quarters"></i>
+                        350mAH 大容量電池，持久續航
+                    </li>
+                    <li>
+                        <i class="fas fa-plug"></i>
+                        TYPE-C 快速充電技術
+                    </li>
+                    <li>
+                        <i class="fas fa-palette"></i>
+                        7 種經典顏色選擇
+                    </li>
+                    <li>
+                        <i class="fas fa-cog"></i>
+                        6W~8W 功率範圍，穩定輸出
+                    </li>
+                    <li>
+                        <i class="fas fa-shield-alt"></i>
+                        高品質鋁合金材質，堅固耐用
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Warning Notice -->
+            <div class="warning-notice">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>重要提醒：</strong>本產品僅供 18 歲以上成年人使用，請遵守當地相關法規。
+                <br><strong>品質保證：</strong>購買起三天內非人為損壞享有保固服務。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Color Selection
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Quantity Controls
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue < 10) {
+                quantityInput.value = currentValue + 1;
+            }
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        }
+
+        // Add to Cart
+        function addToCart() {
+            const selectedColor = document.querySelector('.color-option.selected').dataset.color;
+            const quantity = document.getElementById('quantity').value;
+            
+            // 添加到購物車邏輯
+            const product = {
+                name: 'HTA 黑桃主機',
+                color: selectedColor,
+                price: 450,
+                quantity: parseInt(quantity),
+                image: 'hta_vape/hta_spade_device.webp'
+            };
+
+            // 獲取現有購物車
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            // 檢查是否已存在相同產品和顏色
+            const existingIndex = cart.findIndex(item => 
+                item.name === product.name && item.color === product.color
+            );
+
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += product.quantity;
+            } else {
+                cart.push(product);
+            }
+
+            // 保存到 localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // 詢問是否前往購物車
+            if (confirm(`已將 ${quantity} 個 HTA 黑桃主機 (${selectedColor}色) 加入購物車！\n\n是否前往購物車結帳？`)) {
+                window.location.href = 'cart.html';
+            }
+        }
+
+        
+    </script>
+
+    
+
+    <!-- 內容管理系統 -->
+    <script src="/js/content-manager.js"></script>
+
+    <!-- 共享 VFX 效果 -->
+    <script src="js/vfx-effects.js"></script>
+</body>
+</html> 

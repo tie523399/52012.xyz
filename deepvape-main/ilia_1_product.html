@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILIA 一代主機 - Deepvape 頂級電子菸專賣店</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <style>
+        :root {
+            --primary-color: #083e12;
+            --secondary-color: #041348;
+            --accent-color: #3d43b4;
+            --highlight-color: #1afe49;
+            --success-color: #1afe49;
+            --warning-color: #ffab00;
+            --text-color: #ffffff;
+            --text-secondary: #a0f7b3;
+            --card-bg: rgba(4, 19, 72, 0.8);
+            --border-color: rgba(26, 254, 73, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: #000000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border: 2px solid transparent;
+            animation: headerBorderMove 3s infinite linear;
+        }
+
+        @keyframes headerBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid rgba(26, 254, 73, 0.3);
+        }
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: #1afe49;
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid #1afe49;
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, #1afe49, #8386f5, #1afe49);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .back-button, .cart-button {
+            background: var(--accent-color);
+            color: var(--text-color);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 2px solid var(--border-color);
+        }
+
+        .back-button:hover {
+            background: var(--highlight-color);
+            transform: translateY(-2px);
+            border-color: #1afe49;
+        }
+
+        .cart-button {
+            background: var(--highlight-color);
+        }
+
+        .cart-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        /* Product Detail Container */
+        .product-detail {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Product Images */
+        .product-images {
+            position: sticky;
+            top: 120px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .gallery-image:hover,
+        .gallery-image.active {
+            border-color: #1afe49;
+            transform: scale(1.05);
+        }
+
+        /* Product Info */
+        .product-info {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .product-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--success-color);
+            color: white;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--highlight-color);
+            margin-bottom: 2rem;
+        }
+
+        .product-description {
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Specifications */
+        .specifications {
+            margin-bottom: 2rem;
+        }
+
+        .spec-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--highlight-color);
+        }
+
+        .spec-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .spec-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .spec-list li:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .spec-value {
+            color: var(--highlight-color);
+        }
+
+        /* Color Options */
+        .color-options {
+            margin-bottom: 2rem;
+        }
+
+        .color-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .color-option {
+            padding: 0.8rem;
+            background: var(--accent-color);
+            border: 2px solid transparent;
+            border-radius: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .color-option:hover,
+        .color-option.selected {
+            border-color: #1afe49;
+            background: rgba(233, 69, 96, 0.2);
+        }
+
+        /* Quantity Selector */
+        .quantity-selector {
+            margin-bottom: 2rem;
+        }
+
+        .quantity-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--accent-color);
+            color: var(--text-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background: var(--highlight-color);
+        }
+
+        .quantity-input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            background: var(--secondary-color);
+            color: var(--text-color);
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .pulse-button {
+            background: linear-gradient(45deg, var(--highlight-color), #8e44ad);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .pulse-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .pulse-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .pulse-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
+        }
+
+        
+
+        
+
+        /* Features Section */
+        .features {
+            margin-top: 2rem;
+        }
+
+        .features-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--highlight-color);
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .features-list li i {
+            color: var(--success-color);
+            width: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-images {
+                position: static;
+            }
+
+            .product-title {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .color-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Warning Notice */
+        .warning-notice {
+            background: rgba(255, 171, 0, 0.1);
+            border: 1px solid var(--warning-color);
+            border-radius: 30px;
+            padding: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .warning-notice i {
+            color: var(--warning-color);
+            margin-right: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="css/common-styles.css">
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html" class="logo-button vfx-logo" id="navLogo">
+                    <span class="logo-text">DeepVape</span>
+                </a>
+            </div>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-button">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Detail -->
+    <div class="product-detail">
+        <!-- Product Images -->
+        <div class="product-images">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_1/ilia_gen1_main_device.jpg" loading="lazy" alt="ILIA 一代主機" class="main-image" id="mainImage">
+            <div class="image-gallery">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_1/ilia_gen1_main_device.jpg" loading="lazy" alt="ILIA 主機正面" class="gallery-image active" onclick="changeMainImage(this)">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_1/ilia_gen1_device_details.jpg" loading="lazy" alt="ILIA 產品詳情" class="gallery-image" onclick="changeMainImage(this)">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_1/ilia_gen1_compact.webp" loading="lazy" alt="ILIA 緊湊設計" class="gallery-image" onclick="changeMainImage(this)">
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info" data-product-id="ilia_gen1">
+            <span class="product-badge">
+                <i class="fas fa-shield-alt"></i> 安心選擇
+            </span>
+            
+            <h1 class="product-title">哩啞 ILIA 一代主機</h1>
+            
+            <div class="product-price">NT$ 650</div>
+            
+            <div class="product-description">
+                ILIA 一代主機以其優異的建構設計與功能性能著稱，是您理想的電子菸選擇。
+                擁有 9 種顏色選擇，內建優質功能設計，提供絕佳的電子菸體驗。
+            </div>
+
+            <!-- Specifications -->
+            <div class="specifications">
+                <h3 class="spec-title">產品規格</h3>
+                <ul class="spec-list">
+                    <li>
+                        <span class="spec-label">功率</span>
+                        <span class="spec-value">7W~8W</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">電池容量</span>
+                        <span class="spec-value">450mAH</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">充電規格</span>
+                        <span class="spec-value">TYPE-C 5V/1A</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">材質</span>
+                        <span class="spec-value">通用一代煙彈產品</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">保固</span>
+                        <span class="spec-value">購買起三天內非人為損壞</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Color Options -->
+            <div class="color-options">
+                <h3 class="color-title">顏色選擇</h3>
+                <div class="color-grid">
+                    <div class="color-option selected" data-color="黑色白">黑色白</div>
+                    <div class="color-option" data-color="藍色銀灰">藍色銀灰</div>
+                    <div class="color-option" data-color="天空之藍">天空之藍</div>
+                    <div class="color-option" data-color="綠綠紅">綠綠紅</div>
+                    <div class="color-option" data-color="綠綠綠">綠綠綠</div>
+                    <div class="color-option" data-color="紫色紫色">紫色紫色</div>
+                    <div class="color-option" data-color="橙橙灰紅">橙橙灰紅</div>
+                    <div class="color-option" data-color="橙色紫紅">橙色紫紅</div>
+                    <div class="color-option" data-color="黑色紅">黑色紅</div>
+                </div>
+            </div>
+
+            <!-- Quantity Selector -->
+            <div class="quantity-selector">
+                <h3 class="quantity-title">數量</h3>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="decreaseQuantity()">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="10">
+                    <button class="quantity-btn" onclick="increaseQuantity()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="pulse-button" onclick="addToCart()">
+                    <i class="fas fa-shopping-cart"></i> 加入購物車
+                </button>
+                
+            </div>
+
+            <!-- Features -->
+            <div class="features">
+                <h3 class="features-title">產品特色</h3>
+                <ul class="features-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        優質建構設計與功能性能
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        9 種顏色選擇，滿足個人喜好
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        通用一代煙彈產品，相容性佳
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        TYPE-C 快速充電，便利實用
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        450mAH 大容量電池，持久續航
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        智能功率調節 7W~8W
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Warning Notice -->
+            <div class="warning-notice">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>重要提醒：</strong>本產品僅供 18 歲以上成年人使用，請遵守當地相關法規。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Image Gallery
+        function changeMainImage(img) {
+            const mainImage = document.getElementById('mainImage');
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            
+            mainImage.src = img.src;
+            
+            galleryImages.forEach(image => image.classList.remove('active'));
+            img.classList.add('active');
+        }
+
+        // Color Selection
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Quantity Controls
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue < 10) {
+                quantityInput.value = currentValue + 1;
+            }
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        }
+
+        // Add to Cart
+        function addToCart() {
+            const selectedColor = document.querySelector('.color-option.selected').dataset.color;
+            const quantity = document.getElementById('quantity').value;
+            
+            const product = {
+                id: 'ilia_1_host',
+                name: 'ILIA 一代主機',
+                price: 650,
+                color: selectedColor,
+                quantity: parseInt(quantity),
+                image: 'ilia_1/ilia_gen1_main_device.jpg',
+                category: 'host'
+            };
+            
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const existingIndex = cart.findIndex(item => 
+                item.id === product.id && item.color === product.color
+            );
+            
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += product.quantity;
+            } else {
+                cart.push(product);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            alert(`已將 ${quantity} 個 ILIA 一代主機 (${selectedColor}) 加入購物車！`);
+        }
+
+        
+
+        // Smooth scroll and animations
+        window.addEventListener('scroll', function() {
+            const productInfo = document.querySelector('.product-info');
+            const rect = productInfo.getBoundingClientRect();
+            
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                productInfo.style.opacity = '1';
+                productInfo.style.transform = 'translateY(0)';
+            }
+        });
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const productInfo = document.querySelector('.product-info');
+            productInfo.style.opacity = '0';
+            productInfo.style.transform = 'translateY(20px)';
+            productInfo.style.transition = 'all 0.6s ease';
+            
+            setTimeout(() => {
+                productInfo.style.opacity = '1';
+                productInfo.style.transform = 'translateY(0)';
+            }, 300);
+        });
+    </script>
+
+    
+
+    <!-- 內容管理系統 -->
+    <script src="/js/content-manager.js"></script>
+
+    <!-- 共享 VFX 效果 -->
+    <script src="js/vfx-effects.js"></script>
+</body>
+</html> 

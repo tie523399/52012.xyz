@@ -1,0 +1,405 @@
+{% extends "base.html" %}
+
+{% block title %}產品管理 - Deepvape 後台管理系統{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item active">產品管理</li>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-box"></i> 產品管理</h1>
+    <a href="{{ url_for('create_product') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> 新增產品
+    </a>
+</div>
+
+<!-- 搜尋和篩選 -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="GET" class="row g-3">
+            <div class="col-md-4">
+                <label for="search" class="form-label">搜尋產品</label>
+                <input type="text" class="form-control" id="search" name="search" 
+                       value="{{ search }}" placeholder="輸入產品名稱...">
+            </div>
+            <div class="col-md-3">
+                <label for="category_id" class="form-label">產品分類</label>
+                <select class="form-select" id="category_id" name="category_id">
+                    <option value="">所有分類</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}" {% if current_category == category.id %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">&nbsp;</label>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="fas fa-search"></i> 搜尋
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">&nbsp;</label>
+                <div class="d-grid">
+                    <button type="button" class="btn btn-outline-secondary" onclick="clearFilters()">
+                        <i class="fas fa-times"></i> 清除篩選
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 批量操作 -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="fas fa-tasks"></i> 批量操作</h5>
+    </div>
+    <div class="card-body">
+        <form id="batchForm" method="POST" action="{{ url_for('batch_products') }}">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <select class="form-select" id="batchAction" name="action" required>
+                        <option value="">選擇操作</option>
+                        <option value="activate">啟用產品</option>
+                        <option value="deactivate">停用產品</option>
+                        <option value="delete">刪除產品</option>
+                        <option value="update_price">更新價格</option>
+                        <option value="update_stock">更新庫存</option>
+                        <option value="update_badge">更新標籤</option>
+                    </select>
+                </div>
+                
+                <!-- 價格更新選項 -->
+                <div class="col-md-2" id="priceOptions" style="display: none;">
+                    <select class="form-select" name="change_type">
+                        <option value="percentage">百分比</option>
+                        <option value="fixed">固定金額</option>
+                    </select>
+                </div>
+                <div class="col-md-2" id="priceInput" style="display: none;">
+                    <input type="number" class="form-control" name="price_change" 
+                           placeholder="變更值" step="0.01">
+                </div>
+                
+                <!-- 庫存更新選項 -->
+                <div class="col-md-2" id="stockOptions" style="display: none;">
+                    <select class="form-select" name="change_type">
+                        <option value="add">增加</option>
+                        <option value="set">設定為</option>
+                    </select>
+                </div>
+                <div class="col-md-2" id="stockInput" style="display: none;">
+                    <input type="number" class="form-control" name="stock_change" 
+                           placeholder="數量" min="0">
+                </div>
+                
+                <!-- 標籤更新選項 -->
+                <div class="col-md-2" id="badgeType" style="display: none;">
+                    <select class="form-select" name="badge_type">
+                        <option value="">無標籤</option>
+                        <option value="hot">熱門</option>
+                        <option value="new">新品</option>
+                        <option value="safe">安心選擇</option>
+                        <option value="featured">精選</option>
+                    </select>
+                </div>
+                <div class="col-md-2" id="badgeText" style="display: none;">
+                    <input type="text" class="form-control" name="badge_text" 
+                           placeholder="標籤文字">
+                </div>
+                
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-warning" id="batchSubmit" disabled>
+                        <i class="fas fa-play"></i> 執行
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if products.items %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">產品列表</h5>
+        <div>
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="selectAll()">
+                <i class="fas fa-check-square"></i> 全選
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="selectNone()">
+                <i class="fas fa-square"></i> 取消全選
+            </button>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th width="50">
+                            <input type="checkbox" id="selectAllCheckbox" onchange="toggleAll()">
+                        </th>
+                        <th>圖片</th>
+                        <th>產品名稱</th>
+                        <th>分類</th>
+                        <th>價格</th>
+                        <th>庫存</th>
+                        <th>狀態</th>
+                        <th>標籤</th>
+                        <th>更新時間</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products.items %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="product_ids" value="{{ product.id }}" 
+                                   form="batchForm" class="product-checkbox">
+                        </td>
+                        <td>
+                            {% if product.main_image %}
+                            <img src="{{ url_for('static', filename='uploads/' + product.main_image) }}" 
+                                 alt="{{ product.name }}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                            {% else %}
+                            <div class="bg-light d-flex align-items-center justify-content-center" 
+                                 style="width: 50px; height: 50px; border-radius: 4px;">
+                                <i class="fas fa-image text-muted"></i>
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <strong>{{ product.name }}</strong>
+                            {% if product.description %}
+                            <br><small class="text-muted">{{ product.description[:50] }}{% if product.description|length > 50 %}...{% endif %}</small>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="badge bg-info">{{ product.category.name if product.category else '未分類' }}</span>
+                        </td>
+                        <td>
+                            <strong>NT$ {{ "%.0f"|format(product.price) }}</strong>
+                            {% if product.original_price and product.original_price > product.price %}
+                            <br><small class="text-muted text-decoration-line-through">NT$ {{ "%.0f"|format(product.original_price) }}</small>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="badge {% if product.stock_quantity > 10 %}bg-success{% elif product.stock_quantity > 0 %}bg-warning{% else %}bg-danger{% endif %}">
+                                {{ product.stock_quantity }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if product.is_active %}
+                                <span class="badge bg-success">啟用</span>
+                            {% else %}
+                                <span class="badge bg-secondary">停用</span>
+                            {% endif %}
+                            {% if product.is_featured %}
+                                <span class="badge bg-warning">精選</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if product.badge_type %}
+                            <span class="badge bg-primary">{{ product.badge_text or product.badge_type }}</span>
+                            {% else %}
+                            <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <small class="text-muted">
+                                {{ product.updated_at.strftime('%m-%d %H:%M') if product.updated_at else '-' }}
+                            </small>
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{ url_for('edit_product', id=product.id) }}" 
+                                   class="btn btn-outline-primary" title="編輯">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="button" class="btn btn-outline-danger" 
+                                        onclick="deleteProduct({{ product.id }})" title="刪除">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- 分頁 -->
+    {% if products.pages > 1 %}
+    <div class="card-footer">
+        <nav aria-label="產品分頁">
+            <ul class="pagination justify-content-center mb-0">
+                {% if products.has_prev %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('products', page=products.prev_num, search=search, category_id=current_category) }}">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+                {% endif %}
+                
+                {% for page_num in products.iter_pages() %}
+                    {% if page_num %}
+                        {% if page_num != products.page %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('products', page=page_num, search=search, category_id=current_category) }}">
+                                {{ page_num }}
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ page_num }}</span>
+                        </li>
+                        {% endif %}
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if products.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('products', page=products.next_num, search=search, category_id=current_category) }}">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% else %}
+<div class="card">
+    <div class="card-body text-center py-5">
+        <i class="fas fa-box fa-3x text-muted mb-3"></i>
+        <h5 class="text-muted">尚無產品</h5>
+        <p class="text-muted">點擊上方按鈕新增第一個產品</p>
+        <a href="{{ url_for('create_product') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> 新增產品
+        </a>
+    </div>
+</div>
+{% endif %}
+
+<!-- 刪除確認模態框 -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">確認刪除</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>確定要刪除這個產品嗎？此操作無法復原。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">確認刪除</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 批量操作相關
+document.getElementById('batchAction').addEventListener('change', function() {
+    const action = this.value;
+    const batchSubmit = document.getElementById('batchSubmit');
+    
+    // 隱藏所有選項
+    document.getElementById('priceOptions').style.display = 'none';
+    document.getElementById('priceInput').style.display = 'none';
+    document.getElementById('stockOptions').style.display = 'none';
+    document.getElementById('stockInput').style.display = 'none';
+    document.getElementById('badgeType').style.display = 'none';
+    document.getElementById('badgeText').style.display = 'none';
+    
+    // 根據選擇顯示對應選項
+    if (action === 'update_price') {
+        document.getElementById('priceOptions').style.display = 'block';
+        document.getElementById('priceInput').style.display = 'block';
+    } else if (action === 'update_stock') {
+        document.getElementById('stockOptions').style.display = 'block';
+        document.getElementById('stockInput').style.display = 'block';
+    } else if (action === 'update_badge') {
+        document.getElementById('badgeType').style.display = 'block';
+        document.getElementById('badgeText').style.display = 'block';
+    }
+    
+    batchSubmit.disabled = !action;
+});
+
+// 全選/取消全選
+function toggleAll() {
+    const selectAll = document.getElementById('selectAllCheckbox');
+    const checkboxes = document.querySelectorAll('.product-checkbox');
+    
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = selectAll.checked;
+    });
+}
+
+function selectAll() {
+    document.getElementById('selectAllCheckbox').checked = true;
+    toggleAll();
+}
+
+function selectNone() {
+    document.getElementById('selectAllCheckbox').checked = false;
+    toggleAll();
+}
+
+// 批量表單提交確認
+document.getElementById('batchForm').addEventListener('submit', function(e) {
+    const selectedProducts = document.querySelectorAll('.product-checkbox:checked');
+    const action = document.getElementById('batchAction').value;
+    
+    if (selectedProducts.length === 0) {
+        e.preventDefault();
+        alert('請選擇要操作的產品！');
+        return false;
+    }
+    
+    if (action === 'delete') {
+        if (!confirm(`確定要刪除選中的 ${selectedProducts.length} 個產品嗎？此操作無法復原。`)) {
+            e.preventDefault();
+            return false;
+        }
+    } else {
+        if (!confirm(`確定要對選中的 ${selectedProducts.length} 個產品執行此操作嗎？`)) {
+            e.preventDefault();
+            return false;
+        }
+    }
+});
+
+// 單個產品刪除
+function deleteProduct(id) {
+    const deleteForm = document.getElementById('deleteForm');
+    deleteForm.action = `/admin/products/${id}/delete`;
+    
+    const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    modal.show();
+}
+
+// 清除篩選
+function clearFilters() {
+    window.location.href = '{{ url_for("products") }}';
+}
+</script>
+{% endblock %} 

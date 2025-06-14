@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>門市選擇回調 | Image Vape</title>
+    <link rel="icon" type="image/png" href="/nav_logo.png">
+    <link rel="shortcut icon" type="image/png" href="/nav_logo.png">
+    <link rel="apple-touch-icon" href="/nav_logo.png">
+    <style>
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .callback-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .loading-icon {
+            font-size: 3rem;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .message {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .store-info {
+            background: #f8f9fa;
+            border-radius: 30px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: left;
+            display: none;
+        }
+
+        .store-info h4 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        .store-info div {
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #1e3c72, #667eea);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .error {
+            color: #e74c3c;
+            background: #ffeaea;
+            padding: 1rem;
+            border-radius: 30px;
+            margin: 1rem 0;
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="callback-container">
+        <div class="loading-icon">
+            <i class="fas fa-spinner"></i>
+        </div>
+        <h2 class="title">處理門市選擇</h2>
+        <p class="message">正在處理您選擇的門市資訊...</p>
+        
+        <div id="storeInfo" class="store-info">
+            <h4><i class="fas fa-store"></i> 已選擇門市</h4>
+            <div id="storeDetails"></div>
+        </div>
+        
+        <div id="errorMessage" class="error"></div>
+        
+        <button id="confirmBtn" class="btn" onclick="confirmSelection()" style="display: none;">
+            <i class="fas fa-check"></i> 確認選擇
+        </button>
+        
+        <button class="btn" onclick="testStoreSelection()" style="background: #ffc107;">
+            <i class="fas fa-flask"></i> 測試門市選擇
+        </button>
+        
+        <button class="btn" onclick="window.close()">
+            <i class="fas fa-times"></i> 關閉視窗
+        </button>
+    </div>
+
+    <script>
+        let selectedStoreData = null;
+
+        /*
+         * 重要說明：7-11 API 整合的挑戰
+         * 
+         * 1. 7-11 會使用 POST 方法將門市資料發送到這個頁面
+         * 2. 純前端 JavaScript 無法直接讀取 POST body
+         * 3. 解決方案：
+         *    a) 使用 Netlify Functions 作為中介（推薦）
+         *    b) 假設 7-11 也會將資料作為 GET 參數附加
+         *    c) 檢查表單自動提交模式
+         * 
+         * 參考：docs/7-11-integration.md
+         */
+
+        // 在頁面載入前就嘗試獲取資料
+        (function() {
+            console.log('🔍 開始檢查 7-11 回調資料...');
+            console.log('當前 URL:', window.location.href);
+            console.log('來源網址:', document.referrer);
+            
+            // 檢查是否從 7-11 官方網站來的請求
+            const is711Referrer = document.referrer && 
+                (document.referrer.includes('emap.pcsc.com.tw') || 
+                 document.referrer.includes('emap.presco.com.tw') ||
+                 document.referrer.includes('eservice.7-11.com.tw'));
+            
+            if (is711Referrer) {
+                console.log('✅ 確認來自 7-11 官方網站');
+                
+                // 方案 1: 檢查 URL 參數 (GET 方式)
+                if (window.location.search) {
+                    console.log('📌 發現 URL 參數:', window.location.search);
+                    // 稍後在 DOMContentLoaded 中處理
+                }
+                
+                // 方案 2: 檢查 hash 參數
+                if (window.location.hash) {
+                    console.log('📌 發現 Hash 參數:', window.location.hash);
+                }
+                
+                // 方案 3: 等待可能的表單自動提交
+                console.log('⏳ 等待可能的 POST 資料載入...');
+                
+                /*
+                 * 注意：如果 7-11 使用純 POST 方式，
+                 * 我們需要在伺服器端處理（如 Netlify Functions）
+                 * 然後重定向到這個頁面並附加 GET 參數
+                 */
+                
+                // 監聽表單載入
+                window.addEventListener('load', function() {
+                    // 檢查是否有表單被提交
+                    const forms = document.getElementsByTagName('form');
+                    console.log('找到表單數量:', forms.length);
+                    
+                    // 如果頁面中有隱藏的input欄位（7-11 API可能會這樣傳資料）
+                    const inputs = document.getElementsByTagName('input');
+                    const postData = {};
+                    for (let input of inputs) {
+                        if (input.name && input.value) {
+                            postData[input.name] = input.value;
+                            console.log('找到 input 欄位:', input.name, '=', input.value);
+                        }
+                    }
+                    
+                    // 如果有找到資料，處理它
+                    if (postData.CVSStoreID || postData.storeId) {
+                        processStoreSelection({
+                            storeId: postData.CVSStoreID || postData.storeId,
+                            storeName: postData.CVSStoreName || postData.storeName,
+                            storeAddress: postData.CVSAddress || postData.storeAddress,
+                            storePhone: postData.CVSTelephone || postData.storePhone
+                        });
+                    }
+                });
+            } else {
+                console.log('⚠️ 非 7-11 來源，可能是開發測試');
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('CVS回調頁面載入完成');
+            console.log('當前URL:', window.location.href);
+            console.log('Referrer:', document.referrer);
+            
+            // 解析 URL 參數
+            const urlParams = new URLSearchParams(window.location.search);
+            console.log('URL參數:', Object.fromEntries(urlParams));
+            
+            // 檢查 7-11 API 的標準參數
+            const storeData = {
+                storeId: urlParams.get('CVSStoreID') || urlParams.get('storeId') || urlParams.get('storeid') || urlParams.get('StoreID'),
+                storeName: urlParams.get('CVSStoreName') || urlParams.get('storeName') || urlParams.get('storename') || urlParams.get('StoreName'),
+                storeAddress: urlParams.get('CVSAddress') || urlParams.get('storeAddress') || urlParams.get('storeaddress') || urlParams.get('Address'),
+                storePhone: urlParams.get('CVSTelephone') || urlParams.get('storePhone') || urlParams.get('storephone') || urlParams.get('Telephone')
+            };
+            
+            console.log('解析的門市資料:', storeData);
+            
+            // 檢查是否有 POST 資料或 hash 資料
+            if (window.location.hash) {
+                try {
+                    const hashData = decodeURIComponent(window.location.hash.substring(1));
+                    console.log('Hash資料:', hashData);
+                    const params = new URLSearchParams(hashData);
+                    
+                    if (params.get('CVSStoreID') || params.get('storeId')) {
+                        const hashStoreData = {
+                            storeId: params.get('CVSStoreID') || params.get('storeId'),
+                            storeName: params.get('CVSStoreName') || params.get('storeName'),
+                            storeAddress: params.get('CVSAddress') || params.get('storeAddress'),
+                            storePhone: params.get('CVSTelephone') || params.get('storePhone')
+                        };
+                        console.log('Hash解析門市資料:', hashStoreData);
+                        processStoreSelection(hashStoreData);
+                        return;
+                    }
+                } catch (e) {
+                    console.error('解析 hash 參數失敗:', e);
+                }
+            }
+            
+            // 檢查 URL 參數
+            if (storeData.storeId || storeData.storeName) {
+                processStoreSelection(storeData);
+            } else {
+                // 立即檢查 7-11 API 回調
+                if (!handle711Callback()) {
+                    setTimeout(() => {
+                        if (!selectedStoreData) {
+                            console.log('未收到門市資料');
+                            showError('未接收到門市選擇資訊，請重新選擇門市或手動輸入。');
+                        }
+                    }, 2000);
+                }
+            }
+            
+            // 監聽來自父視窗的訊息
+            window.addEventListener('message', function(event) {
+                console.log('收到父視窗訊息:', event.data);
+                if (event.data && event.data.storeInfo) {
+                    processStoreSelection(event.data.storeInfo);
+                }
+            });
+            
+            // 檢查是否在 iframe 中
+            if (window.parent !== window) {
+                console.log('在iframe中運行');
+            }
+            
+            // 檢查是否有 opener
+            if (window.opener) {
+                console.log('有opener視窗');
+            }
+        });
+
+        function processStoreSelection(storeData) {
+            if (!storeData || (!storeData.storeId && !storeData.storeName)) {
+                showError('門市資訊不完整，請重新選擇');
+                return;
+            }
+
+            selectedStoreData = {
+                storeId: storeData.storeId || 'N/A',
+                storeName: storeData.storeName || '未知門市',
+                storeAddress: storeData.storeAddress || '地址未提供',
+                storePhone: storeData.storePhone || '電話未提供'
+            };
+
+            // 隱藏載入動畫
+            document.querySelector('.loading-icon').style.display = 'none';
+            
+            // 更新標題和訊息
+            document.querySelector('.title').textContent = '門市選擇成功';
+            document.querySelector('.message').textContent = '請確認以下門市資訊是否正確：';
+            
+            // 顯示門市資訊
+            const storeInfoDiv = document.getElementById('storeInfo');
+            const storeDetailsDiv = document.getElementById('storeDetails');
+            
+            storeDetailsDiv.innerHTML = `
+                <div><strong>門市編號：</strong>${selectedStoreData.storeId}</div>
+                <div><strong>門市名稱：</strong>${selectedStoreData.storeName}</div>
+                <div><strong>門市地址：</strong>${selectedStoreData.storeAddress}</div>
+                <div><strong>門市電話：</strong>${selectedStoreData.storePhone}</div>
+            `;
+            
+            storeInfoDiv.style.display = 'block';
+            document.getElementById('confirmBtn').style.display = 'inline-block';
+        }
+
+        function confirmSelection() {
+            if (!selectedStoreData) {
+                showError('沒有選擇的門市資訊');
+                return;
+            }
+
+            console.log('確認選擇門市:', selectedStoreData);
+
+            try {
+                const messageData = {
+                    type: 'storeSelected',
+                    storeInfo: selectedStoreData
+                };
+                
+                console.log('準備發送訊息:', messageData);
+                
+                // 取得來源網域（為了安全性）
+                const targetOrigin = window.location.origin;
+                console.log('目標來源:', targetOrigin);
+                
+                // 向父視窗發送門市資訊
+                if (window.opener && !window.opener.closed) {
+                    console.log('向opener發送訊息');
+                    window.opener.postMessage(messageData, targetOrigin);
+                }
+                
+                // 也嘗試向父框架發送
+                if (window.parent && window.parent !== window) {
+                    console.log('向parent發送訊息');
+                    window.parent.postMessage(messageData, targetOrigin);
+                }
+                
+                // 嘗試向所有可能的目標發送
+                try {
+                    window.top.postMessage(messageData, targetOrigin);
+                } catch (e) {
+                    console.log('無法向top發送訊息:', e);
+                }
+                
+                // 更新顯示
+                document.querySelector('.title').textContent = '門市選擇完成';
+                document.querySelector('.message').textContent = '門市資訊已傳送，視窗將自動關閉...';
+                document.getElementById('confirmBtn').style.display = 'none';
+                
+                // 延長等待時間，確保訊息傳送成功
+                setTimeout(() => {
+                    console.log('準備關閉視窗');
+                    window.close();
+                }, 2000);
+                
+            } catch (error) {
+                console.error('傳送門市資訊失敗:', error);
+                showError('傳送門市資訊失敗，請手動關閉視窗並重新選擇');
+            }
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            // 隱藏載入動畫
+            document.querySelector('.loading-icon').style.display = 'none';
+            
+            // 更新標題
+            document.querySelector('.title').textContent = '選擇失敗';
+            document.querySelector('.message').textContent = '請重新選擇門市或聯絡客服';
+        }
+
+        // 處理 7-11 API 的特殊回調格式
+        function handle711Callback() {
+            // 7-11 API 可能會在 URL 中包含特殊參數
+            const url = window.location.href;
+            console.log('檢查7-11 API回調參數...');
+            
+            // 優先檢查標準的 7-11 API 參數
+            const params = new URLSearchParams(window.location.search);
+            
+            // 7-11 API 標準參數名稱
+            const storeId = params.get('CVSStoreID') || params.get('storeId') || params.get('StoreID');
+            const storeName = params.get('CVSStoreName') || params.get('storeName') || params.get('StoreName');
+            const storeAddress = params.get('CVSAddress') || params.get('storeAddress') || params.get('Address');
+            const storePhone = params.get('CVSTelephone') || params.get('storePhone') || params.get('Telephone');
+            
+            if (storeId || storeName) {
+                console.log('找到7-11門市資料:', { storeId, storeName, storeAddress, storePhone });
+                
+                processStoreSelection({
+                    storeId: storeId,
+                    storeName: storeName,
+                    storeAddress: storeAddress,
+                    storePhone: storePhone
+                });
+                return true;
+            }
+            
+            // 如果沒有在URL參數中找到，嘗試其他方式
+            // POST資料可能需要從其他地方獲取
+            if (document.referrer && document.referrer.includes('presco.com.tw')) {
+                console.log('來自7-11官方API，但未在URL中找到參數');
+                console.log('可能是POST請求，等待資料載入...');
+                
+                // 延遲再次檢查，給POST資料載入的時間
+                setTimeout(() => {
+                    // 再次嘗試獲取資料
+                    const postStoreId = document.getElementById('CVSStoreID')?.value || 
+                                       document.querySelector('[name="CVSStoreID"]')?.value;
+                    const postStoreName = document.getElementById('CVSStoreName')?.value || 
+                                         document.querySelector('[name="CVSStoreName"]')?.value;
+                    const postStoreAddress = document.getElementById('CVSAddress')?.value || 
+                                            document.querySelector('[name="CVSAddress"]')?.value;
+                    const postStorePhone = document.getElementById('CVSTelephone')?.value || 
+                                          document.querySelector('[name="CVSTelephone"]')?.value;
+                    
+                    if (postStoreId || postStoreName) {
+                        console.log('從POST資料中找到門市資訊');
+                        processStoreSelection({
+                            storeId: postStoreId,
+                            storeName: postStoreName,
+                            storeAddress: postStoreAddress,
+                            storePhone: postStorePhone
+                        });
+                    }
+                }, 1000);
+            }
+            
+            return false;
+        }
+
+        // 測試門市選擇功能
+        function testStoreSelection() {
+            console.log('執行測試門市選擇');
+            processStoreSelection({
+                storeId: 'TEST001',
+                storeName: '統一超商測試門市',
+                storeAddress: '台北市信義區信義路五段7號1樓',
+                storePhone: '02-2345-6789'
+            });
+        }
+
+        window.onerror = function(msg, url, line) {
+            console.error('全域錯誤:', msg, '於', url, '第', line, '行');
+            showError('發生錯誤，請重新整理頁面或聯絡客服');
+            return false;
+        };
+    </script>
+</body>
+</html> 

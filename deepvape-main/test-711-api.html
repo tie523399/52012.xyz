@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7-11 API 整合測試</title>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        body {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .test-button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .primary { background: #06b6d4; color: white; }
+        .success { background: #4CAF50; color: white; }
+        .warning { background: #ff9800; color: white; }
+        .info { background: #2196F3; color: white; }
+        .log-area {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .store-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .config-input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .status-ok { background: #4CAF50; }
+        .status-error { background: #f44336; }
+        .status-warning { background: #ff9800; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 7-11 API 整合測試工具</h1>
+        <p>此頁面用於測試 7-11 門市選擇 API 的整合功能</p>
+
+        <!-- 環境狀態 -->
+        <div class="test-section">
+            <h3>🌐 環境狀態</h3>
+            <div id="envStatus">
+                <p><span class="status-indicator" id="envIndicator"></span>環境: <span id="envType"></span></p>
+                <p>當前網址: <code id="currentUrl"></code></p>
+                <p>回調 URL: <code id="callbackUrl"></code></p>
+            </div>
+        </div>
+
+        <!-- 配置設定 -->
+        <div class="test-section">
+            <h3>⚙️ 配置設定</h3>
+            <div>
+                <label>開發環境回調 URL (ngrok):</label>
+                <input type="text" id="ngrokUrl" class="config-input" placeholder="https://your-ngrok-url.ngrok.io">
+                <button class="test-button info" onclick="setNgrokUrl()">設定 ngrok URL</button>
+            </div>
+            <div style="margin-top: 10px;">
+                <label>廠商代碼 (eshopid):</label>
+                <input type="text" id="eshopId" class="config-input" value="870">
+                <label>服務類型 (servicetype):</label>
+                <input type="text" id="serviceType" class="config-input" value="1">
+            </div>
+        </div>
+
+        <!-- 測試功能 -->
+        <div class="test-section">
+            <h3>🔧 測試功能</h3>
+            <button class="test-button primary" onclick="test711API()">
+                測試 7-11 API 選擇門市
+            </button>
+            <button class="test-button success" onclick="simulateCallback()">
+                模擬門市回調
+            </button>
+            <button class="test-button warning" onclick="testManualInput()">
+                測試手動輸入
+            </button>
+            <button class="test-button info" onclick="checkAPIEndpoint()">
+                檢查 API 端點
+            </button>
+        </div>
+
+        <!-- 選擇的門市資訊 -->
+        <div class="test-section">
+            <h3>📍 選擇的門市資訊</h3>
+            <div id="selectedStoreInfo" class="store-info" style="display: none;">
+                <p><strong>門市代號:</strong> <span id="displayStoreId"></span></p>
+                <p><strong>門市名稱:</strong> <span id="displayStoreName"></span></p>
+                <p><strong>門市地址:</strong> <span id="displayStoreAddress"></span></p>
+                <p><strong>門市電話:</strong> <span id="displayStorePhone"></span></p>
+            </div>
+        </div>
+
+        <!-- 日誌區域 -->
+        <div class="test-section">
+            <h3>📋 測試日誌</h3>
+            <div id="logArea" class="log-area"></div>
+            <button class="test-button" onclick="clearLog()">清除日誌</button>
+        </div>
+    </div>
+
+    <!-- 載入必要的腳本 -->
+    <script src="js/config.js"></script>
+    <script src="js/store-selector.js"></script>
+    
+    <script>
+        // 日誌功能
+        function log(message, type = 'info') {
+            const logArea = document.getElementById('logArea');
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = {
+                'info': 'ℹ️',
+                'success': '✅',
+                'warning': '⚠️',
+                'error': '❌'
+            }[type] || '📝';
+            
+            logArea.innerHTML += `[${timestamp}] ${prefix} ${message}\n`;
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('logArea').innerHTML = '';
+            log('日誌已清除', 'info');
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 顯示環境資訊
+            const isDev = window.location.hostname === 'localhost' || 
+                         window.location.hostname === '127.0.0.1';
+            
+            document.getElementById('envType').textContent = isDev ? '開發環境' : '生產環境';
+            document.getElementById('envIndicator').className = `status-indicator ${isDev ? 'status-warning' : 'status-ok'}`;
+            document.getElementById('currentUrl').textContent = window.location.origin;
+            
+            // 顯示回調 URL
+            updateCallbackUrl();
+            
+            // 監聽門市選擇
+            if (window.storeSelector) {
+                const originalCallback = window.storeSelector.onStoreSelected;
+                window.storeSelector.onStoreSelected = function(storeInfo) {
+                    log('收到門市選擇: ' + JSON.stringify(storeInfo), 'success');
+                    displayStoreInfo(storeInfo);
+                    if (originalCallback) {
+                        originalCallback.call(this, storeInfo);
+                    }
+                };
+            }
+            
+            log('測試工具已初始化', 'info');
+            log(`環境: ${isDev ? '開發環境' : '生產環境'}`, isDev ? 'warning' : 'success');
+        });
+
+        // 更新回調 URL 顯示
+        function updateCallbackUrl() {
+            const isDev = window.location.hostname === 'localhost' || 
+                         window.location.hostname === '127.0.0.1';
+            
+            let callbackUrl;
+            if (isDev && window.SITE_CONFIG?.DEVELOPMENT_CALLBACK_URL) {
+                callbackUrl = window.SITE_CONFIG.DEVELOPMENT_CALLBACK_URL;
+            } else {
+                callbackUrl = window.location.origin + '/api/711-callback';
+            }
+            
+            document.getElementById('callbackUrl').textContent = callbackUrl;
+        }
+
+        // 設定 ngrok URL
+        function setNgrokUrl() {
+            const url = document.getElementById('ngrokUrl').value.trim();
+            if (!url) {
+                log('請輸入 ngrok URL', 'error');
+                return;
+            }
+            
+            if (window.DEEPVAPE_DEV) {
+                window.DEEPVAPE_DEV.setNgrokUrl(url);
+                updateCallbackUrl();
+                log(`已設定 ngrok URL: ${url}`, 'success');
+            } else {
+                log('開發工具未載入', 'error');
+            }
+        }
+
+        // 測試 7-11 API
+        function test711API() {
+            log('開始測試 7-11 API...', 'info');
+            
+            // 更新設定
+            if (window.storeSelector) {
+                const eshopId = document.getElementById('eshopId').value;
+                const serviceType = document.getElementById('serviceType').value;
+                
+                window.storeSelector.eshopId = eshopId;
+                window.storeSelector.serviceType = serviceType;
+                
+                log(`使用參數: eshopid=${eshopId}, servicetype=${serviceType}`, 'info');
+                
+                try {
+                    window.storeSelector.openStoreMap();
+                    log('已開啟 7-11 地圖視窗', 'success');
+                } catch (error) {
+                    log(`錯誤: ${error.message}`, 'error');
+                }
+            } else {
+                log('門市選擇器未載入', 'error');
+            }
+        }
+
+        // 模擬回調
+        function simulateCallback() {
+            log('模擬門市回調...', 'info');
+            
+            const testData = {
+                storeId: '123456',
+                storeName: '測試門市',
+                storeAddress: '台北市信義區測試路123號',
+                storePhone: '02-12345678'
+            };
+            
+            if (window.DEEPVAPE_DEV) {
+                window.DEEPVAPE_DEV.testStoreCallback(testData);
+                log('已發送模擬回調資料', 'success');
+            } else {
+                // 直接使用 postMessage
+                window.postMessage({
+                    type: 'STORE_SELECTED',
+                    data: {
+                        ...testData,
+                        storeType: '711',
+                        timestamp: new Date().toISOString()
+                    }
+                }, '*');
+                log('已發送模擬回調資料 (postMessage)', 'success');
+            }
+        }
+
+        // 測試手動輸入
+        function testManualInput() {
+            const testStore = {
+                storeId: '250094',
+                storeName: '京達門市',
+                storeAddress: '台中市豐原區中正路805號',
+                storePhone: '04-25267590',
+                storeType: '711'
+            };
+            
+            log('測試手動設定門市資料...', 'info');
+            
+            if (window.storeSelector) {
+                window.storeSelector.setStore(testStore);
+                log('已手動設定門市資料', 'success');
+                displayStoreInfo(testStore);
+            } else {
+                log('門市選擇器未載入', 'error');
+            }
+        }
+
+        // 檢查 API 端點
+        async function checkAPIEndpoint() {
+            log('檢查 API 端點...', 'info');
+            
+            try {
+                const response = await fetch('/health');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    log(`API 健康檢查成功: ${JSON.stringify(data)}`, 'success');
+                } else {
+                    log(`API 健康檢查失敗: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                log(`無法連接到 API: ${error.message}`, 'error');
+            }
+            
+            // 檢查 7-11 回調端點
+            log('檢查 7-11 回調端點...', 'info');
+            const callbackUrl = document.getElementById('callbackUrl').textContent;
+            log(`回調 URL: ${callbackUrl}`, 'info');
+            
+            if (callbackUrl.includes('localhost') || callbackUrl.includes('127.0.0.1')) {
+                log('警告: 回調 URL 使用 localhost，7-11 無法訪問', 'warning');
+                log('請使用 ngrok 或部署到公開伺服器', 'warning');
+            } else {
+                log('回調 URL 看起來是公開可訪問的', 'success');
+            }
+        }
+
+        // 顯示門市資訊
+        function displayStoreInfo(storeInfo) {
+            document.getElementById('selectedStoreInfo').style.display = 'block';
+            document.getElementById('displayStoreId').textContent = storeInfo.storeId || '-';
+            document.getElementById('displayStoreName').textContent = storeInfo.storeName || '-';
+            document.getElementById('displayStoreAddress').textContent = storeInfo.storeAddress || '-';
+            document.getElementById('displayStorePhone').textContent = storeInfo.storePhone || '-';
+        }
+    </script>
+</body>
+</html> 

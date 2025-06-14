@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepVape 載入效能測試</title>
+    
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Critical CSS -->
+    <style>
+        body { margin: 0; font-family: sans-serif; padding: 20px; }
+        .metric { padding: 10px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; }
+        .good { background: #d4edda; color: #155724; }
+        .warning { background: #fff3cd; color: #856404; }
+        .bad { background: #f8d7da; color: #721c24; }
+    </style>
+    
+    <!-- Optimized CSS Loading -->
+    <link rel="stylesheet" href="css/combined.min.css">
+    
+    <!-- Meta Tags Generator -->
+    <script src="js/meta-tags.js"></script>
+</head>
+<body>
+    <h1>DeepVape 載入效能測試</h1>
+    
+    <div id="metrics">
+        <h2>效能指標</h2>
+        <div class="metric">載入中...</div>
+    </div>
+    
+    <div id="images">
+        <h2>延遲載入測試</h2>
+        <img data-src="sp2_v/sp2_device_main_showcase.jpg" alt="測試圖片 1" loading="lazy">
+        <img data-src="lana_pods/lana_ceramic_pods_main.webp" alt="測試圖片 2" loading="lazy">
+        <img data-src="ilia_1/ilia_gen1_main_device.jpg" alt="測試圖片 3" loading="lazy">
+    </div>
+    
+    <!-- Lazy Load Script -->
+    <script src="js/lazy-load.js"></script>
+    
+    <script>
+        // 測量效能指標
+        window.addEventListener('load', () => {
+            const metrics = performance.getEntriesByType('navigation')[0];
+            const paint = performance.getEntriesByType('paint');
+            
+            const metricsDiv = document.getElementById('metrics');
+            metricsDiv.innerHTML = '<h2>效能指標</h2>';
+            
+            // DOM Content Loaded
+            const dcl = metrics.domContentLoadedEventEnd - metrics.domContentLoadedEventStart;
+            metricsDiv.innerHTML += `<div class="metric ${dcl < 500 ? 'good' : dcl < 1000 ? 'warning' : 'bad'}">
+                DOM Content Loaded: ${dcl.toFixed(2)}ms
+            </div>`;
+            
+            // Page Load Time
+            const loadTime = metrics.loadEventEnd - metrics.loadEventStart;
+            metricsDiv.innerHTML += `<div class="metric ${loadTime < 1000 ? 'good' : loadTime < 2000 ? 'warning' : 'bad'}">
+                Page Load Time: ${loadTime.toFixed(2)}ms
+            </div>`;
+            
+            // First Paint
+            const fp = paint.find(p => p.name === 'first-paint');
+            if (fp) {
+                metricsDiv.innerHTML += `<div class="metric ${fp.startTime < 1000 ? 'good' : fp.startTime < 2000 ? 'warning' : 'bad'}">
+                    First Paint: ${fp.startTime.toFixed(2)}ms
+                </div>`;
+            }
+            
+            // First Contentful Paint
+            const fcp = paint.find(p => p.name === 'first-contentful-paint');
+            if (fcp) {
+                metricsDiv.innerHTML += `<div class="metric ${fcp.startTime < 1500 ? 'good' : fcp.startTime < 2500 ? 'warning' : 'bad'}">
+                    First Contentful Paint: ${fcp.startTime.toFixed(2)}ms
+                </div>`;
+            }
+            
+            // Resource Timing
+            const resources = performance.getEntriesByType('resource');
+            const jsResources = resources.filter(r => r.name.includes('.js'));
+            const cssResources = resources.filter(r => r.name.includes('.css'));
+            const imgResources = resources.filter(r => r.name.match(/.(jpg|jpeg|png|webp|gif)/));
+            
+            metricsDiv.innerHTML += `<div class="metric">
+                資源載入統計：JS(${jsResources.length}) CSS(${cssResources.length}) 圖片(${imgResources.length})
+            </div>`;
+            
+            // Lazy Load Status
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            let loadedCount = 0;
+            lazyImages.forEach(img => {
+                img.addEventListener('lazyloaded', () => {
+                    loadedCount++;
+                    metricsDiv.innerHTML += `<div class="metric good">
+                        延遲載入圖片 ${loadedCount}/${lazyImages.length} 完成
+                    </div>`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

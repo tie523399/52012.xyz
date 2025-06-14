@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# 允許搜索引擎訪問所有公開頁面
+Allow: *.html
+Allow: *.css
+Allow: *.js
+Allow: *.png
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.webp
+Allow: *.gif
+Allow: *.svg
+
+# 禁止訪問敏感目錄和文件
+Disallow: /backend/
+Disallow: /.git/
+Disallow: /.DS_Store
+Disallow: *.log
+Disallow: /admin/
+Disallow: /config/
+
+# 特殊文件
+Disallow: /cvs_callback.html
+Disallow: /store_search_demo.html
+
+# Sitemap 位置
+Sitemap: https://52012.xyz/sitemap.xml 

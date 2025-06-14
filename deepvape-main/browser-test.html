@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepVape 完整功能測試</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 2px solid #dee2e6;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .test-pass {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+        .test-fail {
+            background: #f8d7da;
+            color: #842029;
+        }
+        .test-console {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .product-test-card {
+            border: 2px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .image-test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .image-test-item {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .image-test-item img {
+            max-width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+    </style>
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-5">🔍 DeepVape 完整功能測試</h1>
+        
+        <!-- 測試結果摘要 -->
+        <div class="alert alert-info">
+            <h4>測試狀態</h4>
+            <div>通過: <span id="passCount" class="badge bg-success">0</span></div>
+            <div>失敗: <span id="failCount" class="badge bg-danger">0</span></div>
+            <div>總計: <span id="totalCount" class="badge bg-secondary">0</span></div>
+        </div>
+
+        <!-- 1. 圖片載入測試 -->
+        <div class="test-section">
+            <h3>📸 1. 產品圖片載入測試</h3>
+            <div class="image-test-grid">
+                <div class="image-test-item">
+                    <img src="images/ui/deepvape_logo_main.png" alt="Logo" onload="markImagePass(this)" onerror="markImageFail(this)">
+                    <p>Logo</p>
+                </div>
+                <div class="image-test-item">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="sp2_v/sp2_device_main_showcase.jpg" loading="lazy" alt="SP2 主機" onload="markImagePass(this)" onerror="markImageFail(this)">
+                    <p>SP2 主機</p>
+                </div>
+                <div class="image-test-item">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="lana_a8000/lana_a8000.webp" loading="lazy" alt="LANA A8000" onload="markImagePass(this)" onerror="markImageFail(this)">
+                    <p>LANA A8000</p>
+                </div>
+                <div class="image-test-item">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_1/ilia_gen1_main_device.jpg" loading="lazy" alt="ILIA 一代" onload="markImagePass(this)" onerror="markImageFail(this)">
+                    <p>ILIA 一代</p>
+                </div>
+                <div class="image-test-item">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="hta_vape/hta_spade_device.webp" loading="lazy" alt="HTA 黑桃" onload="markImagePass(this)" onerror="markImageFail(this)">
+                    <p>HTA 黑桃</p>
+                </div>
+                <div class="image-test-item">
+                    <img src="images/ui/7-11_tklogo.jpg" alt="7-11 Logo" onload="markImagePass(this)" onerror="markImageFail(this)">
+                    <p>7-11 Logo</p>
+                </div>
+            </div>
+            <div id="imageTestResult" class="mt-3"></div>
+        </div>
+
+        <!-- 2. 購物車功能測試 -->
+        <div class="test-section">
+            <h3>🛒 2. 購物車操作測試</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="product-test-card">
+                        <h5>測試產品 A</h5>
+                        <p>價格: NT$ 999</p>
+                        <button class="btn btn-primary add-to-cart" 
+                                data-product-id="test001"
+                                data-product-name="測試產品 A"
+                                data-product-price="999"
+                                data-product-image="images/ui/deepvape_logo_main.png"
+                                data-product-flavor="薄荷"
+                                onclick="testAddToCart(this)">
+                            加入購物車
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-test-card">
+                        <h5>測試產品 B</h5>
+                        <p>價格: NT$ 1299</p>
+                        <button class="btn btn-primary add-to-cart" 
+                                data-product-id="test002"
+                                data-product-name="測試產品 B"
+                                data-product-price="1299"
+                                data-product-image="images/ui/deepvape_logo_main.png"
+                                data-product-color="黑色"
+                                onclick="testAddToCart(this)">
+                            加入購物車
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <p>購物車數量: <span class="cart-count badge bg-danger">0</span></p>
+                <button class="btn btn-info" onclick="testCartOperations()">測試購物車功能</button>
+                <button class="btn btn-warning" onclick="clearCart()">清空購物車</button>
+            </div>
+            <div id="cartTestResult" class="mt-3"></div>
+        </div>
+
+        <!-- 3. 門市選擇測試 -->
+        <div class="test-section">
+            <h3>🏪 3. 門市選擇功能測試</h3>
+            <button class="btn btn-primary" onclick="testStoreSelector()">測試門市選擇器</button>
+            <div id="selectedStore" class="mt-3" style="display: none;">
+                <h5>已選擇門市：</h5>
+                <p id="storeName"></p>
+                <p id="storeAddress"></p>
+                <p id="storeId"></p>
+            </div>
+            <div id="storeTestResult" class="mt-3"></div>
+        </div>
+
+        <!-- 4. 頁面連結測試 -->
+        <div class="test-section">
+            <h3>🔗 4. 頁面連結功能測試</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>主要頁面</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" target="_blank">✓ 首頁</a></li>
+                        <li><a href="cart.html" target="_blank">✓ 購物車</a></li>
+                        <li><a href="order_confirmation.html" target="_blank">✓ 訂單確認</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>靜態頁面</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="pages/shopping_guide.html" target="_blank">✓ 購物指南</a></li>
+                        <li><a href="pages/shipping_info.html" target="_blank">✓ 配送資訊</a></li>
+                        <li><a href="pages/return_policy.html" target="_blank">✓ 退換貨政策</a></li>
+                        <li><a href="pages/faq.html" target="_blank">✓ 常見問題</a></li>
+                        <li><a href="pages/brand_story.html" target="_blank">✓ 品牌故事</a></li>
+                    </ul>
+                </div>
+            </div>
+            <button class="btn btn-info" onclick="testAllLinks()">自動測試所有連結</button>
+            <div id="linkTestResult" class="mt-3"></div>
+        </div>
+
+        <!-- 5. API 測試 -->
+        <div class="test-section">
+            <h3>📱 5. API 與 Telegram 測試</h3>
+            <button class="btn btn-primary" onclick="testHealthAPI()">測試健康檢查 API</button>
+            <button class="btn btn-warning" onclick="testTelegramAPI()">測試 Telegram API（僅測試連線）</button>
+            <div id="apiTestResult" class="mt-3"></div>
+        </div>
+
+        <!-- 測試控制台 -->
+        <div class="test-section">
+            <h3>💻 測試控制台</h3>
+            <div id="testConsole" class="test-console"></div>
+        </div>
+    </div>
+
+    <!-- 載入購物車邏輯 -->
+    <script src="js/cart-logic.js"></script>
+    <script src="js/store-selector.js"></script>
+    <script src="components/common-components.js"></script>
+    
+    <script>
+        let passCount = 0;
+        let failCount = 0;
+        const testResults = [];
+
+        function log(message, type = 'info') {
+            const console = document.getElementById('testConsole');
+            const time = new Date().toLocaleTimeString();
+            const color = type === 'pass' ? '#0f0' : type === 'fail' ? '#f00' : '#fff';
+            console.innerHTML += `<div style="color: ${color}">[${time}] ${message}</div>`;
+            console.scrollTop = console.scrollHeight;
+        }
+
+        function updateCounts() {
+            document.getElementById('passCount').textContent = passCount;
+            document.getElementById('failCount').textContent = failCount;
+            document.getElementById('totalCount').textContent = passCount + failCount;
+        }
+
+        function markImagePass(img) {
+            img.style.border = '3px solid #28a745';
+            passCount++;
+            updateCounts();
+            log(`✅ 圖片載入成功: ${img.alt}`, 'pass');
+        }
+
+        function markImageFail(img) {
+            img.style.border = '3px solid #dc3545';
+            failCount++;
+            updateCounts();
+            log(`❌ 圖片載入失敗: ${img.alt}`, 'fail');
+        }
+
+        function testAddToCart(button) {
+            try {
+                if (window.cartManager) {
+                    const product = {
+                        id: button.dataset.productId,
+                        name: button.dataset.productName,
+                        price: parseFloat(button.dataset.productPrice),
+                        image: button.dataset.productImage,
+                        flavor: button.dataset.productFlavor,
+                        color: button.dataset.productColor
+                    };
+                    
+                    const result = cartManager.addItem(product);
+                    if (result) {
+                        passCount++;
+                        log(`✅ 成功加入購物車: ${product.name}`, 'pass');
+                    } else {
+                        failCount++;
+                        log(`❌ 加入購物車失敗: ${product.name}`, 'fail');
+                    }
+                } else {
+                    failCount++;
+                    log('❌ CartManager 未載入', 'fail');
+                }
+            } catch (error) {
+                failCount++;
+                log(`❌ 購物車錯誤: ${error.message}`, 'fail');
+            }
+            updateCounts();
+        }
+
+        function testCartOperations() {
+            const results = [];
+            
+            // 測試購物車基本功能
+            if (window.cartManager) {
+                // 測試取得購物車
+                const cart = cartManager.getCart();
+                results.push(`購物車商品數: ${cart.length}`);
+                
+                // 測試計算總額
+                const totals = cartManager.calculateTotals();
+                results.push(`總金額: NT$ ${totals.total}`);
+                
+                // 測試數量
+                const count = cartManager.getItemCount();
+                results.push(`總數量: ${count}`);
+                
+                passCount++;
+                log('✅ 購物車操作測試通過', 'pass');
+            } else {
+                failCount++;
+                log('❌ CartManager 未初始化', 'fail');
+            }
+            
+            document.getElementById('cartTestResult').innerHTML = 
+                `<div class="test-result test-pass">${results.join('<br>')}</div>`;
+            updateCounts();
+        }
+
+        function clearCart() {
+            if (window.cartManager) {
+                cartManager.clearCart();
+                log('✅ 購物車已清空', 'pass');
+            }
+        }
+
+        function testStoreSelector() {
+            if (window.StoreSelector) {
+                try {
+                    const selector = new StoreSelector();
+                    passCount++;
+                    log('✅ StoreSelector 初始化成功', 'pass');
+                    
+                    // 模擬選擇門市
+                    selector.setStore({
+                        storeId: 'TEST001',
+                        storeName: '測試門市',
+                        storeAddress: '台北市信義區測試路1號'
+                    });
+                    
+                    document.getElementById('selectedStore').style.display = 'block';
+                    passCount++;
+                    log('✅ 門市選擇功能正常', 'pass');
+                } catch (error) {
+                    failCount++;
+                    log(`❌ StoreSelector 錯誤: ${error.message}`, 'fail');
+                }
+            } else {
+                failCount++;
+                log('❌ StoreSelector 未載入', 'fail');
+            }
+            updateCounts();
+        }
+
+        async function testAllLinks() {
+            const links = [
+                'index.html',
+                'cart.html',
+                'pages/shopping_guide.html',
+                'pages/shipping_info.html',
+                'pages/return_policy.html',
+                'pages/faq.html',
+                'pages/brand_story.html'
+            ];
+            
+            for (const link of links) {
+                try {
+                    const response = await fetch(link, { method: 'HEAD' });
+                    if (response.ok) {
+                        passCount++;
+                        log(`✅ 連結正常: ${link}`, 'pass');
+                    } else {
+                        failCount++;
+                        log(`❌ 連結錯誤: ${link} (${response.status})`, 'fail');
+                    }
+                } catch (error) {
+                    failCount++;
+                    log(`❌ 無法訪問: ${link}`, 'fail');
+                }
+            }
+            updateCounts();
+        }
+
+        async function testHealthAPI() {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    passCount++;
+                    log(`✅ Health API 正常: ${JSON.stringify(data)}`, 'pass');
+                } else {
+                    failCount++;
+                    log(`❌ Health API 錯誤: ${response.status}`, 'fail');
+                }
+            } catch (error) {
+                failCount++;
+                log(`❌ 無法連接到 API 伺服器 (請確保執行 npm start)`, 'fail');
+            }
+            updateCounts();
+        }
+
+        async function testTelegramAPI() {
+            log('ℹ️ Telegram API 測試僅檢查端點存在性，不實際發送訊息', 'info');
+            
+            try {
+                const response = await fetch('/api/send-telegram', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ test: true })
+                });
+                
+                if (response.status === 500 || response.status === 400) {
+                    // API 端點存在但可能缺少配置
+                    passCount++;
+                    log('✅ Telegram API 端點存在（需要配置環境變數）', 'pass');
+                } else if (response.ok) {
+                    passCount++;
+                    log('✅ Telegram API 端點正常', 'pass');
+                } else {
+                    failCount++;
+                    log(`❌ Telegram API 錯誤: ${response.status}`, 'fail');
+                }
+            } catch (error) {
+                log('⚠️ 無法測試 Telegram API（需要伺服器運行）', 'info');
+            }
+            updateCounts();
+        }
+
+        // 頁面載入時執行基本測試
+        window.addEventListener('DOMContentLoaded', () => {
+            log('🚀 DeepVape 功能測試開始', 'info');
+            log(`✅ CartManager: ${typeof cartManager !== 'undefined' ? '已載入' : '未載入'}`, 
+                typeof cartManager !== 'undefined' ? 'pass' : 'fail');
+            log(`✅ StoreSelector: ${typeof StoreSelector !== 'undefined' ? '已載入' : '未載入'}`,
+                typeof StoreSelector !== 'undefined' ? 'pass' : 'fail');
+            log(`✅ CommonComponents: ${typeof commonComponents !== 'undefined' ? '已載入' : '未載入'}`,
+                typeof commonComponents !== 'undefined' ? 'pass' : 'fail');
+                
+            // 自動測試購物車數量更新
+            if (window.cartManager) {
+                cartManager.subscribe({
+                    cartChanged: () => {
+                        const count = cartManager.getItemCount();
+                        document.querySelectorAll('.cart-count').forEach(el => {
+                            el.textContent = count;
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

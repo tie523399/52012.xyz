@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILIA 發光煙彈 - Deepvape 頂級電子菸專賣店</title>
+    <link rel="icon" type="image/png" href="nav_logo.png">
+    <link rel="shortcut icon" type="image/png" href="nav_logo.png">
+    <link rel="apple-touch-icon" href="nav_logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <style>
+        :root {
+            --primary-color: #083e12;
+            --secondary-color: #041348;
+            --accent-color: #3d43b4;
+            --highlight-color: #1afe49;
+            --success-color: #1afe49;
+            --warning-color: #ffab00;
+            --glow-blue: #00bcd4;
+            --glow-purple: #9c27b0;
+            --glow-green: #4caf50;
+            --text-color: #ffffff;
+            --text-secondary: #a0f7b3;
+            --card-bg: rgba(4, 19, 72, 0.8);
+            --border-color: rgba(26, 254, 73, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'PingFang SC', 'Helvetica Neue', 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: #000000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border: 2px solid transparent;
+            animation: headerBorderMove 3s infinite linear;
+        }
+
+        @keyframes headerBorderMove {
+            0% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+            25% {
+                border-image: linear-gradient(90deg, transparent, #1afe49, transparent, transparent) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, transparent, transparent, #1afe49, transparent) 1;
+            }
+            75% {
+                border-image: linear-gradient(90deg, transparent, transparent, transparent, #1afe49) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #1afe49, transparent, transparent, transparent) 1;
+            }
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid rgba(26, 254, 73, 0.3);
+        }
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: #1afe49;
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid #1afe49;
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, #1afe49, #8386f5, #1afe49);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .back-button, .cart-button {
+            background: var(--accent-color);
+            color: var(--text-color);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 2px solid var(--border-color);
+        }
+
+        .back-button:hover {
+            background: var(--highlight-color);
+            transform: translateY(-2px);
+            border-color: #1afe49;
+        }
+
+        .cart-button {
+            background: var(--highlight-color);
+        }
+
+        .cart-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        /* Product Detail Container */
+        .product-detail {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Product Images */
+        .product-images {
+            position: sticky;
+            top: 120px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 188, 212, 0.3);
+            border: 2px solid var(--glow-blue);
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .gallery-image:hover,
+        .gallery-image.active {
+            border-color: var(--glow-blue);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.4);
+        }
+
+        /* Product Info */
+        .product-info {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .product-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(45deg, var(--glow-blue), var(--glow-purple));
+            color: white;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px var(--glow-blue); }
+            to { box-shadow: 0 0 20px var(--glow-purple), 0 0 30px var(--glow-blue); }
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            background: linear-gradient(45deg, var(--glow-blue), var(--glow-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--glow-blue);
+            margin-bottom: 2rem;
+        }
+
+        .product-description {
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Specifications */
+        .specifications {
+            margin-bottom: 2rem;
+        }
+
+        .spec-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--glow-blue);
+        }
+
+        .spec-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .spec-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .spec-list li:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .spec-value {
+            color: var(--highlight-color);
+        }
+
+        /* Flavor Options */
+        .flavor-options {
+            margin-bottom: 2rem;
+        }
+
+        .flavor-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .flavor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .flavor-option {
+            padding: 0.8rem;
+            background: var(--accent-color);
+            border: 2px solid transparent;
+            border-radius: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .flavor-option:hover,
+        .flavor-option.selected {
+            border-color: var(--glow-blue);
+            background: rgba(0, 188, 212, 0.2);
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.3);
+        }
+
+        /* Glow Features */
+        .glow-features {
+            margin-bottom: 2rem;
+        }
+
+        .glow-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .glow-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .glow-feature {
+            padding: 1rem;
+            background: var(--accent-color);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .glow-feature:hover {
+            border-color: var(--glow-blue);
+            background: rgba(0, 188, 212, 0.1);
+            box-shadow: 0 0 15px rgba(0, 188, 212, 0.2);
+        }
+
+        .glow-icon {
+            font-size: 1.5rem;
+            color: var(--glow-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .glow-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .glow-desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+
+        /* Quantity Selector */
+        .quantity-selector {
+            margin-bottom: 2rem;
+        }
+
+        .quantity-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--accent-color);
+            color: var(--text-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background: var(--glow-blue);
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.4);
+        }
+
+        .quantity-input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            background: var(--secondary-color);
+            color: var(--text-color);
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .pulse-button {
+            background: linear-gradient(45deg, var(--glow-blue), var(--glow-purple));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .pulse-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .pulse-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .pulse-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 188, 212, 0.4);
+        }
+
+        
+
+        
+
+        /* Features Section */
+        .features {
+            margin-top: 2rem;
+        }
+
+        .features-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--glow-blue);
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .features-list li i {
+            color: var(--glow-blue);
+            width: 20px;
+        }
+
+        /* Glow Badge */
+        .glow-badge {
+            background: linear-gradient(45deg, var(--glow-blue), var(--glow-purple));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-images {
+                position: static;
+            }
+
+            .product-title {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .flavor-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .glow-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Warning Notice */
+        .warning-notice {
+            background: rgba(255, 171, 0, 0.1);
+            border: 1px solid var(--warning-color);
+            border-radius: 30px;
+            padding: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .warning-notice i {
+            color: var(--warning-color);
+            margin-right: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="css/common-styles.css">
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html" class="logo-button vfx-logo" id="navLogo">
+                    <span class="logo-text">DeepVape</span>
+                </a>
+            </div>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-button">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Detail -->
+    <div class="product-detail">
+        <!-- Product Images -->
+        <div class="product-images">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="illa_d/哩亞-ILIA煙彈.webp" loading="lazy" alt="ILIA 發光煙彈" class="main-image" id="mainImage">
+            <div class="image-gallery">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="illa_d/哩亞-ILIA煙彈.webp" loading="lazy" alt="ILIA 煙彈主圖" class="gallery-image active" onclick="changeMainImage(this)">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="illa_d/ILIA煙彈-傾心草莓.jpg" loading="lazy" alt="傾心草莓口味" class="gallery-image" onclick="changeMainImage(this)">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="illa_d/ILIA煙彈-冰釀藍莓.jpg" loading="lazy" alt="冰釀藍莓口味" class="gallery-image" onclick="changeMainImage(this)">
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info" data-product-id="ilia_pods">
+            <span class="product-badge">
+                <i class="fas fa-lightbulb"></i> 發光設計
+            </span>
+            
+            <h1 class="product-title">ILIA 發光煙彈</h1>
+            
+            <div class="product-price">NT$ 300</div>
+            
+            <div class="product-description">
+                ILIA 發光煙彈採用獨特的透明外殼設計，內建炫彩發光系統，
+                吸食時會發出絢麗光芒。25種豐富口味選擇，每盒3顆裝，2.5ml大容量。
+            </div>
+
+            <!-- Specifications -->
+            <div class="specifications">
+                <h3 class="spec-title">產品規格</h3>
+                <ul class="spec-list">
+                    <li>
+                        <span class="spec-label">容量規格</span>
+                        <span class="spec-value">2.5ml/3顆裝</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">尼古丁含量</span>
+                        <span class="spec-value">3% 高品質鹽鹼</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">口味數量</span>
+                        <span class="spec-value">25種精選口味</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">特殊功能</span>
+                        <span class="spec-value">透明外殼、炫彩發光</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">相容性</span>
+                        <span class="spec-value">ILIA 一代主機專用</span>
+                    </li>
+                    <li>
+                        <span class="spec-label">使用次數</span>
+                        <span class="spec-value">約750口/顆</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Glow Features -->
+            <div class="glow-features">
+                <h3 class="glow-title">發光特色 <span class="glow-badge">炫彩科技</span></h3>
+                <div class="glow-grid">
+                    <div class="glow-feature">
+                        <div class="glow-icon"><i class="fas fa-eye"></i></div>
+                        <div class="glow-name">透明外殼</div>
+                        <div class="glow-desc">清晰可見內部結構</div>
+                    </div>
+                    <div class="glow-feature">
+                        <div class="glow-icon"><i class="fas fa-magic"></i></div>
+                        <div class="glow-name">炫彩發光</div>
+                        <div class="glow-desc">吸食時絢麗光效</div>
+                    </div>
+                    <div class="glow-feature">
+                        <div class="glow-icon"><i class="fas fa-palette"></i></div>
+                        <div class="glow-name">多彩變化</div>
+                        <div class="glow-desc">不同口味不同光色</div>
+                    </div>
+                    <div class="glow-feature">
+                        <div class="glow-icon"><i class="fas fa-star"></i></div>
+                        <div class="glow-name">視覺享受</div>
+                        <div class="glow-desc">科技感十足體驗</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flavor Options -->
+            <div class="flavor-options">
+                <h3 class="flavor-title">口味選擇 <span class="glow-badge">25種口味</span></h3>
+                <div class="flavor-grid">
+                    <div class="flavor-option selected" data-flavor="傾心草莓">傾心草莓</div>
+                    <div class="flavor-option" data-flavor="冰釀藍莓">冰釀藍莓</div>
+                    <div class="flavor-option" data-flavor="霸氣鳳梨">霸氣鳳梨</div>
+                    <div class="flavor-option" data-flavor="白桃烏龍">白桃烏龍</div>
+                    <div class="flavor-option" data-flavor="荔枝甘露">荔枝甘露</div>
+                    <div class="flavor-option" data-flavor="百香果汁">百香果汁</div>
+                    <div class="flavor-option" data-flavor="蜜瓜誘惑">蜜瓜誘惑</div>
+                    <div class="flavor-option" data-flavor="海鹽檸檬">海鹽檸檬</div>
+                    <div class="flavor-option" data-flavor="零度可樂">零度可樂</div>
+                    <div class="flavor-option" data-flavor="雪碧口味">雪碧口味</div>
+                    <div class="flavor-option" data-flavor="可爾必思">可爾必思</div>
+                    <div class="flavor-option" data-flavor="寶礦力">寶礦力</div>
+                    <div class="flavor-option" data-flavor="激情薄荷">激情薄荷</div>
+                    <div class="flavor-option" data-flavor="深海冰泉">深海冰泉</div>
+                    <div class="flavor-option" data-flavor="冰鎮西瓜">冰鎮西瓜</div>
+                    <div class="flavor-option" data-flavor="脆青蘋果">脆青蘋果</div>
+                    <div class="flavor-option" data-flavor="多肉芒果">多肉芒果</div>
+                    <div class="flavor-option" data-flavor="多肉葡萄">多肉葡萄</div>
+                    <div class="flavor-option" data-flavor="奇異果">奇異果</div>
+                    <div class="flavor-option" data-flavor="紅心芭樂">紅心芭樂</div>
+                    <div class="flavor-option" data-flavor="綠豆冰沙">綠豆冰沙</div>
+                    <div class="flavor-option" data-flavor="老冰棍">老冰棍</div>
+                    <div class="flavor-option" data-flavor="鐵觀音">鐵觀音</div>
+                    <div class="flavor-option" data-flavor="幸運煙草">幸運煙草</div>
+                </div>
+            </div>
+
+            <!-- Quantity Selector -->
+            <div class="quantity-selector">
+                <h3 class="quantity-title">數量</h3>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="decreaseQuantity()">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="10">
+                    <button class="quantity-btn" onclick="increaseQuantity()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="pulse-button" onclick="addToCart()">
+                    <i class="fas fa-shopping-cart"></i> 加入購物車
+                </button>
+                
+            </div>
+
+            <!-- Features -->
+            <div class="features">
+                <h3 class="features-title">產品特色</h3>
+                <ul class="features-list">
+                    <li>
+                        <i class="fas fa-lightbulb"></i>
+                        獨特透明外殼設計，炫彩發光效果
+                    </li>
+                    <li>
+                        <i class="fas fa-tint"></i>
+                        2.5ml 大容量，約750口使用次數
+                    </li>
+                    <li>
+                        <i class="fas fa-leaf"></i>
+                        3% 高品質鹽鹼，順滑口感
+                    </li>
+                    <li>
+                        <i class="fas fa-palette"></i>
+                        25種豐富口味，滿足不同喜好
+                    </li>
+                    <li>
+                        <i class="fas fa-box"></i>
+                        每盒3顆裝，經濟實惠
+                    </li>
+                    <li>
+                        <i class="fas fa-cog"></i>
+                        專為 ILIA 一代主機設計
+                    </li>
+                    <li>
+                        <i class="fas fa-shield-alt"></i>
+                        嚴格品質控制，安全可靠
+                    </li>
+                    <li>
+                        <i class="fas fa-star"></i>
+                        科技感十足的視覺體驗
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Warning Notice -->
+            <div class="warning-notice">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>重要提醒：</strong>本產品僅供 18 歲以上成年人使用，請遵守當地相關法規。
+                <br><strong>溫馨提示：</strong>請搭配 ILIA 一代主機使用，以獲得最佳體驗效果。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Image Gallery
+        function changeMainImage(img) {
+            const mainImage = document.getElementById('mainImage');
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            
+            mainImage.src = img.src;
+            
+            galleryImages.forEach(image => image.classList.remove('active'));
+            img.classList.add('active');
+        }
+
+        // Flavor Selection
+        document.querySelectorAll('.flavor-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.flavor-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Quantity Controls
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue < 10) {
+                quantityInput.value = currentValue + 1;
+            }
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        }
+
+        // Add to Cart
+        function addToCart() {
+            const selectedFlavor = document.querySelector('.flavor-option.selected').dataset.flavor;
+            const quantity = document.getElementById('quantity').value;
+            
+            const product = {
+                id: 'ilia_glow_pods',
+                name: 'ILIA 發光煙彈',
+                price: 300,
+                flavor: selectedFlavor,
+                quantity: parseInt(quantity),
+                image: 'illa_d/哩亞-ILIA煙彈.webp',
+                category: 'pods'
+            };
+            
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const existingIndex = cart.findIndex(item => 
+                item.id === product.id && item.flavor === product.flavor
+            );
+            
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += product.quantity;
+            } else {
+                cart.push(product);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            alert(`已將 ${quantity} 盒 ILIA 發光煙彈 (${selectedFlavor}) 加入購物車！`);
+        }
+
+        
+
+        // Smooth scroll and animations
+        window.addEventListener('scroll', function() {
+            const productInfo = document.querySelector('.product-info');
+            const rect = productInfo.getBoundingClientRect();
+            
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                productInfo.style.opacity = '1';
+                productInfo.style.transform = 'translateY(0)';
+            }
+        });
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const productInfo = document.querySelector('.product-info');
+            productInfo.style.opacity = '0';
+            productInfo.style.transform = 'translateY(20px)';
+            productInfo.style.transition = 'all 0.6s ease';
+            
+            setTimeout(() => {
+                productInfo.style.opacity = '1';
+                productInfo.style.transform = 'translateY(0)';
+            }, 300);
+        });
+    </script>
+
+    
+
+    <!-- 內容管理系統 -->
+    <script src="/js/content-manager.js"></script>
+
+    <!-- 共享 VFX 效果 -->
+    <script src="js/vfx-effects.js"></script>
+</body>
+</html>

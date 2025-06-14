@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILIA 哩亞布紋主機 - Deepvape</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="deepvape_logo_main.png">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles & Custom properties */
+        :root {
+            --primary: #6366f1; /* Indigo */
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4; /* Cyan */
+            --accent: #a855f7; /* Purple */
+            --dark-bg: #111827;
+            --darker-bg: #030712;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --navbar-bg: rgba(17, 24, 39, 0.7);
+            --glass-effect: blur(12px);
+            --transition-normal: all 0.3s ease;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-glow: rgba(99, 102, 241, 0.3);
+            --neon-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+            --glow-cyan: 0 0 15px rgba(6, 182, 212, 0.5);
+            --glow-indigo: 0 0 15px rgba(99, 102, 241, 0.5);
+            --glow-purple: 0 0 15px rgba(168, 85, 247, 0.5);
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--darker-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Background Effects */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 70%);
+            filter: blur(60px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bg-glow.top-right {
+            top: -20%;
+            right: -20%;
+        }
+
+        .bg-glow.bottom-left {
+            bottom: -20%;
+            left: -20%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, var(--primary-dark), var(--accent));
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--navbar-bg);
+            backdrop-filter: var(--glass-effect);
+            -webkit-backdrop-filter: var(--glass-effect);
+            border-bottom: 1px solid var(--border-glow);
+            z-index: 1000;
+            transition: var(--transition-normal);
+            height: 70px;
+        }
+
+        .header.scrolled {
+            background-color: rgba(17, 24, 39, 0.9);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+        /* 炫酷Logo按鈕樣式 */
+        .logo-button {
+            all: unset;
+            background-color: #040a1a;
+            background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='20' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(224, 73%, 6%, 1)'/><path d='M0 30h20L10 50zm-10-20h20L0 30zm20 0h20L20 30zM0-10h20L10 10z'  stroke-width='2' stroke='hsla(224, 59%, 18%, 0.6)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+            border: 3px solid #252e45;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Arial", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            text-transform: uppercase;
+            transform: skewX(-10deg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo-button:hover {
+            border-color: #1afe49;
+            box-shadow: 0 0 15px rgba(26, 254, 73, 0.5);
+            transform: skewX(-10deg) scale(1.05);
+        }
+
+        .logo-button:focus {
+            outline: 2px solid #1afe49;
+            outline-offset: 2px;
+        }
+
+        .logo-button:active {
+            transform: skewX(-10deg) scale(0.98);
+        }
+
+        /* Logo文字樣式 */
+        .logo-text {
+            background: linear-gradient(45deg, #1afe49, #8386f5, #1afe49);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: var(--transition-normal);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            transition: width 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+            text-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+        }
+
+        .nav-links i {
+            font-size: 1rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-button {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glow-indigo);
+        }
+
+        .cart-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.2) 45%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.2) 55%,
+                transparent 60%
+            );
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            transition: transform 0.6s ease;
+        }
+
+        .cart-button:hover::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        .cart-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-purple);
+        }
+
+        .cart-button i {
+            font-size: 1.1rem;
+        }
+
+        .cart-button #cart-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-links a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-links a i {
+                display: none;
+            }
+
+            .cart-button {
+                padding: 0.6rem 1.2rem;
+            }
+
+            .cart-button span {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .cart-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 70px;
+            padding: 4rem 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Product Container */
+        .product-container {
+            background-color: var(--card-bg);
+            backdrop-filter: var(--glass-effect);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: var(--transition-normal);
+        }
+
+        .product-container:hover {
+            box-shadow: var(--neon-shadow);
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+
+        .product-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 3rem;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-image-container {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background: rgba(31, 41, 55, 0.5);
+            aspect-ratio: 1;
+            border: 1px solid var(--border-glow);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-normal);
+        }
+
+        .main-image-container:hover {
+            box-shadow: var(--glow-cyan);
+            border-color: var(--secondary);
+        }
+
+        .gallery-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .gallery-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition-normal);
+            opacity: 0.7;
+        }
+
+        .gallery-image:hover,
+        .gallery-image.active {
+            border-color: var(--secondary);
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* Product Info */
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+        }
+
+        .product-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Color Selection */
+        .color-selection {
+            margin-top: 1.5rem;
+        }
+
+        .color-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .color-title i {
+            color: var(--accent);
+        }
+
+        .color-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .color-option {
+            position: relative;
+            background: rgba(31, 41, 55, 0.5);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .color-option:hover {
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .color-option.selected {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            box-shadow: var(--glow-indigo);
+        }
+
+        .color-option::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            right: 1rem;
+            height: 20px;
+            border-radius: 8px;
+            opacity: 1;
+            transition: var(--transition-normal);
+            margin-bottom: 0.5rem;
+        }
+
+        .color-option[data-color="布紋黑色"]::before {
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+        }
+
+        .color-option[data-color="布紋灰色"]::before {
+            background: linear-gradient(45deg, #95a5a6, #bdc3c7);
+        }
+
+        .color-option[data-color="布紋牛仔藍"]::before {
+            background: linear-gradient(45deg, #34495e, #2c3e50);
+        }
+
+        .color-option[data-color="布紋粉色"]::before {
+            background: linear-gradient(45deg, #e91e63, #f06292);
+        }
+
+        .color-option[data-color="布紋綠色"]::before {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+        }
+
+        .color-option[data-color="布紋藍色"]::before {
+            background: linear-gradient(45deg, #3498db, #5dade2);
+        }
+
+        .color-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+
+        /* Specifications */
+        .specifications {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-effect);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-top: 1rem;
+            transition: var(--transition-normal);
+        }
+
+        .specifications:hover {
+            box-shadow: var(--glow-cyan);
+            border-color: var(--secondary);
+        }
+
+        .spec-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .spec-title i {
+            color: var(--accent);
+        }
+
+        .spec-list {
+            list-style: none;
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .spec-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: rgba(31, 41, 55, 0.5);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            border-radius: 8px;
+            transition: var(--transition-normal);
+        }
+
+        .spec-list li:hover {
+            border-color: var(--secondary);
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .spec-value {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Quantity Selector */
+        .quantity-selector {
+            margin-top: 1.5rem;
+        }
+
+        .quantity-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--text-primary);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-normal);
+        }
+
+        .quantity-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--glow-indigo);
+        }
+
+        .quantity-input {
+            width: 80px;
+            height: 40px;
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: rgba(31, 41, 55, 0.5);
+            color: var(--text-primary);
+            transition: var(--transition-normal);
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
+        }
+
+        .total-price {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .pulse-button {
+            flex: 1;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--text-primary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pulse-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.2) 45%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.2) 55%,
+                transparent 60%
+            );
+            transition: transform 0.5s ease;
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+
+        .pulse-button:hover::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        .pulse-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--neon-shadow);
+        }
+
+        /* Features */
+        .features {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-effect);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-top: 2rem;
+            transition: var(--transition-normal);
+        }
+
+        .features:hover {
+            box-shadow: var(--glow-cyan);
+            border-color: var(--secondary);
+        }
+
+        .features-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(31, 41, 55, 0.5);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            border-radius: 8px;
+            transition: var(--transition-normal);
+        }
+
+        .features-list li:hover {
+            transform: translateY(-2px);
+            border-color: var(--secondary);
+            background: rgba(6, 182, 212, 0.05);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .features-list i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        /* Warning Notice */
+        .warning-notice {
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            color: var(--text-primary);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--glow-purple);
+        }
+
+        .warning-notice i {
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+            color: #fbbf24;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .product-title {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* 確保桌面版本導航正常顯示 */
+        @media (min-width: 769px) {
+            .nav-links {
+                display: flex !important;
+            }
+        }
+
+        /* Enhanced focus styles for accessibility */
+        a:focus, button:focus {
+            outline: 2px solid rgba(6, 182, 212, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* Gradient Text Utility */
+        .gradient-text {
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+    <link rel="stylesheet" href="css/common-styles.css">
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow top-right"></div>
+    <div class="bg-glow bottom-left"></div>
+
+    <header class="header" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" class="logo-button vfx-logo" id="navLogo">
+                    <span class="logo-text">DeepVape</span>
+                </a>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> 首頁</a>
+                <a href="index.html#hosts"><i class="fas fa-microchip"></i> 主機</a>
+                <a href="index.html#pods"><i class="fas fa-capsules"></i> 煙彈</a>
+                <a href="index.html#disposable"><i class="fas fa-trash-alt"></i> 拋棄式</a>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-button">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="product-container animate-fadeIn">
+                <div class="product-layout">
+                    <!-- Image Gallery -->
+                    <div class="image-gallery">
+                        <div class="main-image-container">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_Bu/ilia_fabric_device_main.png" loading="lazy" alt="ILIA 布紋主機" class="main-image" id="mainImage">
+                        </div>
+                        <div class="gallery-thumbnails">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_Bu/ilia_fabric_device_main.png" loading="lazy" alt="ILIA 布紋主機正面" class="gallery-image active" onclick="changeMainImage(this)">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="ilia_Bu/ilia_fabric_compact.webp" loading="lazy" alt="ILIA 布紋緊湊" class="gallery-image" onclick="changeMainImage(this)">
+                        </div>
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="product-info" data-product-id="ilia_fabric">
+                <h1 class="product-title">ILIA 哩亞布紋主機</h1>
+                <p class="product-subtitle">時尚布紋外觀 | 8W~10W功率調節 | 400mAh電池</p>
+                        <div class="product-price">NT$ 650</div>
+                        
+                        <div class="product-description">
+                            ILIA 哩亞布紋主機採用獨特的布紋外觀設計，結合現代工藝與經典美學。
+                            8W-10W可調功率，400mAh大容量電池，為您帶來卓越的使用體驗。
+                            精緻的布紋質感，舒適的握感，是品味與性能的完美結合。
+            </div>
+
+                        <!-- Color Selection -->
+                        <div class="color-selection">
+                            <h3 class="color-title">
+                                <i class="fas fa-palette"></i>
+                                顏色選擇
+                            </h3>
+                            <div class="color-options" id="colorOptions">
+                                <div class="color-option selected" data-color="布紋黑色" data-image="ilia_Bu/ilia_fabric_device_main.png">
+                                    <div class="color-name">布紋黑色</div>
+                                </div>
+                                <div class="color-option" data-color="布紋灰色" data-image="ilia_Bu/ilia_fabric_device_main.png">
+                                    <div class="color-name">布紋灰色</div>
+                                </div>
+                                <div class="color-option" data-color="布紋牛仔藍" data-image="ilia_Bu/ilia_fabric_device_main.png">
+                                    <div class="color-name">布紋牛仔藍</div>
+                                </div>
+                                <div class="color-option" data-color="布紋粉色" data-image="ilia_Bu/ilia_fabric_device_main.png">
+                                    <div class="color-name">布紋粉色</div>
+                </div>
+                                <div class="color-option" data-color="布紋綠色" data-image="ilia_Bu/ilia_fabric_device_main.png">
+                                    <div class="color-name">布紋綠色</div>
+                                </div>
+                                <div class="color-option" data-color="布紋藍色" data-image="ilia_Bu/ilia_fabric_device_main.png">
+                                    <div class="color-name">布紋藍色</div>
+                                </div>
+                </div>
+            </div>
+
+                        <!-- Specifications -->
+                        <div class="specifications">
+                            <h3 class="spec-title">
+                                <i class="fas fa-cogs"></i>
+                                產品規格
+                            </h3>
+                            <ul class="spec-list">
+                                <li>
+                                    <span class="spec-label">電池容量</span>
+                                    <span class="spec-value">400mAh</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">功率範圍</span>
+                                    <span class="spec-value">8W~10W</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">充電介面</span>
+                                    <span class="spec-value">TYPE-C</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">外觀材質</span>
+                                    <span class="spec-value">高級布紋質感</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">適配煙彈</span>
+                                    <span class="spec-value">ILIA 系列煙彈</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">保護功能</span>
+                                    <span class="spec-value">短路/過充/低壓保護</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Quantity Selector -->
+                        <div class="quantity-selector">
+                            <h3 class="quantity-title">數量</h3>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="decreaseQuantity()">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="10">
+                                <button class="quantity-btn" onclick="increaseQuantity()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                選擇的顏色：<span id="selectedColor">布紋黑色</span>
+                            </p>
+                            <p class="total-price" style="margin-top: 0.5rem;">
+                                總價：NT$ <span id="totalPrice">650</span>
+                            </p>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button class="pulse-button" onclick="addToCart()">
+                                <i class="fas fa-shopping-cart"></i> 加入購物車
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="features animate-fadeIn">
+                <h3 class="features-title">產品特色</h3>
+                <ul class="features-list">
+                    <li>
+                        <i class="fas fa-magic"></i>
+                        布紋質感 - 獨特的布紋外觀設計
+                    </li>
+                    <li>
+                        <i class="fas fa-battery-three-quarters"></i>
+                        大容量電池 - 400mAh長效續航
+                    </li>
+                    <li>
+                        <i class="fas fa-sliders-h"></i>
+                        功率調節 - 8W-10W可調功率
+                    </li>
+                    <li>
+                        <i class="fas fa-plug"></i>
+                        快速充電 - TYPE-C快充介面
+                    </li>
+                    <li>
+                        <i class="fas fa-shield-alt"></i>
+                        多重保護 - 全方位安全保護
+                    </li>
+                    <li>
+                        <i class="fas fa-hand-holding"></i>
+                        舒適握感 - 人體工學設計
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Warning Notice -->
+            <div class="warning-notice animate-fadeIn">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>重要提醒：</strong>本產品僅供 18 歲以上成年人使用，請遵守當地相關法規。
+                    <br><strong>使用說明：</strong>初次使用前請充飽電，並詳閱使用說明書。
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let selectedColor = '布紋黑色';
+        let currentPrice = 650;
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Update cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = cartCount;
+            }
+        }
+
+        // 初始化顏色選項
+        function initializeColorOptions() {
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // 移除其他選中狀態
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // 添加選中狀態
+                    this.classList.add('selected');
+                    
+                    // 更新選中的顏色
+                    selectedColor = this.querySelector('.color-name').textContent;
+                    document.getElementById('selectedColor').textContent = selectedColor;
+                    
+                    // 更新主圖片
+                    const mainImage = document.getElementById('mainImage');
+                    mainImage.src = this.dataset.image;
+                });
+            });
+        }
+
+        // Image Gallery
+        function changeMainImage(img) {
+            const mainImage = document.getElementById('mainImage');
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            
+            mainImage.src = img.src;
+            
+            galleryImages.forEach(image => image.classList.remove('active'));
+            img.classList.add('active');
+            
+            // 同步顏色選擇
+            const colorName = img.alt;
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.dataset.color === colorName) {
+                    option.classList.add('selected');
+                    selectedColor = option.querySelector('.color-name').textContent;
+                    document.getElementById('selectedColor').textContent = selectedColor;
+                }
+            });
+        }
+
+        // Quantity Controls
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue < 10) {
+                quantityInput.value = currentValue + 1;
+            updateTotalPrice();
+            }
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+                updateTotalPrice();
+            }
+        }
+
+        // 更新總價
+        function updateTotalPrice() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const totalPrice = currentPrice * quantity;
+            document.getElementById('totalPrice').textContent = totalPrice;
+        }
+
+        // 加入購物車
+        function addToCart() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            const product = {
+                id: 'ilia_fabric_host',
+                name: 'ILIA 哩亞布紋主機',
+                color: selectedColor,
+                price: 650,
+                quantity: quantity,
+                image: document.getElementById('mainImage').src
+            };
+            
+            // 取得現有購物車
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // 檢查是否已存在相同產品和顏色
+            const existingItemIndex = cart.findIndex(item => 
+                item.id === product.id && item.color === product.color
+            );
+            
+            if (existingItemIndex > -1) {
+                // 如果存在，增加數量
+                cart[existingItemIndex].quantity += product.quantity;
+            } else {
+                // 如果不存在，添加新項目
+                cart.push(product);
+            }
+            
+            // 儲存購物車
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // 更新購物車計數器
+            updateCartCount();
+            
+            // 顯示成功訊息
+            alert(`已將 ${product.name} (${product.color}) x${product.quantity} 加入購物車！`);
+            
+            // 可選：跳轉到購物車頁面
+            // window.location.href = 'cart.html';
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 初始化頁面
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeColorOptions();
+            updateTotalPrice();
+            
+            // Observe elements for animation
+            const animatedElements = document.querySelectorAll('.animate-fadeIn');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+
+    
+
+    <!-- 共享 VFX 效果 -->
+    <script src="js/vfx-effects.js"></script>
+</body>
+</html> 

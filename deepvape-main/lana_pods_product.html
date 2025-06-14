@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://esm.sh">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="css/common-styles.css" as="style">
+    <link rel="preload" href="js/lazy-load.js" as="script">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANA 煙彈 - 深煙電子煙</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="icon" type="image/png" href="deepvape_logo_main.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles & Custom properties */
+        :root {
+            --primary: #6366f1; /* Indigo */
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4; /* Cyan */
+            --accent: #a855f7; /* Purple */
+            --dark-bg: #111827;
+            --darker-bg: #030712;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --navbar-bg: rgba(17, 24, 39, 0.7);
+            --glass-effect: blur(12px);
+            --transition-normal: all 0.3s ease;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-glow: rgba(99, 102, 241, 0.3);
+            --neon-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+            --glow-cyan: 0 0 15px rgba(6, 182, 212, 0.5);
+            --glow-indigo: 0 0 15px rgba(99, 102, 241, 0.5);
+            --glow-purple: 0 0 15px rgba(168, 85, 247, 0.5);
+            --card-bg: rgba(17, 24, 39, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--darker-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Background Effects */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 70%);
+            filter: blur(60px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bg-glow.top-right {
+            top: -20%;
+            right: -20%;
+        }
+
+        .bg-glow.bottom-left {
+            bottom: -20%;
+            left: -20%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, var(--primary-dark), var(--accent));
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: var(--navbar-bg);
+            backdrop-filter: var(--glass-effect);
+            -webkit-backdrop-filter: var(--glass-effect);
+            border-bottom: 1px solid var(--border-glow);
+            transition: var(--transition-normal);
+            height: 70px;
+        }
+
+        .header.scrolled {
+            background-color: rgba(17, 24, 39, 0.9);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            transition: width 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+            text-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 70px;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .product-container {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-effect);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--neon-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .product-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 3rem;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-image-container {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(17, 24, 39, 0.5);
+            aspect-ratio: 1;
+            border: 1px solid var(--border-glow);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .main-image:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .gallery-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition-smooth);
+            opacity: 0.7;
+        }
+
+        .gallery-image:hover,
+        .gallery-image.active {
+            border-color: var(--secondary);
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* Product Info */
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+        }
+
+        .product-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Specifications */
+        .specifications {
+            background: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-glow);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+
+        .spec-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .spec-title i {
+            color: var(--secondary);
+        }
+
+        .spec-list {
+            list-style: none;
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .spec-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: rgba(17, 24, 39, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .spec-list li:hover {
+            background: rgba(6, 182, 212, 0.05);
+            border-color: var(--secondary);
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .spec-value {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Flavor Selection */
+        .flavor-options {
+            margin-top: 1.5rem;
+        }
+
+        .flavor-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .flavor-title i {
+            color: var(--secondary);
+        }
+
+        .tech-badge {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--text-primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            box-shadow: var(--glow-indigo);
+        }
+
+        .flavor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .flavor-option {
+            padding: 0.8rem;
+            background: rgba(17, 24, 39, 0.5);
+            border: 2px solid var(--border-glow);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flavor-option::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(6, 182, 212, 0.1) 45%,
+                rgba(6, 182, 212, 0.2) 50%,
+                rgba(6, 182, 212, 0.1) 55%,
+                transparent 60%
+            );
+            transition: transform 0.5s ease;
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+
+        .flavor-option:hover::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        .flavor-option:hover {
+            border-color: var(--secondary);
+            background: rgba(6, 182, 212, 0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .flavor-option.selected {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--text-primary);
+            border-color: var(--primary);
+            box-shadow: var(--glow-indigo);
+        }
+
+        /* Quantity Selector */
+        .quantity-selector {
+            margin-top: 1.5rem;
+        }
+
+        .quantity-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--text-primary);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quantity-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.2) 45%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.2) 55%,
+                transparent 60%
+            );
+            transition: transform 0.5s ease;
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+
+        .quantity-btn:hover::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        .quantity-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--glow-indigo);
+        }
+
+        .quantity-input {
+            width: 80px;
+            height: 40px;
+            border: 2px solid var(--border-glow);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: rgba(17, 24, 39, 0.5);
+            color: var(--text-primary);
+            backdrop-filter: blur(8px);
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .pulse-button {
+            flex: 1;
+            background: linear-gradient(45deg, var(--secondary), #10b981);
+            color: var(--text-primary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pulse-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.2) 45%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.2) 55%,
+                transparent 60%
+            );
+            transition: transform 0.5s ease;
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+
+        .pulse-button:hover::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+
+        .pulse-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* Features */
+        .features {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-effect);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--neon-shadow);
+        }
+
+        .features-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .features-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-cyan);
+            border-color: var(--secondary);
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .features-list i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        /* Warning Notice */
+        .warning-notice {
+            background: linear-gradient(45deg, var(--accent), #8b5cf6);
+            color: var(--text-primary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--glow-purple);
+        }
+
+        .warning-notice i {
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+            color: #fbbf24;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .product-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+
+            .flavor-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        a:focus, button:focus {
+            outline: 2px solid rgba(6, 182, 212, 0.5);
+            outline-offset: 2px;
+        }
+    </style>
+    <link rel="stylesheet" href="css/common-styles.css">
+
+    <script src="js/meta-tags.js"></script>
+
+    <style>
+        /* Critical CSS */
+        body { margin: 0; font-family: 'Noto Sans TC', sans-serif; }
+        .lazy-loading { background: #f0f0f0; min-height: 100px; }
+        .lazy-loaded { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow top-right"></div>
+    <div class="bg-glow bottom-left"></div>
+
+    <header class="header" id="navbar">
+        <nav class="nav-container">
+            <img src="images/ui/deepvape_logo_main.png" alt="深煙電子煙" class="logo">
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> 首頁</a></li>
+                <li><a href="index.html#hosts"><i class="fas fa-microchip"></i> 主機</a></li>
+                <li><a href="index.html#pods"><i class="fas fa-capsules"></i> 煙彈</a></li>
+                <li><a href="index.html#disposable"><i class="fas fa-trash-alt"></i> 拋棄式</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> 購物車</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="product-container section-hidden">
+                <div class="product-layout">
+                    <!-- Image Gallery -->
+                    <div class="image-gallery">
+                        <div class="main-image-container">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="lana_pods/lana_ceramic_pods_main.webp" loading="lazy" alt="LANA 煙彈" class="main-image" id="mainImage">
+                        </div>
+                        <div class="gallery-thumbnails">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="lana_pods/lana_ceramic_pods_main.webp" loading="lazy" alt="LANA 煙彈 - 正面" class="gallery-image active" onclick="changeMainImage(this)">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="lana_pods/lana_ceramic_pods_alt.webp" loading="lazy" alt="LANA 煙彈 - 側面" class="gallery-image" onclick="changeMainImage(this)">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3C/svg%3E" data-src="lana_pods/lana_ceramic_pods_original.jpg" loading="lazy" alt="LANA 煙彈 - 包裝" class="gallery-image" onclick="changeMainImage(this)">
+                        </div>
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="product-info">
+                        <h1 class="product-title">LANA 煙彈</h1>
+                        
+                        <div class="product-price">NT$ 280</div>
+                        
+                        <div class="product-description">
+                            LANA 煙彈採用頂級陶瓷芯霧化技術，精選天然香料調配，
+                            帶來純淨濃郁的口感體驗。2ML大容量設計，每包2顆裝，
+                            讓您享受持久且順滑的使用感受。
+                        </div>
+
+                        <!-- Specifications -->
+                        <div class="specifications">
+                            <h3 class="spec-title">
+                                <i class="fas fa-cogs"></i>
+                                產品規格
+                            </h3>
+                            <ul class="spec-list">
+                                <li>
+                                    <span class="spec-label">容量</span>
+                                    <span class="spec-value">2ML</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">霧化器</span>
+                                    <span class="spec-value">陶瓷芯霧化器</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">電阻</span>
+                                    <span class="spec-value">1.2Ω</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">尼古丁含量</span>
+                                    <span class="spec-value">3.5%</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">適配主機</span>
+                                    <span class="spec-value">LANA 系列主機</span>
+                                </li>
+                                <li>
+                                    <span class="spec-label">包裝規格</span>
+                                    <span class="spec-value">2顆裝</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Flavor Options -->
+                        <div class="flavor-options">
+                            <h3 class="flavor-title">
+                                <i class="fas fa-palette"></i>
+                                口味選擇 <span class="tech-badge">12種口味</span>
+                            </h3>
+                            <div class="flavor-grid" id="flavorGrid">
+                                <!-- 口味選項將由 JavaScript 生成 -->
+                            </div>
+                        </div>
+
+                        <!-- Quantity Selector -->
+                        <div class="quantity-selector">
+                            <h3 class="quantity-title">數量</h3>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="decreaseQuantity()">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="50">
+                                <button class="quantity-btn" onclick="increaseQuantity()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+                                選擇的口味：<span id="selectedFlavor">請選擇口味</span>
+                            </p>
+                            <p style="color: var(--highlight-color); font-weight: 600; margin-top: 0.5rem;">
+                                總價：NT$ <span id="totalPrice">280</span>
+                            </p>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button class="pulse-button" onclick="addToCart()">
+                                <i class="fas fa-shopping-cart"></i> 加入購物車
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="features section-hidden">
+                <h3 class="features-title">產品特色</h3>
+                <ul class="features-list">
+                    <li>
+                        <i class="fas fa-leaf"></i>
+                        天然口味 - 精選天然香料調製
+                    </li>
+                    <li>
+                        <i class="fas fa-microscope"></i>
+                        陶瓷芯技術 - 純淨口感體驗
+                    </li>
+                    <li>
+                        <i class="fas fa-shield-alt"></i>
+                        品質保證 - 嚴格品質檢測
+                    </li>
+                    <li>
+                        <i class="fas fa-recycle"></i>
+                        環保材質 - 可回收包裝設計
+                    </li>
+                    <li>
+                        <i class="fas fa-heart"></i>
+                        順滑口感 - 溫和不刺激
+                    </li>
+                    <li>
+                        <i class="fas fa-star"></i>
+                        精美包裝 - 高質感外觀設計
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Warning Notice -->
+            <div class="warning-notice section-hidden">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>重要提醒：</strong>本產品僅供 18 歲以上成年人使用，請遵守當地相關法規。
+                    <br><strong>使用說明：</strong>請確保煙彈正確安裝於主機中，避免乾燒。
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 12種口味列表
+        const flavors = [
+            '經典煙草', '薄荷涼感', '水果混合', '香草奶昔',
+            '藍莓爆珠', '檸檬汽水', '草莓奶茶', '咖啡拿鐵',
+            '芒果冰沙', '蜜桃烏龍', '荔枝蜂蜜', '黑加侖子'
+        ];
+
+        let selectedFlavor = '';
+        let currentPrice = 280;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('section-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.section-hidden').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Initialize page
+            initializeFlavors();
+            updateTotalPrice();
+        });
+
+        // 初始化口味選項
+        function initializeFlavors() {
+            const flavorGrid = document.getElementById('flavorGrid');
+            flavors.forEach(flavor => {
+                const flavorOption = document.createElement('div');
+                flavorOption.className = 'flavor-option';
+                flavorOption.textContent = flavor;
+                flavorOption.onclick = () => selectFlavor(flavor, flavorOption);
+                flavorGrid.appendChild(flavorOption);
+            });
+        }
+
+        // 選擇口味
+        function selectFlavor(flavor, element) {
+            // 移除其他選中狀態
+            document.querySelectorAll('.flavor-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // 添加選中狀態
+            element.classList.add('selected');
+            selectedFlavor = flavor;
+            document.getElementById('selectedFlavor').textContent = flavor;
+        }
+
+        // Image Gallery
+        function changeMainImage(img) {
+            const mainImage = document.getElementById('mainImage');
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            
+            mainImage.src = img.src;
+            
+            galleryImages.forEach(image => image.classList.remove('active'));
+            img.classList.add('active');
+        }
+
+        // Quantity Controls
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue < 50) {
+                quantityInput.value = currentValue + 1;
+                updateTotalPrice();
+            }
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+                updateTotalPrice();
+            }
+        }
+
+        // 更新總價
+        function updateTotalPrice() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const totalPrice = currentPrice * quantity;
+            document.getElementById('totalPrice').textContent = totalPrice;
+        }
+
+        // 加入購物車
+        function addToCart() {
+            if (!selectedFlavor) {
+                alert('請選擇口味！');
+                return;
+            }
+
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            const product = {
+                id: 'lana_pods',
+                name: 'LANA 煙彈',
+                flavor: selectedFlavor,
+                price: 280,
+                quantity: quantity,
+                image: 'lana_pods/lana_ceramic_pods_main.webp'
+            };
+
+            // 取得現有購物車
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // 檢查是否已存在相同產品和口味
+            const existingItemIndex = cart.findIndex(item => 
+                item.id === product.id && item.flavor === product.flavor
+            );
+
+            if (existingItemIndex > -1) {
+                // 如果存在，增加數量
+                cart[existingItemIndex].quantity += product.quantity;
+            } else {
+                // 如果不存在，添加新項目
+                cart.push(product);
+            }
+
+            // 儲存購物車
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // 顯示成功訊息
+            alert(`已將 ${product.name} (${product.flavor}) x${product.quantity} 加入購物車！`);
+            
+            // 可選：跳轉到購物車頁面
+            // window.location.href = 'cart.html';
+        }
+
+
+    </script>
+
+    
+
+    <!-- 共享 VFX 效果 -->
+    <script src="js/vfx-effects.js"></script>
+</body>
+</html> 
